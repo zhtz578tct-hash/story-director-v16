@@ -85,7 +85,7 @@
 </nav>
 
 <script>
-const API_BASE="https://story-tts-api.grijesh-s.workers.dev";
+const API_BASE="https://story-director-v16.grijesh-s.workers.dev";
 const $=id=>document.getElementById(id);
 function go(id){if(id==="home")return scrollTo({top:0,behavior:"smooth"});$(id)?.scrollIntoView({behavior:"smooth",block:"start"})}
 function setStatus(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind}
