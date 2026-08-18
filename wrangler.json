@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  "name": "story-director-v16",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-18",
+  "assets": {
+    "directory": ".",
+    "run_worker_first": ["/api/*"]
+  }
+}
