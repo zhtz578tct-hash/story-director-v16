@@ -1,0 +1,9 @@
+{
+  "name":"Story Director V16",
+  "short_name":"Story Director",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#080a18",
+  "theme_color":"#090b1c",
+  "lang":"hi"
+}
