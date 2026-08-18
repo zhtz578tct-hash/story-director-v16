@@ -258,11 +258,12 @@ ${story}
             getSpeakerVoice(speaker, voice);
 
           const instructions = buildVoiceInstructions(
-            speaker,
-            selectedVoice,
-            emotion,
-            language
-          );
+    speaker,
+    selectedVoice,
+    emotion,
+    language,
+    spokenText
+);
 
           const chunks = splitTTS(spokenText, 1800);
 
@@ -858,20 +859,81 @@ function buildVoiceInstructions(
   speaker,
   voice,
   emotion,
-  language
+  language,
+  spokenText = ""
 ) {
+
+  const text = String(spokenText || "").trim();
+
+  /* ==========================================
+     SMART EXPRESSION DETECTION
+     Works across supported languages
+  ========================================== */
+
+  const isQuestion =
+    /[?？]/u.test(text) ||
+    /\b(what|why|how|when|where|who|which|is|are|do|does|did|can|could|will|would)\b/i.test(text) ||
+    /(क्या|क्यों|कैसे|कब|कहाँ|कहां|कौन|किस|किसका|किसे|कितना|कितनी|कितने|है क्या|सच में|का|काहे|कइसे|कइसन|के|कहाँवा|कबो)/u.test(text) ||
+    /(کیا|کیوں|کیسے|کب|کہاں|کون|کس|کتنا|کتنی|کتنے)/u.test(text) ||
+    /(काय|का|कशा|कसे|केव्हा|कुठे|कोण|किती)/u.test(text) ||
+    /(কি|কেন|কীভাবে|কখন|কোথায়|কোথায়|কে|কত)/u.test(text);
+
+  const isSurprised =
+    /[!！]/u.test(text) ||
+    /\b(wow|oh|oh my|really|what|amazing|suddenly)\b/i.test(text) ||
+    /(अरे|अरे वाह|ओह|ओहो|हे भगवान|सच में|क्या!|हाय|अचानक|हे राम|बाप रे|अइं|अरे बाप रे)/u.test(text) ||
+    /(اوہ|ارے|یا خدا|اچانک|واقعی)/u.test(text) ||
+    /(अरे|अहो|अचानक|खरंच)/u.test(text) ||
+    /(ওহ|আরে|হায়|সত্যি|হঠাৎ)/u.test(text);
+
+  let expression = "";
+
+  if (isQuestion && isSurprised) {
+    expression = `
+The line is both a QUESTION and a SURPRISED reaction.
+Use a natural surprised-question intonation.
+Raise pitch slightly at the beginning and naturally lift the ending.
+Do not exaggerate.
+`;
+  } else if (isQuestion) {
+    expression = `
+This line is a QUESTION.
+Use natural questioning intonation.
+Let the voice rise naturally where appropriate, especially toward the end.
+Do not make it sound robotic or exaggerated.
+`;
+  } else if (isSurprised) {
+    expression = `
+This line expresses SURPRISE.
+Use a brief, natural startled reaction.
+Slightly increase vocal energy and pitch.
+Keep it believable and conversational.
+Do not over-act.
+`;
+  } else {
+    expression = `
+Use natural conversational delivery appropriate to the meaning of the line.
+`;
+  }
+
+
+  /* ==========================================
+     NARRATOR — EXCLUSIVE ONYX
+  ========================================== */
 
   if (voice === "onyx") {
 
     return `
 You are the exclusive narrator voice.
 
-Speak in natural Hindi.
+Speak in natural ${language}.
 
 Use a calm, warm, cinematic male narrator style.
 
 Emotion:
 ${emotion}
+
+${expression}
 
 Do NOT speak the speaker name.
 
@@ -879,14 +941,20 @@ Do NOT say "वाचक", "Narrator", or any label.
 
 Do not read formatting symbols.
 
-Preserve natural Hindi pronunciation.
+Preserve natural pronunciation of ${language}.
 
-Use short natural pauses.
+Use short, natural pauses.
 
 Do not over-act.
+
+Keep narration clearly different from character dialogue.
 `;
   }
 
+
+  /* ==========================================
+     FEMALE CHARACTER — NOVA
+  ========================================== */
 
   if (voice === "nova") {
 
@@ -901,20 +969,28 @@ ${speaker}
 Emotion:
 ${emotion}
 
+${expression}
+
 Do NOT speak the character's name.
 
 Do NOT announce the speaker.
 
 Do not read labels or formatting symbols.
 
-Use natural conversational Hindi pronunciation.
+Use natural conversational ${language} pronunciation.
 
 Use emotionally appropriate pauses.
 
 Avoid robotic or exaggerated acting.
+
+The character should sound like a real person speaking naturally.
 `;
   }
 
+
+  /* ==========================================
+     MALE CHARACTER — ALLOY
+  ========================================== */
 
   return `
 You are a male character voice.
@@ -927,17 +1003,21 @@ ${speaker}
 Emotion:
 ${emotion}
 
+${expression}
+
 Do NOT speak the character's name.
 
 Do NOT announce the speaker.
 
 Do not read labels or formatting symbols.
 
-Use natural conversational Hindi pronunciation.
+Use natural conversational ${language} pronunciation.
 
 Use emotionally appropriate pauses.
 
 Avoid robotic or exaggerated acting.
+
+The character should sound like a real person speaking naturally.
 `;
 }
 
