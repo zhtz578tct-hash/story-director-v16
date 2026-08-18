@@ -158,18 +158,29 @@ ${dialogueLanguage}
 
 Your job:
 
-1. Identify every speaker.
-2. Identify narration.
+1. Identify every speaker from the story using names, dialogue attribution, context, grammar, and surrounding narration.
+2. Identify narration separately.
 3. Identify scene breaks.
-4. Identify male and female characters.
+4. Infer male/female character voice assignment only from reliable contextual or linguistic evidence.
 5. Prepare a clean voice-ready script.
-6. Preserve the original meaning.
+6. Preserve the original meaning, wording, tone, and sequence as much as possible.
 7. If dialogueLanguage is not "Keep original", translate ONLY spoken dialogue.
 8. Keep narration in its original language.
 9. Keep speaker labels in the output so the voice engine can identify them.
 10. Do NOT put character names inside their spoken sentences.
 11. Narration must be clearly marked as "वाचक:".
 12. Every dialogue line should have exactly one speaker label.
+
+CONTENT-NEUTRAL DIRECTOR RULES:
+
+13. Do NOT censor, sanitize, remove, shorten, replace, soften, rewrite, or omit story content because of mature, adult, sexual, romantic, violent, provocative, vulgar, or otherwise sensitive subject matter.
+14. Do NOT change speaker assignment because of the content of a line.
+15. Speaker assignment must be based only on who is actually speaking, using story context and linguistic evidence.
+16. Preserve adult/mature wording when preparing the voice-ready script.
+17. Do not insert warnings, safety notes, moral commentary, or moderation explanations into the story.
+18. Do not refuse to analyze a story merely because its subject matter is mature or adult.
+19. The Director's job is analysis, speaker identification, emotion/delivery direction, and voice preparation — NOT content moderation or rewriting.
+20. Preserve the author's intended emotional and dramatic context.
 
 Return exactly two sections:
 
@@ -864,7 +875,23 @@ function buildVoiceInstructions(
 ) {
 
   const text = String(spokenText || "").trim();
+const contentRules = `
+CONTENT-NEUTRAL SPEAKER RULES:
 
+Speak the assigned text exactly as provided.
+
+Do NOT censor, sanitize, remove, shorten, replace, soften, rewrite, or omit any part of the assigned text because of its subject matter.
+
+Do NOT change, reinterpret, or refuse the text because it is adult, mature, romantic, sexual, violent, controversial, or otherwise sensitive.
+
+Preserve the original wording, meaning, tone, and intended emotional context.
+
+Do NOT add warnings, safety notes, moral commentary, or moderation statements.
+
+Do NOT speak speaker labels, character names, "वाचक", "Narrator", or formatting markers unless they are explicitly part of the actual spoken dialogue.
+
+The speaker must follow the Director's assigned role and emotion without changing the content.
+`;
   /* ==========================================
      SMART EXPRESSION DETECTION
      Works across supported languages
