@@ -231,6 +231,100 @@ ${story}
          SMART MULTI-SPEAKER TTS
       ========================= */
 
+     /* ==========================================
+   SINGLE-CALL TTS
+   One Worker invocation = one OpenAI TTS call
+========================================== */
+
+if (url.pathname === "/api/tts-one") {
+
+  const {
+    text: input,
+    speaker = "वाचक",
+    voice = "alloy",
+    emotion = "Natural",
+    language = "Hindi"
+  } = body;
+
+  if (!input?.trim()) {
+    return json({
+      error: "Text is required."
+    }, 400);
+  }
+
+  const selectedVoice =
+    getSpeakerVoice(speaker, voice);
+
+  const instructions =
+    buildVoiceInstructions(
+      speaker,
+      selectedVoice,
+      emotion,
+      language,
+      input.trim()
+    );
+
+  const r = await fetch(
+    OPENAI + "/audio/speech",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":
+          `Bearer ${env.OPENAI_API_KEY}`
+      },
+
+      body: JSON.stringify({
+        model:
+          env.OPENAI_TTS_MODEL ||
+          "gpt-4o-mini-tts",
+
+        voice: selectedVoice,
+
+        input: input.trim(),
+
+        format: "mp3",
+
+        speed:
+          selectedVoice === "onyx"
+            ? 1.0
+            : 1.08,
+
+        instructions
+      })
+    }
+  );
+
+  if (!r.ok) {
+
+    const j =
+      await r.json().catch(() => ({}));
+
+    return json({
+      error:
+        j.error?.message ||
+        "OpenAI TTS failed."
+    }, r.status);
+  }
+
+  const audio =
+    await r.arrayBuffer();
+
+  return new Response(audio, {
+    status: 200,
+
+    headers: {
+      "Content-Type": "audio/mpeg",
+      "Content-Length":
+        String(audio.byteLength),
+
+      "Cache-Control": "no-store",
+
+      ...CORS
+    }
+  });
+}
       if (url.pathname === "/api/tts") {
 
         const {
