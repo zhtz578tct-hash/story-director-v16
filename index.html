@@ -10,166 +10,87 @@
 <title>Story Director V16</title>
 <style>
 :root{--bg:#080a18;--p:#12152b;--p2:#191c37;--line:#34385e;--txt:#f7f7fb;--muted:#aeb0c4;--a:#6941ff;--b:#c94fd1}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0,#281653,#080a18 45%);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Noto Sans Devanagari",sans-serif;padding-bottom:105px}
-.top{position:sticky;top:0;z-index:5;padding:17px 18px;background:#090b18e8;backdrop-filter:blur(18px);border-bottom:1px solid #242844}.brand{font-weight:800;font-size:23px}.sub{color:var(--muted);font-size:14px;margin-top:4px}
-.hero{padding:30px 20px 22px;background:linear-gradient(135deg,#281452,#17102f,#32143b)}.wrap{max-width:900px;margin:auto;padding:0 18px}.hero h1{font-size:40px;line-height:1.1;margin:0 0 9px}.hero p{margin:0;color:#c8cad8;font-size:17px;line-height:1.5}
-.cards{display:grid;gap:13px;margin:18px 0}.quick,.section{background:linear-gradient(145deg,#161a33,#101328);border:1px solid #363a64;border-radius:24px}.quick{width:100%;text-align:left;color:var(--txt);padding:20px}.quick b{font-size:20px}.quick span{display:block;color:var(--muted);margin-top:6px}.section{padding:19px;margin:20px 0}.section h2{margin:0 0 18px;font-size:25px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{margin-bottom:14px}.field label{display:block;font-weight:700;color:#c6c7d7;margin-bottom:8px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:17px;background:#0d1024;color:var(--txt);padding:14px 15px;font-size:16px;outline:none}textarea{min-height:170px;resize:vertical;line-height:1.55}input:focus,textarea:focus,select:focus{border-color:#8b6cff;box-shadow:0 0 0 3px #6941ff22}.full{grid-column:1/-1}
-.btn{width:100%;padding:16px;border-radius:17px;border:0;color:white;font-weight:800;font-size:17px;background:linear-gradient(100deg,var(--a),var(--b));box-shadow:0 10px 28px #6941ff33}.btn:disabled{opacity:.5}.secondary{background:#1a1e3a;box-shadow:none;border:1px solid #3b3f68}.danger{background:#321923;border:1px solid #6c3445;box-shadow:none}
-.status{margin-top:11px;padding:12px 14px;border-radius:14px;background:#0d1023;color:var(--muted);white-space:pre-wrap;font-size:14px}.ok{color:#b9ffd0}.err{color:#ffc1ca}.hidden{display:none}.pill{display:inline-block;border:1px solid #3c4070;color:#bfc2ff;border-radius:999px;padding:5px 9px;font-size:11px}
-.bottom{position:fixed;left:10px;right:10px;bottom:10px;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);padding:7px;background:#12152bee;border:1px solid #35395f;border-radius:23px;backdrop-filter:blur(18px)}.nav{background:none;color:#9b9eb6;border:0;border-radius:17px;padding:8px 2px;font-size:12px}.nav strong{display:block;font-size:20px}.nav.active{background:linear-gradient(145deg,#6941ff,#a64de5);color:white}
-@media(max-width:680px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.hero h1{font-size:34px}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}body{margin:0;background:radial-gradient(circle at 20% 0,#281653,#080a18 45%);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Noto Sans Devanagari",sans-serif;padding-bottom:102px}
+.top{position:sticky;top:0;z-index:20;padding:14px 18px 12px;background:#090b18ee;backdrop-filter:blur(18px);border-bottom:1px solid #242844}.brand{font-weight:800;font-size:22px;letter-spacing:-.2px}.sub{color:var(--muted);font-size:13px;margin-top:3px}
+.hero{padding:22px 20px 18px;background:linear-gradient(135deg,#281452,#17102f,#32143b)}.wrap{max-width:900px;margin:auto;padding:0 18px}.hero h1{font-size:34px;line-height:1.1;margin:0 0 7px}.hero p{margin:0;color:#c8cad8;font-size:15px;line-height:1.45}
+.cards{display:grid;gap:10px;margin:14px 0}.quick,.section{background:linear-gradient(145deg,#161a33,#101328);border:1px solid #363a64;border-radius:22px}.quick{width:100%;text-align:left;color:var(--txt);padding:16px}.quick b{font-size:18px}.quick span{display:block;color:var(--muted);margin-top:4px;font-size:13px}.section{padding:16px;margin:14px 0}.section h2{margin:0 0 14px;font-size:23px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:10px}.field label{display:block;font-weight:700;color:#c6c7d7;margin-bottom:6px;font-size:14px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;background:#0d1024;color:var(--txt);padding:12px 13px;font-size:16px;outline:none}select{min-height:48px}textarea{min-height:145px;resize:vertical;line-height:1.5}input{min-height:48px}input:focus,textarea:focus,select:focus{border-color:#8b6cff;box-shadow:0 0 0 3px #6941ff22}.full{grid-column:1/-1}
+.btn{width:100%;padding:14px;border-radius:16px;border:0;color:white;font-weight:800;font-size:17px;background:linear-gradient(100deg,var(--a),var(--b));box-shadow:0 9px 24px #6941ff33}.btn:disabled{opacity:.5}.secondary{background:#1a1e3a;box-shadow:none;border:1px solid #3b3f68}.danger{background:#321923;border:1px solid #6c3445;box-shadow:none;margin:12px 0}.status{margin-top:9px;padding:11px 13px;border-radius:13px;background:#0d1023;color:var(--muted);white-space:pre-wrap;font-size:13px}.ok{color:#b9ffd0}.err{color:#ffc1ca}.hidden{display:none}.pill{display:inline-block;border:1px solid #3c4070;color:#bfc2ff;border-radius:999px;padding:4px 8px;font-size:10px;vertical-align:middle}
+.bottom{position:fixed;left:10px;right:10px;bottom:10px;z-index:50;display:grid;grid-template-columns:repeat(5,1fr);padding:6px;background:#12152bee;border:1px solid #35395f;border-radius:21px;backdrop-filter:blur(18px);box-shadow:0 10px 35px #0008}.nav{background:transparent;color:#9b9eb6;border:0;border-radius:16px;padding:7px 2px;font-size:12px;transition:.18s}.nav strong{display:block;font-size:20px;line-height:22px}.nav.active{background:linear-gradient(145deg,#6941ff,#a64de5);color:white;box-shadow:0 5px 16px #6941ff44}.nav:not(.active):active{background:#1d2140}
+@media(max-width:680px){.wrap{padding:0 12px}.grid{grid-template-columns:1fr 1fr;gap:9px}.full{grid-column:1/-1}.hero h1{font-size:30px}.section{padding:14px;border-radius:20px}.section h2{font-size:21px;margin-bottom:12px}.field label{font-size:13px}input,textarea,select{font-size:15px;padding:11px 12px}.btn{padding:13px;font-size:16px}textarea{min-height:135px}}
+@media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.brand{font-size:21px}.hero{padding:19px 18px 16px}.hero p{font-size:14px}.bottom{left:8px;right:8px;bottom:8px}.nav{font-size:11px}}
 </style>
 </head>
 <body>
-<header class="top"><div class="brand">🎬 Story Director V16</div><div class="sub">Script → Director → Voice</div></header>
-<section class="hero"><div class="wrap"><h1>कहानी को आवाज़ दें।</h1><p>Hindi · Bhojpuri · Purvanchali/Banarasi — Story, Direction और Multi‑Speaker Voice एक ही जगह।</p></div></section>
+<header class="top"><div class="brand">&#x1F3AC; Story Director V16</div><div class="sub">Script &#x2192; Director &#x2192; Voice</div></header>
+<section class="hero"><div class="wrap"><h1>&#x915;&#x939;&#x93E;&#x928;&#x940; &#x915;&#x94B; &#x906;&#x935;&#x93E;&#x91C;&#x93C; &#x926;&#x947;&#x902;&#x964;</h1><p>Hindi &#xB7; Bhojpuri &#xB7; Purvanchali/Banarasi &#x2014; Story, Direction &#x914;&#x930; Multi&#x2011;Speaker Voice &#x90F;&#x915; &#x939;&#x940; &#x91C;&#x917;&#x939;&#x964;</p></div></section>
 <main class="wrap">
 <div class="cards">
-<button class="quick" onclick="go('story')"><b>✨ नई कहानी बनाएं</b><span>AI से story / screenplay तैयार करें।</span></button>
-<button class="quick" onclick="go('director')"><b>📋 अपनी कहानी डालें</b><span>Existing story को सीधे Director में भेजें।</span></button>
-<button class="quick" onclick="go('projects')"><b>📁 My Projects</b><span>पहले से saved projects खोलें।</span></button>
+<button class="quick" onclick="go('story')"><b>&#x2728; &#x928;&#x908; &#x915;&#x939;&#x93E;&#x928;&#x940; &#x92C;&#x928;&#x93E;&#x90F;&#x902;</b><span>AI &#x938;&#x947; story / screenplay &#x924;&#x948;&#x92F;&#x93E;&#x930; &#x915;&#x930;&#x947;&#x902;&#x964;</span></button>
+<button class="quick" onclick="go('director')"><b>&#x1F4CB; &#x905;&#x92A;&#x928;&#x940; &#x915;&#x939;&#x93E;&#x928;&#x940; &#x921;&#x93E;&#x932;&#x947;&#x902;</b><span>Existing story &#x915;&#x94B; &#x938;&#x940;&#x927;&#x947; Director &#x92E;&#x947;&#x902; &#x92D;&#x947;&#x91C;&#x947;&#x902;&#x964;</span></button>
+<button class="quick" onclick="go('projects')"><b>&#x1F4C1; My Projects</b><span>&#x92A;&#x939;&#x932;&#x947; &#x938;&#x947; saved projects &#x916;&#x94B;&#x932;&#x947;&#x902;&#x964;</span></button>
 </div>
-
 <section id="story" class="section">
-<h2>💡 Story <span class="pill">AI Writing</span></h2>
-<div class="field"><label>Story Idea / Prompt</label><textarea id="idea" placeholder="उदाहरण: गाँव की बारिश वाली शाम में दो पुराने दोस्त कई साल बाद मिलते हैं।"></textarea></div>
+<h2>&#x1F4A1; Story <span class="pill">AI Writing</span></h2>
+<div class="field"><label>Story Idea / Prompt</label><textarea id="idea" placeholder="&#x909;&#x926;&#x93E;&#x939;&#x930;&#x923;: &#x917;&#x93E;&#x901;&#x935; &#x915;&#x940; &#x92C;&#x93E;&#x930;&#x93F;&#x936; &#x935;&#x93E;&#x932;&#x940; &#x936;&#x93E;&#x92E; &#x92E;&#x947;&#x902; &#x926;&#x94B; &#x92A;&#x941;&#x930;&#x93E;&#x928;&#x947; &#x926;&#x94B;&#x938;&#x94D;&#x924; &#x915;&#x908; &#x938;&#x93E;&#x932; &#x92C;&#x93E;&#x926; &#x92E;&#x93F;&#x932;&#x924;&#x947; &#x939;&#x948;&#x902;&#x964;"></textarea></div>
 <div class="grid">
-<div class="field"><label>Language / Dialect</label><select id="language"><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>English</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
+<div class="field full"><label>Language / Dialect</label><select id="language"><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>English</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
 <div class="field"><label>Genre</label><select id="genre"><option>Drama</option><option>Romance</option><option>Comedy</option><option>Suspense</option><option>Thriller</option><option>Family</option><option>Historical</option><option>Action</option></select></div>
 <div class="field"><label>Story Length</label><select id="length"><option value="short">Short</option><option value="medium" selected>Medium</option><option value="long">Long</option></select></div>
 <div class="field"><label>Writing Style</label><select id="style"><option>Cinematic</option><option>Natural</option><option>Emotional</option><option>Screenplay</option></select></div>
 <div class="field"><label>Age Mode</label><select id="age"><option>General</option><option>21+ Adult</option></select></div>
-<div class="field"><label>Output Format</label><select id="format"><option>Dialogue Dominant — 80–90% Dialogue</option><option>Screenplay</option><option>Story</option><option>Scene with Dialogues</option></select></div>
-<div class="field full"><label>🎯 Extra Direction</label><input id="extra" placeholder="जैसे: 5 scenes, strong ending, Banarasi tone"></div>
+<div class="field full"><label>Output Format</label><select id="format"><option>Dialogue Dominant &#x2014; 80&#x2013;90% Dialogue</option><option>Screenplay</option><option>Story</option><option>Scene with Dialogues</option></select></div>
+<div class="field full"><label>&#x1F3AF; Extra Direction</label><input id="extra" placeholder="&#x91C;&#x948;&#x938;&#x947;: 5 scenes, strong ending, Banarasi tone"></div>
 </div>
-<button id="generateBtn" class="btn" onclick="generateStory()">✨ Generate Story</button>
-<div id="storyStatus" class="status">Ready.</div>
+<button id="generateBtn" class="btn" onclick="generateStory()">&#x2728; Generate Story</button><div id="storyStatus" class="status">Ready.</div>
 </section>
-
 <section id="director" class="section">
-<h2>🎭 Director</h2>
+<h2>&#x1F3AD; Director</h2>
 <div class="grid">
 <div class="field"><label>Dialogue Language</label><select id="dialogueLang"><option>Keep original</option><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
 <div class="field"><label>Director Mode</label><select id="directorMode"><option>Full Director Mode</option><option>Dialogue Dominant</option><option>Voice Ready</option></select></div>
 </div>
-<div class="field"><label>Story / Script</label><textarea id="script" placeholder="Generated या pasted story यहाँ आएगी…"></textarea></div>
-<button id="analyzeBtn" class="btn" onclick="analyzeStory()">🎭 Analyze This Story</button>
-<div id="directorStatus" class="status">Paste a story and analyze it, or generate one above.</div>
-<div id="analysis" class="status hidden"></div>
+<div class="field"><label>Story / Script</label><textarea id="script" placeholder="Generated &#x92F;&#x93E; pasted story &#x92F;&#x939;&#x93E;&#x901; &#x906;&#x90F;&#x917;&#x940;&#x2026;"></textarea></div>
+<button id="analyzeBtn" class="btn" onclick="analyzeStory()">&#x1F3AD; Analyze This Story</button><div id="directorStatus" class="status">Paste a story and analyze it, or generate one above.</div><div id="analysis" class="status hidden"></div>
 </section>
-
 <section id="voice" class="section">
-<h2>🎙️ Voice</h2>
+<h2>&#x1F399;&#xFE0F; Voice</h2>
 <div class="grid">
-<div class="field"><label>Voice</label><select id="voice"><option value="alloy">Male / Natural — Alloy</option><option value="nova">Female / Natural — Nova</option><option value="shimmer">Narrator / Soft — Shimmer</option><option value="onyx">Narrator / Deep — Onyx</option></select></div>
+<div class="field"><label>Voice</label><select id="voice"><option value="alloy">Male / Natural &#x2014; Alloy</option><option value="nova">Female / Natural &#x2014; Nova</option><option value="shimmer">Narrator / Soft &#x2014; Shimmer</option><option value="onyx">Narrator / Deep &#x2014; Onyx</option></select></div>
 <div class="field"><label>Emotion</label><select id="emotion"><option>Natural</option><option>Emotional</option><option>Romantic</option><option>Suspenseful</option><option>Funny</option><option>Serious</option></select></div>
 </div>
-<div class="field"><label>Text to speak</label><textarea id="voiceText" placeholder="यहाँ story/script आएगा…"></textarea></div>
-<button id="voiceBtn" class="btn" onclick="generateVoice()">🎙️ Generate Voice</button>
-<div id="voiceStatus" class="status">Ready.</div>
-<div id="audioBox" class="hidden" style="margin-top:12px"><audio id="audio" controls style="width:100%"></audio><button class="btn secondary" style="margin-top:10px" onclick="downloadAudio()">⬇️ Download MP3</button></div>
+<div class="field"><label>Text to speak</label><textarea id="voiceText" placeholder="&#x92F;&#x939;&#x93E;&#x901; story/script &#x906;&#x90F;&#x917;&#x93E;&#x2026;"></textarea></div>
+<button id="voiceBtn" class="btn" onclick="generateVoice()">&#x1F399;&#xFE0F; Generate Voice</button><div id="voiceStatus" class="status">Ready.</div>
+<div id="audioBox" class="hidden" style="margin-top:10px"><audio id="audio" controls style="width:100%"></audio><button class="btn secondary" style="margin-top:9px" onclick="downloadAudio()">&#x2B07;&#xFE0F; Download MP3</button></div>
 </section>
-<button class="btn danger" onclick="clearAll()">🗑️ Clear All</button>
-<section id="projects" class="section">
-<h2>📁 My Projects</h2><div id="projectsList" class="status">No saved projects yet.</div>
-<div style="margin-top:12px"><button class="btn secondary" onclick="saveProject()">💾 Save Project</button></div>
-</section>
+<button class="btn danger" onclick="clearAll()">&#x1F5D1;&#xFE0F; Clear All</button>
+<section id="projects" class="section"><h2>&#x1F4C1; My Projects</h2><div id="projectsList" class="status">No saved projects yet.</div><div style="margin-top:10px"><button class="btn secondary" onclick="saveProject()">&#x1F4BE; Save Project</button></div></section>
 </main>
-
 <nav class="bottom">
-<button class="nav active" onclick="go('home')"><strong>🏠</strong>Home</button>
-<button class="nav" onclick="go('story')"><strong>✍️</strong>Story</button>
-<button class="nav" onclick="go('director')"><strong>🎭</strong>Director</button>
-<button class="nav" onclick="go('voice')"><strong>🎙️</strong>Voice</button>
-<button class="nav" onclick="go('projects')"><strong>📁</strong>Projects</button>
+<button class="nav active" data-target="home" onclick="go('home')"><strong>&#x1F3E0;</strong>Home</button>
+<button class="nav" data-target="story" onclick="go('story')"><strong>&#x270D;&#xFE0F;</strong>Story</button>
+<button class="nav" data-target="director" onclick="go('director')"><strong>&#x1F3AD;</strong>Director</button>
+<button class="nav" data-target="voice" onclick="go('voice')"><strong>&#x1F399;&#xFE0F;</strong>Voice</button>
+<button class="nav" data-target="projects" onclick="go('projects')"><strong>&#x1F4C1;</strong>Projects</button>
 </nav>
-
 <script>
 const API_BASE="https://story-director-v16.grijesh-s.workers.dev";
 const $=id=>document.getElementById(id);
-function go(id){if(id==="home")return scrollTo({top:0,behavior:"smooth"});$(id)?.scrollIntoView({behavior:"smooth",block:"start"})}
+function setActive(id){document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id))}
+function go(id){setActive(id);if(id==="home")return scrollTo({top:0,behavior:"smooth"});$(id)?.scrollIntoView({behavior:"smooth",block:"start"})}
 function setStatus(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind}
 function setBusy(id,on,label){$(id).disabled=on;if(label)$(id).textContent=label}
-async function post(path,data){
- const r=await fetch(API_BASE+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
- let j;try{j=await r.json()}catch{j={}}
- if(!r.ok)throw new Error(j.error||"Server request failed (HTTP "+r.status+")");
- return j
-}
-function clearAll(){
-
-  // Text fields
-  $("idea").value = "";
-  $("extra").value = "";
-  $("script").value = "";
-  $("voiceText").value = "";
-
-  // Generated analysis
-  $("analysis").textContent = "";
-  $("analysis").classList.add("hidden");
-
-  // Audio
-  if(window.audioBlob){
-    window.audioBlob = null;
-  }
-
-  $("audio").removeAttribute("src");
-  $("audio").load();
-  $("audioBox").classList.add("hidden");
-
-  // Status reset
-  setStatus("storyStatus","Ready.");
-  setStatus("directorStatus","Paste a story and analyze it, or generate one above.");
-  setStatus("voiceStatus","Ready.");
-
-  // वापस Story के ऊपर
-  go("story");
-}
- async function generateStory(){
- const idea=$("idea").value.trim();
- if(!idea)return setStatus("storyStatus","पहले Story Idea / Prompt लिखें।","err");
- setBusy("generateBtn",true,"⏳ Generating…");setStatus("storyStatus","AI कहानी तैयार कर रहा है…");
- try{
-  const d=await post("/api/generate",{idea,language:$("language").value,genre:$("genre").value,length:$("length").value,style:$("style").value,age:$("age").value,format:$("format").value,extra:$("extra").value});
-  $("script").value=d.story||"";$("voiceText").value=d.story||"";
-  setStatus("storyStatus","कहानी तैयार है। Director में भेज दी गई है।","ok");go("director");
- }catch(e){setStatus("storyStatus","❌ "+e.message,"err")}
- finally{setBusy("generateBtn",false,"✨ Generate Story")}
-}
-async function analyzeStory(){
- const story=$("script").value.trim();
- if(!story)return setStatus("directorStatus","पहले story/script डालें।","err");
- setBusy("analyzeBtn",true,"⏳ Analyzing…");setStatus("directorStatus","Story analyze हो रही है…");
- try{
-  const d=await post("/api/analyze",{story,mode:$("directorMode").value,dialogueLanguage:$("dialogueLang").value});
-  $("analysis").textContent=d.analysis||"Analysis complete";$("analysis").classList.remove("hidden");
-  $("voiceText").value=d.voiceText||story;setStatus("directorStatus","Analysis complete. Voice section तैयार है।","ok");
- }catch(e){setStatus("directorStatus","❌ "+e.message,"err")}
- finally{setBusy("analyzeBtn",false,"🎭 Analyze This Story")}
-}
-async function generateVoice(){
- const text=$("voiceText").value.trim()||$("script").value.trim();
- if(!text)return setStatus("voiceStatus","पहले text/story डालें।","err");
- setBusy("voiceBtn",true,"⏳ Creating voice…");setStatus("voiceStatus","Voice तैयार हो रही है…");$("audioBox").classList.add("hidden");
- try{
-  const r=await fetch(API_BASE+"/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voice:$("voice").value,emotion:$("emotion").value,language:$("language").value})});
-  if(!r.ok){let m="TTS request failed";try{m=(await r.json()).error||m}catch{}throw new Error(m)}
-  const blob=await r.blob();window.audioBlob=blob;$("audio").src=URL.createObjectURL(blob);$("audioBox").classList.remove("hidden");setStatus("voiceStatus","Voice तैयार है। Play या Download MP3 करें।","ok");
- }catch(e){setStatus("voiceStatus","❌ "+e.message,"err")}
- finally{setBusy("voiceBtn",false,"🎙️ Generate Voice")}
-}
+async function post(path,data){const r=await fetch(API_BASE+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});let j;try{j=await r.json()}catch{j={}}if(!r.ok)throw new Error(j.error||"Server request failed (HTTP "+r.status+")");return j}
+function clearAll(){$("idea").value="";$("extra").value="";$("script").value="";$("voiceText").value="";$("analysis").textContent="";$("analysis").classList.add("hidden");window.audioBlob=null;$("audio").removeAttribute("src");$("audio").load();$("audioBox").classList.add("hidden");setStatus("storyStatus","Ready.");setStatus("directorStatus","Paste a story and analyze it, or generate one above.");setStatus("voiceStatus","Ready.");go("story")}
+async function generateStory(){const idea=$("idea").value.trim();if(!idea)return setStatus("storyStatus","\u092A\u0939\u0932\u0947 Story Idea / Prompt \u0932\u093F\u0916\u0947\u0902\u0964","err");setBusy("generateBtn",true,"\u23F3 Generating\u2026");setStatus("storyStatus","AI \u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0915\u0930 \u0930\u0939\u093E \u0939\u0948\u2026");try{const d=await post("/api/generate",{idea,language:$("language").value,genre:$("genre").value,length:$("length").value,style:$("style").value,age:$("age").value,format:$("format").value,extra:$("extra").value});$("script").value=d.story||"";$("voiceText").value=d.story||"";setStatus("storyStatus","\u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964 Director \u092E\u0947\u0902 \u092D\u0947\u091C \u0926\u0940 \u0917\u0908 \u0939\u0948\u0964","ok");go("director")}catch(e){setStatus("storyStatus","\u274C "+e.message,"err")}finally{setBusy("generateBtn",false,"\u2728 Generate Story")}}
+async function analyzeStory(){const story=$("script").value.trim();if(!story)return setStatus("directorStatus","\u092A\u0939\u0932\u0947 story/script \u0921\u093E\u0932\u0947\u0902\u0964","err");setBusy("analyzeBtn",true,"\u23F3 Analyzing\u2026");setStatus("directorStatus","Story analyze \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026");try{const d=await post("/api/analyze",{story,mode:$("directorMode").value,dialogueLanguage:$("dialogueLang").value});$("analysis").textContent=d.analysis||"Analysis complete";$("analysis").classList.remove("hidden");$("voiceText").value=d.voiceText||story;setStatus("directorStatus","Analysis complete. Voice section \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964","ok");go("voice")}catch(e){setStatus("directorStatus","\u274C "+e.message,"err")}finally{setBusy("analyzeBtn",false,"\u{1F3AD} Analyze This Story")}}
+async function generateVoice(){const text=$("voiceText").value.trim()||$("script").value.trim();if(!text)return setStatus("voiceStatus","\u092A\u0939\u0932\u0947 text/story \u0921\u093E\u0932\u0947\u0902\u0964","err");setBusy("voiceBtn",true,"\u23F3 Creating voice\u2026");setStatus("voiceStatus","Voice \u0924\u0948\u092F\u093E\u0930 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026");$("audioBox").classList.add("hidden");try{const r=await fetch(API_BASE+"/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voice:$("voice").value,emotion:$("emotion").value,language:$("language").value})});if(!r.ok){let m="TTS request failed";try{m=(await r.json()).error||m}catch{}throw new Error(m)}const blob=await r.blob();window.audioBlob=blob;$("audio").src=URL.createObjectURL(blob);$("audioBox").classList.remove("hidden");setStatus("voiceStatus","Voice \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964 Play \u092F\u093E Download MP3 \u0915\u0930\u0947\u0902\u0964","ok")}catch(e){setStatus("voiceStatus","\u274C "+e.message,"err")}finally{setBusy("voiceBtn",false,"\u{1F399}\uFE0F Generate Voice")}}
 function downloadAudio(){if(!window.audioBlob)return;const a=document.createElement("a");a.href=URL.createObjectURL(window.audioBlob);a.download="story-director-voice.mp3";a.click()}
-function saveProject(){
- const p={date:new Date().toLocaleString(),idea:$("idea").value,script:$("script").value,voiceText:$("voiceText").value};
- const a=JSON.parse(localStorage.getItem("sdv16")||"[]");a.unshift(p);localStorage.setItem("sdv16",JSON.stringify(a.slice(0,20)));loadProjects()
-}
-function loadProjects(){
- const a=JSON.parse(localStorage.getItem("sdv16")||"[]");window.projects=a;
- $("projectsList").innerHTML=a.length?a.map((p,i)=>`<button class="quick" onclick="openProject(${i})"><b>${(p.idea||"Untitled").replace(/[<>&"]/g,"").slice(0,80)}</b><span>${p.date||""}</span></button>`).join(""):"No saved projects yet."
-}
+function saveProject(){const p={date:new Date().toLocaleString(),idea:$("idea").value,script:$("script").value,voiceText:$("voiceText").value};const a=JSON.parse(localStorage.getItem("sdv16")||"[]");a.unshift(p);localStorage.setItem("sdv16",JSON.stringify(a.slice(0,20)));loadProjects()}
+function loadProjects(){const a=JSON.parse(localStorage.getItem("sdv16")||"[]");window.projects=a;$("projectsList").innerHTML=a.length?a.map((p,i)=>`<button class="quick" onclick="openProject(${i})"><b>${(p.idea||"Untitled").replace(/[<>&"]/g,"").slice(0,80)}</b><span>${p.date||""}</span></button>`).join(""):"No saved projects yet."}
 function openProject(i){const p=window.projects[i];$("idea").value=p.idea||"";$("script").value=p.script||"";$("voiceText").value=p.voiceText||p.script||"";go("story")}
-loadProjects();
-if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-20% 0px -65% 0px",threshold:0});
+["story","director","voice","projects"].forEach(id=>{const el=$(id);if(el)observer.observe(el)});
+loadProjects();if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 </script>
 </body>
 </html>
