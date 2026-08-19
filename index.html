@@ -69,7 +69,7 @@
 <div id="voiceStatus" class="status">Ready.</div>
 <div id="audioBox" class="hidden" style="margin-top:12px"><audio id="audio" controls style="width:100%"></audio><button class="btn secondary" style="margin-top:10px" onclick="downloadAudio()">⬇️ Download MP3</button></div>
 </section>
-
+<button class="btn danger" onclick="clearAll()">🗑️ Clear All</button>
 <section id="projects" class="section">
 <h2>📁 My Projects</h2><div id="projectsList" class="status">No saved projects yet.</div>
 <div style="margin-top:12px"><button class="btn secondary" onclick="saveProject()">💾 Save Project</button></div>
@@ -96,7 +96,36 @@ async function post(path,data){
  if(!r.ok)throw new Error(j.error||"Server request failed (HTTP "+r.status+")");
  return j
 }
-async function generateStory(){
+function clearAll(){
+
+  // Text fields
+  $("idea").value = "";
+  $("extra").value = "";
+  $("script").value = "";
+  $("voiceText").value = "";
+
+  // Generated analysis
+  $("analysis").textContent = "";
+  $("analysis").classList.add("hidden");
+
+  // Audio
+  if(window.audioBlob){
+    window.audioBlob = null;
+  }
+
+  $("audio").removeAttribute("src");
+  $("audio").load();
+  $("audioBox").classList.add("hidden");
+
+  // Status reset
+  setStatus("storyStatus","Ready.");
+  setStatus("directorStatus","Paste a story and analyze it, or generate one above.");
+  setStatus("voiceStatus","Ready.");
+
+  // वापस Story के ऊपर
+  go("story");
+}
+ async function generateStory(){
  const idea=$("idea").value.trim();
  if(!idea)return setStatus("storyStatus","पहले Story Idea / Prompt लिखें।","err");
  setBusy("generateBtn",true,"⏳ Generating…");setStatus("storyStatus","AI कहानी तैयार कर रहा है…");
