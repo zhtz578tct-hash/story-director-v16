@@ -593,6 +593,35 @@ function parseScriptLines(input) {
    SMART SPEAKER VOICE
 ========================================== */
 
+const MALE_CHARACTER_VOICES = [
+  "alloy",
+  "echo",
+  "fable",
+  "ash",
+  "sage",
+  "verse"
+];
+
+const FEMALE_CHARACTER_VOICES = [
+  "nova",
+  "shimmer",
+  "coral",
+  "ballad",
+  "marin",
+  "cedar"
+];
+
+function getCharacterVoice(name, names, voices) {
+  const index = names.findIndex(
+    n => name === normalizeSpeaker(n)
+  );
+
+  if (index < 0) {
+    return voices[0];
+  }
+
+  return voices[index % voices.length];
+}
 function getSpeakerVoice(speaker, fallbackVoice) {
 
   const name = normalizeSpeaker(speaker);
@@ -753,7 +782,11 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return "nova";
+    return getCharacterVoice(
+  name,
+  femaleNames,
+  FEMALE_CHARACTER_VOICES
+);
   }
 
 
@@ -875,7 +908,11 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return "alloy";
+    return getCharacterVoice(
+  name,
+  maleNames,
+  MALE_CHARACTER_VOICES
+);
   }
 
 
@@ -926,7 +963,11 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return "nova";
+    return getCharacterVoice(
+  name,
+  femaleEnglish,
+  FEMALE_CHARACTER_VOICES
+);
   }
 
 
@@ -988,7 +1029,11 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return "alloy";
+    return getCharacterVoice(
+  name,
+  maleEnglish,
+  MALE_CHARACTER_VOICES
+);
   }
 
 
