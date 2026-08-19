@@ -83,7 +83,132 @@ async function post(path,data){const r=await fetch(API_BASE+path,{method:"POST",
 function clearAll(){$("idea").value="";$("extra").value="";$("script").value="";$("voiceText").value="";$("analysis").textContent="";$("analysis").classList.add("hidden");window.audioBlob=null;$("audio").removeAttribute("src");$("audio").load();$("audioBox").classList.add("hidden");setStatus("storyStatus","Ready.");setStatus("directorStatus","Paste a story and analyze it, or generate one above.");setStatus("voiceStatus","Ready.");go("story")}
 async function generateStory(){const idea=$("idea").value.trim();if(!idea)return setStatus("storyStatus","\u092A\u0939\u0932\u0947 Story Idea / Prompt \u0932\u093F\u0916\u0947\u0902\u0964","err");setBusy("generateBtn",true,"\u23F3 Generating\u2026");setStatus("storyStatus","AI \u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0915\u0930 \u0930\u0939\u093E \u0939\u0948\u2026");try{const d=await post("/api/generate",{idea,language:$("language").value,genre:$("genre").value,length:$("length").value,style:$("style").value,age:$("age").value,format:$("format").value,extra:$("extra").value});$("script").value=d.story||"";$("voiceText").value=d.story||"";setStatus("storyStatus","\u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964 Director \u092E\u0947\u0902 \u092D\u0947\u091C \u0926\u0940 \u0917\u0908 \u0939\u0948\u0964","ok");go("director")}catch(e){setStatus("storyStatus","\u274C "+e.message,"err")}finally{setBusy("generateBtn",false,"\u2728 Generate Story")}}
 async function analyzeStory(){const story=$("script").value.trim();if(!story)return setStatus("directorStatus","\u092A\u0939\u0932\u0947 story/script \u0921\u093E\u0932\u0947\u0902\u0964","err");setBusy("analyzeBtn",true,"\u23F3 Analyzing\u2026");setStatus("directorStatus","Story analyze \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026");try{const d=await post("/api/analyze",{story,mode:$("directorMode").value,dialogueLanguage:$("dialogueLang").value});$("analysis").textContent=d.analysis||"Analysis complete";$("analysis").classList.remove("hidden");$("voiceText").value=d.voiceText||story;setStatus("directorStatus","Analysis complete. Voice section \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964","ok");go("voice")}catch(e){setStatus("directorStatus","\u274C "+e.message,"err")}finally{setBusy("analyzeBtn",false,"\u{1F3AD} Analyze This Story")}}
-async function generateVoice(){const text=$("voiceText").value.trim()||$("script").value.trim();if(!text)return setStatus("voiceStatus","\u092A\u0939\u0932\u0947 text/story \u0921\u093E\u0932\u0947\u0902\u0964","err");setBusy("voiceBtn",true,"\u23F3 Creating voice\u2026");setStatus("voiceStatus","Voice \u0924\u0948\u092F\u093E\u0930 \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026");$("audioBox").classList.add("hidden");try{const r=await fetch(API_BASE+"/api/tts",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,voice:$("voice").value,emotion:$("emotion").value,language:$("language").value})});if(!r.ok){let m="TTS request failed";try{m=(await r.json()).error||m}catch{}throw new Error(m)}const blob=await r.blob();window.audioBlob=blob;$("audio").src=URL.createObjectURL(blob);$("audioBox").classList.remove("hidden");setStatus("voiceStatus","Voice \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964 Play \u092F\u093E Download MP3 \u0915\u0930\u0947\u0902\u0964","ok")}catch(e){setStatus("voiceStatus","\u274C "+e.message,"err")}finally{setBusy("voiceBtn",false,"\u{1F399}\uFE0F Generate Voice")}}
+async function generateVoice(){
+  const text=$("voiceText").value.trim()||$("script").value.trim();
+
+  if(!text)
+    return setStatus("voiceStatus","पहले text/story डालें।","err");
+
+  setBusy("voiceBtn",true,"⏳ Creating voice…");
+  setStatus("voiceStatus","Voice तैयार हो रही है…");
+  $("audioBox").classList.add("hidden");
+
+  try{
+
+    const lines=text.replace(/\r/g,"").split("\n");
+    const batches=[];
+    let current="";
+
+    const MAX_BATCH=12000;
+
+    for(const line of lines){
+
+      const candidate=current
+        ? current+"\n"+line
+        : line;
+
+      if(candidate.length<=MAX_BATCH){
+        current=candidate;
+      }else{
+
+        if(current.trim())
+          batches.push(current.trim());
+
+        if(line.length<=MAX_BATCH){
+          current=line;
+        }else{
+
+          for(let i=0;i<line.length;i+=MAX_BATCH){
+            batches.push(
+              line.slice(i,i+MAX_BATCH).trim()
+            );
+          }
+
+          current="";
+        }
+      }
+    }
+
+    if(current.trim())
+      batches.push(current.trim());
+
+    if(!batches.length)
+      throw new Error("Voice text empty.");
+
+    const audioParts=[];
+
+    for(let i=0;i<batches.length;i++){
+
+      setStatus(
+        "voiceStatus",
+        `🎙️ Voice तैयार हो रही है…\nPart ${i+1} / ${batches.length}`
+      );
+
+      const r=await fetch(
+        API_BASE+"/api/tts",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            text:batches[i],
+            voice:$("voice").value,
+            emotion:$("emotion").value,
+            language:$("language").value
+          })
+        }
+      );
+
+      if(!r.ok){
+
+        let m="TTS request failed";
+
+        try{
+          m=(await r.json()).error||m;
+        }catch{}
+
+        throw new Error(m);
+      }
+
+      audioParts.push(await r.blob());
+    }
+
+    const finalBlob=new Blob(
+      audioParts,
+      {type:"audio/mpeg"}
+    );
+
+    window.audioBlob=finalBlob;
+
+    $("audio").src=
+      URL.createObjectURL(finalBlob);
+
+    $("audioBox").classList.remove("hidden");
+
+    setStatus(
+      "voiceStatus",
+      `✅ Voice तैयार है। ${batches.length} part successfully joined.\nPlay या Download MP3 करें।`,
+      "ok"
+    );
+
+  }catch(e){
+
+    setStatus(
+      "voiceStatus",
+      "❌ "+e.message,
+      "err"
+    );
+
+  }finally{
+
+    setBusy(
+      "voiceBtn",
+      false,
+      "🎙️ Generate Voice"
+    );
+  }
+}
 function downloadAudio(){if(!window.audioBlob)return;const a=document.createElement("a");a.href=URL.createObjectURL(window.audioBlob);a.download="story-director-voice.mp3";a.click()}
 function saveProject(){const p={date:new Date().toLocaleString(),idea:$("idea").value,script:$("script").value,voiceText:$("voiceText").value};const a=JSON.parse(localStorage.getItem("sdv16")||"[]");a.unshift(p);localStorage.setItem("sdv16",JSON.stringify(a.slice(0,20)));loadProjects()}
 function loadProjects(){const a=JSON.parse(localStorage.getItem("sdv16")||"[]");window.projects=a;$("projectsList").innerHTML=a.length?a.map((p,i)=>`<button class="quick" onclick="openProject(${i})"><b>${(p.idea||"Untitled").replace(/[<>&"]/g,"").slice(0,80)}</b><span>${p.date||""}</span></button>`).join(""):"No saved projects yet."}
