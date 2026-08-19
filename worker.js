@@ -290,18 +290,15 @@ ${story}
                     `Bearer ${env.OPENAI_API_KEY}`
                 },
                 body: JSON.stringify({
-                  model:
-                    env.OPENAI_TTS_MODEL ||
-                    "gpt-4o-mini-tts",
-
-                  voice: selectedVoice,
-
-                  input: chunk,
-
-                  format: "mp3",
-
-                  instructions
-                })
+    model:
+    env.OPENAI_TTS_MODEL ||
+    "gpt-4o-mini-tts",
+    voice: selectedVoice,
+    input: chunk,
+    format: "mp3",
+    speed: selectedVoice === "onyx" ? 1.0 : 1.08,
+    instructions
+})
               }
             );
 
