@@ -370,7 +370,7 @@ if (url.pathname === "/api/tts-one") {
     spokenText
 );
 
-          const chunks = splitTTS(spokenText, 1800);
+          const chunks = splitTTS(spokenText, 3900);
 
           for (const chunk of chunks) {
 
