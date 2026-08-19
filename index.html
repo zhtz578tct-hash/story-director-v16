@@ -150,54 +150,56 @@ async function generateVoice(){
   $("audioBox").classList.add("hidden");
 
   try{
-
     const lines=text.replace(/\r/g,"").split("\n");
-    const batches=[];
-    let current="";
+    const parts=[];
+    let speaker="वाचक";
+    let buffer="";
 
-    const MAX_BATCH=12000;
+    const flush=()=>{
+      if(!buffer.trim()) return;
 
-    for(const line of lines){
+      for(let i=0;i<buffer.length;i+=3900){
+        parts.push({
+          speaker:speaker,
+          text:buffer.slice(i,i+3900).trim()
+        });
+      }
 
-      const candidate=current
-        ? current+"\n"+line
-        : line;
+      buffer="";
+    };
 
-      if(candidate.length<=MAX_BATCH){
-        current=candidate;
+    for(const raw of lines){
+      const line=raw.trim();
+      if(!line) continue;
+
+      const match=line.match(
+        /^([A-Za-z\u0900-\u097F][A-Za-z0-9\u0900-\u097F _-]{0,40})\s*:\s*(.*)$/u
+      );
+
+      if(match){
+        flush();
+        speaker=match[1].trim();
+        buffer=match[2].trim();
       }else{
-
-        if(current.trim())
-          batches.push(current.trim());
-
-        if(line.length<=MAX_BATCH){
-          current=line;
-        }else{
-
-          for(let i=0;i<line.length;i+=MAX_BATCH){
-            batches.push(
-              line.slice(i,i+MAX_BATCH).trim()
-            );
-          }
-
-          current="";
-        }
+        buffer=buffer
+          ? buffer+" "+line
+          : line;
       }
     }
 
-    if(current.trim())
-      batches.push(current.trim());
+    flush();
 
-    if(!batches.length)
+    if(!parts.length)
       throw new Error("Voice text empty.");
 
     const audioParts=[];
 
-    for(let i=0;i<batches.length;i++){
+    for(let i=0;i<parts.length;i++){
+      const part=parts[i];
 
       setStatus(
         "voiceStatus",
-        `🎙️ Voice तैयार हो रही है…\nPart ${i+1} / ${batches.length}`
+        `🎙️ Voice तैयार हो रही है…\nPart ${i+1} / ${parts.length}\nSpeaker: ${part.speaker}`
       );
 
       const r=await fetch(
@@ -208,7 +210,8 @@ async function generateVoice(){
             "Content-Type":"application/json"
           },
           body:JSON.stringify({
-            text:batches[i],
+            text:part.text,
+            speaker:part.speaker,
             voice:$("voice").value,
             emotion:$("emotion").value,
             language:$("language").value
@@ -217,7 +220,6 @@ async function generateVoice(){
       );
 
       if(!r.ok){
-
         let m="TTS request failed";
 
         try{
@@ -244,7 +246,7 @@ async function generateVoice(){
 
     setStatus(
       "voiceStatus",
-      `✅ Voice तैयार है। ${batches.length} part successfully joined.\nPlay या Download MP3 करें।`,
+      `✅ Voice तैयार है। ${parts.length} parts successfully joined.\nSpeaker names अब audio में नहीं बोले जाएंगे।\nPlay या Download MP3 करें।`,
       "ok"
     );
 
