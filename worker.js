@@ -480,24 +480,53 @@ function parseScriptLines(input) {
 
   for (const raw of rawLines) {
 
-    const line = raw.trim();
+    let line = raw.trim();
 
     if (!line) continue;
 
     /*
-      Recognize:
+      Remove common Markdown formatting
+      around speaker names.
 
-      नेहा: ...
-      रवि: ...
-      वाचक: ...
-      Narrator: ...
-      Neha: ...
-      Ravi: ...
+      Examples:
+      **रवि:** Hello
+      *रवि:* Hello
+      ### रवि: Hello
+      रवि: Hello
     */
 
-    const match = line.match(
+    line = line
+      .replace(/^#{1,6}\s*/, "")
+      .replace(/^\*\*(.*?)\*\*$/, "$1")
+      .trim();
+
+    /*
+      Standard speaker format:
+
+      रवि: ...
+      नेहा: ...
+      वाचक: ...
+      Narrator: ...
+    */
+
+    let match = line.match(
       /^([A-Za-z\u0900-\u097F][A-Za-z0-9\u0900-\u097F _-]{0,40})\s*:\s*(.*)$/u
     );
+
+    /*
+      Also recognize:
+
+      रवि — ...
+      रवि - ...
+      रवि – ...
+    */
+
+    if (!match) {
+
+      match = line.match(
+        /^([A-Za-z\u0900-\u097F][A-Za-z0-9\u0900-\u097F _-]{0,40})\s*[—–-]\s+(.+)$/u
+      );
+    }
 
     if (match) {
 
@@ -509,15 +538,19 @@ function parseScriptLines(input) {
         });
       }
 
-      currentSpeaker = match[1].trim();
+      currentSpeaker = match[1]
+        .replace(/^\*+|\*+$/g, "")
+        .trim();
 
-      currentText = match[2].trim();
+      currentText = match[2]
+        .replace(/^\*+|\*+$/g, "")
+        .trim();
 
     } else {
 
       /*
-        Unlabelled text is treated as
-        continuation of current speaker.
+        Unlabelled text continues
+        the current speaker.
       */
 
       if (currentText) {
@@ -536,7 +569,23 @@ function parseScriptLines(input) {
     });
   }
 
-  return result;
+  /*
+    Final cleanup:
+    remove accidental Markdown speaker
+    markers from the actual spoken text.
+  */
+
+  return result
+    .map(item => ({
+      speaker: item.speaker
+        .replace(/^\*+|\*+$/g, "")
+        .trim(),
+
+      text: item.text
+        .replace(/^\*+|\*+$/g, "")
+        .trim()
+    }))
+    .filter(item => item.text);
 }
 
 
