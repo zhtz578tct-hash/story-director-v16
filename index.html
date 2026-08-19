@@ -75,6 +75,62 @@
 <script>
 const API_BASE="https://story-director-v16.grijesh-s.workers.dev";
 const $=id=>document.getElementById(id);
+  /* AUTO RECOVERY */
+const DRAFT_KEY="sdv16_auto_recovery";
+
+function saveAutoDraft(){
+  try{
+    const draft={
+      idea:$("idea")?.value||"",
+      extra:$("extra")?.value||"",
+      script:$("script")?.value||"",
+      voiceText:$("voiceText")?.value||"",
+      analysis:$("analysis")?.textContent||"",
+      language:$("language")?.value||"Hindi",
+      dialogueLang:$("dialogueLang")?.value||"Keep original",
+      directorMode:$("directorMode")?.value||"Full Director Mode",
+      voice:$("voice")?.value||"alloy",
+      emotion:$("emotion")?.value||"Natural",
+      savedAt:Date.now()
+    };
+    localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));
+  }catch(e){}
+}
+
+function restoreAutoDraft(){
+  try{
+    const raw=localStorage.getItem(DRAFT_KEY);
+    if(!raw)return;
+
+    const d=JSON.parse(raw);
+
+    if(d.idea) $("idea").value=d.idea;
+    if(d.extra) $("extra").value=d.extra;
+    if(d.script) $("script").value=d.script;
+    if(d.voiceText) $("voiceText").value=d.voiceText;
+    if(d.analysis){
+      $("analysis").textContent=d.analysis;
+      $("analysis").classList.remove("hidden");
+    }
+
+    if(d.language) $("language").value=d.language;
+    if(d.dialogueLang) $("dialogueLang").value=d.dialogueLang;
+    if(d.directorMode) $("directorMode").value=d.directorMode;
+    if(d.voice) $("voice").value=d.voice;
+    if(d.emotion) $("emotion").value=d.emotion;
+
+    if(d.script || d.voiceText){
+      setStatus(
+        "storyStatus",
+        "♻️ पिछला काम वापस मिल गया है।",
+        "ok"
+      );
+    }
+  }catch(e){}
+}
+
+document.addEventListener("input",saveAutoDraft);
+setInterval(saveAutoDraft,3000);
 function setActive(id){document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id))}
 function go(id){setActive(id);if(id==="home")return scrollTo({top:0,behavior:"smooth"});$(id)?.scrollIntoView({behavior:"smooth",block:"start"})}
 function setStatus(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind}
