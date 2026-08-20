@@ -1104,7 +1104,7 @@ async function generateStory(){
     const data=await post(
       "/api/generate",
       {
-        prompt,
+        idea:prompt,
         language:$("language").value,
         genre:$("genre").value,
         length:$("length").value,
