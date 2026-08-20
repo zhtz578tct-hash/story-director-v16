@@ -534,9 +534,17 @@ function deleteProject(i){
   a.splice(i,1);localStorage.setItem('sdv16',JSON.stringify(a));loadProjects();
 }
 function clearSavedProjects(){
-  const a=getSavedProjects();if(!a.length){loadProjects();return;}
+  const a=getSavedProjects();
+  if(!a.length){
+    loadProjects();
+    return;
+  }
+
   if(!confirm('Delete all saved projects? This cannot be undone.'))return;
-  localStorage.removeItem('sdv16');loadProjects();
+
+  localStorage.removeItem('sdv16');
+  window.projects=[];
+  loadProjects();
 }
   const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:'-20% 0px -65% 0px',threshold:0});
 ['home','story','paste','director','voice','projects','help','settings'].forEach(id=>{const el=$(id);if(el)observer.observe(el)});
