@@ -421,6 +421,59 @@ audio{
     gap:6px;
   }
 }
+/* Creator Studio compact action row */
+.home-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+}
+
+.home-actions .btn{
+  flex:1 1 0;
+  width:auto;
+  min-width:0;
+  padding:8px 2px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  color:#fff;
+  font-size:13px;
+  line-height:1.25;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.home-actions .btn.secondary{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+
+.home-actions .btn:active{
+  transform:scale(.97);
+  opacity:.8;
+}
+
+.hero h1{
+  font-size:24px;
+  line-height:1.15;
+  margin-bottom:8px;
+}
+
+@media(max-width:560px){
+  .home-actions{
+    gap:6px;
+  }
+
+  .home-actions .btn{
+    font-size:12px;
+    padding:7px 0;
+    letter-spacing:-.15px;
+  }
+}
 </style>
 </head>
 
