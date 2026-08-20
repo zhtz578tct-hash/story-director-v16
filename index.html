@@ -377,7 +377,8 @@ function bindPersistence(){
 function clearAll(){
   if(!confirm("Current story, analysis और draft clear करें?"))return;
   $('idea').value="";$('extra').value="";$('script').value="";$('voiceText').value="";$('analysis').textContent="";$('analysis').classList.add('hidden');window.audioBlob=null;
-  $('audio').removeAttribute('src');$('audio').load();$('audioBox').classList.add('hidden');sessionPhase="idle";localStorage.removeItem(SESSION_KEY);
+ if($('pasteText'))$('pasteText').value="";
+    $('audio').removeAttribute('src');$('audio').load();$('audioBox').classList.add('hidden');sessionPhase="idle";localStorage.removeItem(SESSION_KEY);
   $('recoveryBox').classList.add('hidden');setStatus('storyStatus','Ready.');setStatus('directorStatus','Story तैयार है तो Analyze करें — या सीधे Voice पर जाएँ।');setStatus('voiceStatus','Ready.');$('analyzeBtn').textContent="🎭 Analyze This Story";go('story');
 }
 
