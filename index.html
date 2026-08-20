@@ -490,6 +490,53 @@ audio{
 #story .grid > .field.full{
   grid-column:1 / -1 !important;
 }
+/* ===== FINAL PROJECT + BOTTOM NAV FIX ===== */
+
+#projects .project-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+#projects .project-actions .btn{
+  width:100%;
+  padding:9px 6px;
+  font-size:13px;
+  border-radius:12px;
+  box-shadow:none;
+}
+
+#projects .project-actions .danger{
+  margin:0;
+}
+
+.bottom{
+  bottom:8px;
+}
+
+body{
+  padding-bottom:125px;
+}
+
+@media(max-width:560px){
+  .bottom{
+    left:8px;
+    right:8px;
+    bottom:8px;
+    padding:5px;
+  }
+
+  .nav{
+    padding:6px 1px;
+    font-size:11px;
+  }
+
+  .nav strong{
+    font-size:18px;
+    line-height:20px;
+  }
+}
 </style>
 </head>
 
@@ -894,13 +941,15 @@ SFX: Light rain.
 
   <div id="projectsList" class="projects-list"></div>
 
-  <button class="btn" onclick="saveProject()">
-    💾 Save Project
-  </button>
+    <div class="project-actions">
+    <button class="btn" onclick="saveProject()">
+      💾 Save Project
+    </button>
 
-  <button class="btn danger" onclick="clearProjects()">
-    🗑️ Clear All Projects
-  </button>
+    <button class="btn danger" onclick="clearProjects()">
+      🗑️ Clear Projects
+    </button>
+  </div>
 
   <div id="projectStatus" class="status">
     Projects are saved on this device.
@@ -909,16 +958,6 @@ SFX: Light rain.
 
 
 <section class="section">
-  <div class="action-row">
-    <button class="btn secondary" onclick="go('story')">
-      ✦ New Story
-    </button>
-
-    <button class="btn danger" onclick="clearAll()">
-      🗑️ Clear All
-    </button>
-  </div>
-
   <div id="clearStatus" class="status">
     Current workspace can be cleared without deleting saved projects.
   </div>
@@ -941,10 +980,10 @@ SFX: Light rain.
     <strong>✎</strong>Writer
   </button>
 
-  <button class="nav"
-    data-target="paste"
-    onclick="go('paste')">
-    <strong>▣</strong>Paste
+    <button class="nav"
+    data-target="clear"
+    onclick="clearAll()">
+    <strong>🗑️</strong>Clear All
   </button>
 
   <button class="nav"
