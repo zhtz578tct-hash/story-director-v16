@@ -472,6 +472,24 @@ audio{
     letter-spacing:-.15px;
   }
 }
+  /* FINAL STORY WRITER LAYOUT FIX */
+#story .grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px !important;
+}
+
+#story .grid > .field:first-child{
+  grid-column:1 / -1 !important;
+}
+
+#story .grid > .field:first-child textarea{
+  min-height:150px !important;
+}
+
+#story .grid > .field.full{
+  grid-column:1 / -1 !important;
+}
 </style>
 </head>
 
