@@ -408,6 +408,18 @@ audio{
   }
 }
 /* Creator Studio compact action row */
+  /* Story Writer layout fix */
+#story .grid > .field:first-child{
+  grid-column:1 / -1;
+}
+
+#story .grid > .field:first-child textarea{
+  min-height:150px;
+}
+
+#story .grid > .field.full{
+  grid-column:1 / -1;
+}
 .home-actions{
   display:flex;
   align-items:center;
