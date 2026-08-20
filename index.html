@@ -177,11 +177,6 @@
     <div class="eyebrow">✦ CREATIVE STUDIO</div>
     <h1>Your story.<br>Your voice.</h1>
     <p>Write, direct, and transform your stories into multi-speaker voice — all in one place.</p>
-    <div class="hero-actions">
-      <button class="btn" onclick="go('story')">✦ Create Story</button>
-      <button class="btn secondary" onclick="go('paste')">▣ Paste &amp; Convert</button>
-      <button class="btn secondary" onclick="go('voice')">🎙 Voice Studio</button>
-    </div>
     <div class="workflow" aria-label="Story workflow">
       <button class="flow-step active" data-flow="source" onclick="go('story')"><span>1</span><b>Write / Paste</b></button>
       <i>›</i>
@@ -315,13 +310,6 @@
   </div>
 </section>
 </main>
-<nav class="bottom">
-<button class="nav active" data-target="home" onclick="go('home')"><strong>⌂</strong>Home</button>
-<button class="nav" data-target="story" onclick="go('story')"><strong>✎</strong>Writer</button>
-<button class="nav" data-target="paste" onclick="go('paste')"><strong>▣</strong>Paste</button>
-<button class="nav" data-target="director" onclick="go('director')"><strong>🎭</strong>Director</button>
-<button class="nav" data-target="voice" onclick="go('voice')"><strong>🎙</strong>Voice</button>
-</nav>
 <script>
 /* Violet Studio redesign: existing Worker/API flow intentionally preserved. */
 const API_BASE="https://story-director-v16.grijesh-s.workers.dev";
