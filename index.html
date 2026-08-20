@@ -1429,7 +1429,7 @@ function prepareVoice(){
       V16 Cloudflare Worker TTS endpoint.
     */
 
-    const MAX_BATCH=2000;
+    const MAX_BATCH=30000;
     const batches=[];
 
     for(
@@ -1453,7 +1453,7 @@ function prepareVoice(){
       );
 
       const response=await fetch(
-        API_BASE+"/api/tts-one",
+        API_BASE+"/api/tts",
         {
           method:"POST",
           headers:{
