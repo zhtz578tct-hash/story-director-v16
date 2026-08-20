@@ -537,6 +537,244 @@ body{
     line-height:20px;
   }
 }
+  .hero-visual{
+  margin-top:34px;
+  width:100%;
+  max-width:760px;
+  height:150px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 18% 50%,rgba(130,70,255,.28),transparent 28%),
+    radial-gradient(circle at 82% 50%,rgba(255,70,190,.18),transparent 30%),
+    rgba(8,8,24,.58);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  padding:0 28px;
+}
+
+.hero-visual::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(160,100,255,.08),
+      transparent);
+  animation:studioSweep 5s ease-in-out infinite;
+}
+
+@keyframes studioSweep{
+  0%,100%{
+    transform:translateX(-100%);
+  }
+  50%{
+    transform:translateX(100%);
+  }
+}
+
+.hero-visual-left{
+  position:relative;
+  z-index:2;
+  min-width:170px;
+}
+
+.hero-visual-title{
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:#fff;
+}
+
+.hero-visual-sub{
+  margin-top:6px;
+  font-size:12px;
+  color:rgba(255,255,255,.55);
+}
+
+.hero-wave{
+  flex:1;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  position:relative;
+  z-index:2;
+}
+
+.hero-wave span{
+  width:4px;
+  border-radius:8px;
+  background:linear-gradient(
+    to top,
+    #8b5cff,
+    #d85cff,
+    #58c7ff
+  );
+  opacity:.9;
+  animation:wavePulse 1.4s ease-in-out infinite;
+}
+
+.hero-wave span:nth-child(1){
+  height:18px;
+  animation-delay:.05s;
+}
+
+.hero-wave span:nth-child(2){
+  height:30px;
+  animation-delay:.10s;
+}
+
+.hero-wave span:nth-child(3){
+  height:44px;
+  animation-delay:.15s;
+}
+
+.hero-wave span:nth-child(4){
+  height:28px;
+  animation-delay:.20s;
+}
+
+.hero-wave span:nth-child(5){
+  height:58px;
+  animation-delay:.25s;
+}
+
+.hero-wave span:nth-child(6){
+  height:38px;
+  animation-delay:.30s;
+}
+
+.hero-wave span:nth-child(7){
+  height:68px;
+  animation-delay:.35s;
+}
+
+.hero-wave span:nth-child(8){
+  height:46px;
+  animation-delay:.40s;
+}
+
+.hero-wave span:nth-child(9){
+  height:28px;
+  animation-delay:.45s;
+}
+
+.hero-wave span:nth-child(10){
+  height:52px;
+  animation-delay:.50s;
+}
+
+.hero-wave span:nth-child(11){
+  height:36px;
+  animation-delay:.55s;
+}
+
+.hero-wave span:nth-child(12){
+  height:62px;
+  animation-delay:.60s;
+}
+
+.hero-wave span:nth-child(13){
+  height:42px;
+  animation-delay:.65s;
+}
+
+.hero-wave span:nth-child(14){
+  height:25px;
+  animation-delay:.70s;
+}
+
+.hero-wave span:nth-child(15){
+  height:48px;
+  animation-delay:.75s;
+}
+
+.hero-wave span:nth-child(16){
+  height:32px;
+  animation-delay:.80s;
+}
+
+@keyframes wavePulse{
+  0%,100%{
+    transform:scaleY(.65);
+    opacity:.55;
+  }
+  50%{
+    transform:scaleY(1);
+    opacity:1;
+  }
+}
+
+.hero-live{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.7);
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.hero-live-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#b96cff;
+  box-shadow:0 0 12px #b96cff;
+}
+
+@media(max-width:560px){
+  .hero-visual{
+    height:125px;
+    padding:0 16px;
+    border-radius:20px;
+  }
+
+  .hero-visual-left{
+    min-width:125px;
+  }
+
+  .hero-visual-title{
+    font-size:11px;
+  }
+
+  .hero-visual-sub{
+    font-size:10px;
+  }
+
+  .hero-wave{
+    gap:3px;
+  }
+
+  .hero-wave span{
+    width:3px;
+  }
+
+  .hero-wave span:nth-child(n+13){
+    display:none;
+  }
+
+  .hero-live{
+    display:none;
+  }
+}
+  .old-home-nav{
+  display:none !important;
+}
 </style>
 </head>
 
@@ -546,8 +784,26 @@ body{
   <div class="brand">🎬 Story Director <span class="pill">V16.5</span></div>
   <div class="sub">AI Story • Smart Director • Voice Studio</div>
 </header>
+<div class="hero-visual">
 
-  <section
+  <div class="hero-visual-left">
+    <div class="hero-visual-title">CREATIVE STUDIO</div>
+    <div class="hero-visual-sub">Your story is taking shape</div>
+  </div>
+
+  <div class="hero-wave">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-live">
+    <span class="hero-live-dot"></span>
+    Studio Ready
+  </div>
+
+</div>
+  <section class="old-home-nav"
   style="
     display:grid;
     grid-template-columns:repeat(5,minmax(0,1fr));
