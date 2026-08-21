@@ -78,32 +78,40 @@ body {
 
 /* Cards / Sections */
 /* Top 5 Quick Navigation */
+
 .cards.quick-nav {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 7px;
+  gap: 6px;
   width: 100%;
+  max-width: 100%;
   margin: 14px 0;
+  overflow: hidden;
 }
 
 .cards.quick-nav .quick {
   width: 100%;
   min-width: 0;
-  padding: 10px 3px;
+  max-width: 100%;
+  padding: 9px 2px;
   text-align: center;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .cards.quick-nav .quick .icon {
-  font-size: 20px;
-  line-height: 22px;
-  margin-bottom: 4px;
+  display: block;
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 3px;
 }
 
 .cards.quick-nav .quick b {
   display: block;
-  font-size: 12px;
-  line-height: 15px;
+  width: 100%;
+  min-width: 0;
+  font-size: 10px;
+  line-height: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -115,19 +123,34 @@ body {
 
 /* iPhone */
 @media (max-width: 430px) {
+
   .cards.quick-nav {
-    gap: 5px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    overflow: hidden;
   }
 
   .cards.quick-nav .quick {
-    padding: 9px 2px;
-    border-radius: 17px;
+    min-width: 0;
+    padding: 8px 1px;
+    border-radius: 15px;
   }
 
   .cards.quick-nav .quick .icon {
-    font-size: 19px;
-    line-height: 21px;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 2px;
   }
+
+  .cards.quick-nav .quick b {
+    font-size: 9px;
+    line-height: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 
   .cards.quick-nav .quick b {
     font-size: 11px;
