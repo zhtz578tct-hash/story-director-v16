@@ -1,4 +1,4 @@
-const CACHE="sdv16-v5";
+const CACHE="sdv16-v6";
 const ASSETS=["./","./index.html","./manifest.json","./voice-studio.js"];
 
 self.addEventListener("install",e=>
