@@ -1025,12 +1025,13 @@ function defaultVoiceForSpeaker(name,index){
               'Content-Type':'application/json'
             },
             body:JSON.stringify({
-              text:piece,
-              voice:profile.voice,
-              emotion:profile.emotion,
-              intensity:Number(profile.intensity||70),
-              language:$('language').value
-            })
+  text:piece,
+  speaker:item.speaker,
+  voice:profile.voice,
+  emotion:profile.emotion,
+  intensity:Number(profile.intensity||70),
+  language:$('language').value
+})
           }
         );
 
