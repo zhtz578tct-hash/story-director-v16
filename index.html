@@ -77,17 +77,62 @@ body {
 }
 
 /* Cards / Sections */
-.cards {
+/* Top 5 Quick Navigation */
+.cards.quick-nav {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
   margin: 14px 0;
 }
 
-.quick,
-.section {
-  background: linear-gradient(145deg, #161a33, #101328);
-  border: 1px solid #363a64;
-  border-radius: 22px;
+.cards.quick-nav .quick {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 3px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cards.quick-nav .quick .icon {
+  font-size: 20px;
+  line-height: 22px;
+  margin-bottom: 4px;
+}
+
+.cards.quick-nav .quick b {
+  display: block;
+  font-size: 12px;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cards.quick-nav .quick span {
+  display: none;
+}
+
+/* iPhone */
+@media (max-width: 430px) {
+  .cards.quick-nav {
+    gap: 5px;
+  }
+
+  .cards.quick-nav .quick {
+    padding: 9px 2px;
+    border-radius: 17px;
+  }
+
+  .cards.quick-nav .quick .icon {
+    font-size: 19px;
+    line-height: 21px;
+  }
+
+  .cards.quick-nav .quick b {
+    font-size: 11px;
+    line-height: 14px;
+  }
 }
 
 .quick {
