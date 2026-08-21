@@ -1,4 +1,4 @@
-const CACHE="sdv16-v7";
+const CACHE="sdv16-v8";
 const ASSETS=["./","./index.html","./manifest.json"];
 
 self.addEventListener("install",e=>
@@ -51,7 +51,7 @@ self.addEventListener("fetch",e=>{
 
       const injected=html.replace(
         /<\/body>/i,
-        '<script src="./voice-studio.js?v=7"></script></body>'
+        '<script src="./voice-studio.js?v=8"></script></body>'
       );
 
       const headers=new Headers(response.headers);
