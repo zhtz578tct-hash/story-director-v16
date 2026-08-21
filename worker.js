@@ -252,8 +252,43 @@ if (url.pathname === "/api/tts-one") {
     }, 400);
   }
 
-  const selectedVoice =
-    getSpeakerVoice(speaker, voice);
+  const speakerName = normalizeSpeaker(speaker);
+
+const narratorNames = [
+  "वाचक",
+  "कथावाचक",
+  "सूत्रधार",
+  "नरेटर",
+  "narrator",
+  "narration",
+  "voiceover",
+  "voice over",
+  "v.o.",
+  "vo"
+];
+
+let selectedVoice;
+
+if (
+  narratorNames.some(
+    n => speakerName === normalizeSpeaker(n)
+  )
+) {
+  // Narrator is ALWAYS Onyx
+  selectedVoice = "onyx";
+
+} else if (String(voice).toLowerCase() === "nova") {
+  // Female profile
+  selectedVoice = "nova";
+
+} else if (String(voice).toLowerCase() === "onyx") {
+  // Onyx is reserved for narrator
+  selectedVoice = "alloy";
+
+} else {
+  // Male / other selected voices
+  selectedVoice = voice || "alloy";
+}
 
   const instructions =
     buildVoiceInstructions(
