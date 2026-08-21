@@ -1,4 +1,4 @@
-const CACHE="sdv16-v3";
+const CACHE="sdv16-v5";
 
 self.addEventListener("install",e=>
   e.waitUntil(
