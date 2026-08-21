@@ -706,7 +706,7 @@ function go(id){
   setActive(id);
   if(['story','paste'].includes(id))setWorkflowStep('source');
   else if(id==='director')setWorkflowStep('director');
-  else if(id==='voice')setWorkflowStep('voice');
+  else if(id==='voice'){setWorkflowStep('voice');renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');}
   else if(id==='home')setWorkflowStep('source');
   if(id==="home")return;
   scrollTo({top:0,behavior:"smooth"});
@@ -734,7 +734,8 @@ function restoreSession(){
   try{
     const raw=localStorage.getItem(SESSION_KEY);if(!raw)return;
     const p=JSON.parse(raw);if(!p||p.version!==2)return;
-    $('idea').value=p.idea||"";$('extra').value=p.extra||"";if($('pasteText'))$('pasteText').value=p.pasteText||'';if($('pasteDialogueLang'))$('pasteDialogueLang').value=p.pasteDialogueLang||'Keep original';$('language').value=p.language||"Hindi";$('genre').value=p.genre||"Drama";$('length').value=p.length||"medium";$('style').value=p.style||"Cinematic";$('age').value=p.age||"General";$('format').value=p.format||"Dialogue Dominant — 80–90% Dialogue";
+   window.voiceProfiles=p.voiceProfiles||{};
+      $('idea').value=p.idea||"";$('extra').value=p.extra||"";if($('pasteText'))$('pasteText').value=p.pasteText||'';if($('pasteDialogueLang'))$('pasteDialogueLang').value=p.pasteDialogueLang||'Keep original';$('language').value=p.language||"Hindi";$('genre').value=p.genre||"Drama";$('length').value=p.length||"medium";$('style').value=p.style||"Cinematic";$('age').value=p.age||"General";$('format').value=p.format||"Dialogue Dominant — 80–90% Dialogue";
     $('dialogueLang').value=p.dialogueLang||"Keep original";$('directorMode').value=p.directorMode||"Full Director Mode";$('script').value=p.script||"";$('voiceText').value=p.voiceText||p.script||"";$('voiceSelect').value=p.voice||"alloy";$('emotion').value=p.emotion||"Natural";
     $('analysis').textContent=p.analysis||"";$('analysis').classList.toggle('hidden',!p.analysisVisible||!p.analysis);
     sessionPhase=p.phase||"idle";
@@ -858,7 +859,19 @@ function autoBreak(){
 }
 function quickMsg(message){setStatus('directorStatus',message,'ok');}
 
-async function generateVoice(){
+function getVoiceProfiles(){
+  return window.voiceProfiles||{};
+}
+
+function setVoiceProfile(name,data){
+  window.voiceProfiles=window.voiceProfiles||{};
+  window.voiceProfiles[name]={
+    ...(window.voiceProfiles[name]||{}),
+    ...data
+  };
+  persistSession();
+}
+    async function generateVoice(){
   const text=$('voiceText')?.value.trim()||$('script')?.value.trim();
 
   if(!text){
