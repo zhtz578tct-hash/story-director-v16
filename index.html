@@ -564,22 +564,20 @@ function renderVoiceStudio(text){
               onchange="updateVoiceProfile('${escapeVoiceHTML(name)}','voice',this.value)">
 
               <option value="alloy" ${p.voice==='alloy'?'selected':''}>
-                Male / Natural (Alloy)
-              </option>
+  Male / Natural (Alloy)
+</option>
 
-              <option value="nova" ${p.voice==='nova'?'selected':''}>
-                Female / Natural (Nova)
-              </option>
+<option value="nova" ${p.voice==='nova'?'selected':''}>
+  Female / Natural (Nova)
+</option>
 
-              <option value="shimmer" ${p.voice==='shimmer'?'selected':''}>
-                Narrator / Soft (Shimmer)
-              </option>
+<option value="shimmer" ${p.voice==='shimmer'?'selected':''}>
+  Narrator / Soft (Shimmer)
+</option>
 
-              <option value="onyx" ${p.voice==='onyx'?'selected':''}>
-                Narrator / Deep (Onyx)
-              </option>
-
-            </select>
+<option value="onyx" ${p.voice==='onyx'?'selected':''}>
+  Narrator / Deep (Onyx)
+</option>
           </div>
 
           <div class="speaker-control">
@@ -904,8 +902,30 @@ function getDetectedSpeakers(text){
 }
 
 function defaultVoiceForSpeaker(name,index){
-  if(name==='वाचक')return 'shimmer';
-  return index%2===0?'alloy':'nova';
+  if(name==='वाचक') return 'shimmer';
+
+  const femaleNames=[
+    'नेहा','पूजा','रीना','सीमा','कविता','सुनीता',
+    'अंजली','राधा','गीता','मीना','सोनिया','निशा',
+    'प्रिया','स्वाति','शालिनी','आशा','ममता','संगीता',
+    'रानी','लक्ष्मी','सरिता','वंदना','श्वेता','रिया',
+    'नैना','पायल','तनु','किरण'
+  ];
+
+  const maleNames=[
+    'रवि','राज','राहुल','अमित','अजय','विजय',
+    'सुरेश','महेश','दिनेश','रमेश','मोहन','सोहन',
+    'अरुण','वरुण','करण','रोहन','मनोज','संजय',
+    'अनिल','सुनील','दीपक','आकाश','विवेक','अभिषेक',
+    'आदित्य','विकास','प्रकाश','पंकज','निखिल'
+  ];
+
+  const n=String(name||'').trim();
+
+  if(femaleNames.includes(n)) return 'nova';
+  if(maleNames.includes(n)) return 'onyx';
+
+  return index%2===0 ? 'onyx' : 'nova';
 }
     async function generateVoice(){
   const text=$('voiceText')?.value.trim()||$('script')?.value.trim();
