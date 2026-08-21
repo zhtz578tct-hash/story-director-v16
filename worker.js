@@ -623,11 +623,12 @@ function getCharacterVoice(name, names, voices) {
   return voices[index % voices.length];
 }
 function getSpeakerVoice(speaker, fallbackVoice) {
-
   const name = normalizeSpeaker(speaker);
 
-  /* Narrator */
-
+  /*
+   * Narrator always uses the selected narrator voice.
+   * If no explicit voice is supplied, use Shimmer.
+   */
   const narratorNames = [
     "वाचक",
     "कथावाचक",
@@ -646,404 +647,43 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return "onyx";
+    return fallbackVoice === "shimmer"
+      ? "shimmer"
+      : "shimmer";
   }
 
+  /*
+   * IMPORTANT:
+   * If Voice Studio has explicitly selected a voice,
+   * NEVER override it based on the speaker's name.
+   */
+  const selected = String(
+    fallbackVoice || ""
+  ).trim().toLowerCase();
 
-  /* Female names */
-
-  const femaleNames = [
-
-    "नेहा",
-    "रीमा",
-    "सीमा",
-    "पूजा",
-    "राधा",
-    "रानी",
-    "सोनिया",
-    "सोनम",
-    "नेहा",
-    "निशा",
-    "आशा",
-    "कविता",
-    "सुनीता",
-    "गीता",
-    "सीमा",
-    "अनिता",
-    "अनीता",
-    "संगीता",
-    "प्रिया",
-    "रिया",
-    "दिया",
-    "मीरा",
-    "मीना",
-    "रेखा",
-    "मधु",
-    "रुनी",
-    "रूनी",
-    "शालिनी",
-    "किरण",
-    "अंजली",
-    "अंजलि",
-    "स्वाति",
-    "पायल",
-    "पूनम",
-    "लता",
-    "सरिता",
-    "वंदना",
-    "वन्दना",
-    "मोना",
-    "ज्योति",
-    "आरती",
-    "नंदिनी",
-    "नंदनी",
-    "काजल",
-    "तनु",
-    "तन्वी",
-    "साक्षी",
-    "श्रुति",
-    "रितु",
-    "ऋतु",
-    "निकिता",
-    "ममता",
-    "कमला",
-    "शकुंतला",
-    "गौरी",
-    "सीमा",
-    "मंजू",
-    "मंजु",
-    "रश्मि",
-    "रश्मी",
-    "सुमन",
-    "सुनीता",
-    "सरस्वती",
-    "लक्ष्मी",
-    "पार्वती",
-    "राधिका",
-    "सविता",
-    "कुसुम",
-    "चांदनी",
-    "चाँदनी",
-    "अमृता",
-    "दीपा",
-    "दीपिका",
-    "करिश्मा",
-    "श्रेया",
-    "स्वरा",
-    "कृति",
-    "कृतिका",
-    "आकांक्षा",
-    "आराध्या",
-    "सिमरन",
-    "मेघा",
-    "मेघना",
-    "भूमि",
-    "भावना",
-    "मुस्कान",
-    "खुशी",
-    "पिंकी",
-    "गुड़िया",
-    "गुड्डी",
-    "मधुमिता",
-    "वर्षा",
-    "वर्षा",
-    "रूपा",
-    "रूपाली",
-    "फरहा",
-    "नाज़िया",
-    "नाजिया",
-    "शबाना",
-    "फातिमा",
-    "आयशा",
-    "सना",
-    "ज़ोया",
-    "जोया",
-    "नूर",
-    "आलिया",
-    "रिया",
-    "रुचि",
-    "रुचिका",
-    "विनीता",
-    "अदिति",
-    "अदिती",
-    "इशिता",
-    "इरा",
-    "अनु",
-    "अनुष्का",
-    "काजरी",
-    "कंचन",
-    "चंचल",
-    "डॉली",
-    "बेबी"
+  const validVoices = [
+    "alloy",
+    "echo",
+    "fable",
+    "ash",
+    "sage",
+    "verse",
+    "nova",
+    "shimmer",
+    "coral",
+    "ballad",
+    "marin",
+    "cedar"
   ];
 
-  if (
-    femaleNames.some(
-      n => name === normalizeSpeaker(n)
-    )
-  ) {
-    return getCharacterVoice(
-  name,
-  femaleNames,
-  FEMALE_CHARACTER_VOICES
-);
+  if (validVoices.includes(selected)) {
+    return selected;
   }
-
 
   /*
-    Explicit female indicators
-  */
-
-  if (
-    name.includes("female") ||
-    name.includes("girl") ||
-    name.includes("woman") ||
-    name.includes("ladki") ||
-    name.includes("लड़की") ||
-    name.includes("महिला") ||
-    name.includes("औरत") ||
-    name.includes("स्त्री")
-  ) {
-    return "nova";
-  }
-
-
-  /*
-    Explicit male indicators
-  */
-
-  if (
-    name.includes("male") ||
-    name.includes("boy") ||
-    name.includes("man") ||
-    name.includes("ladka") ||
-    name.includes("लड़का") ||
-    name.includes("पुरुष") ||
-    name.includes("आदमी")
-  ) {
-    return "alloy";
-  }
-
-
-  /*
-    Known male names
-  */
-
-  const maleNames = [
-
-    "रवि",
-    "राहुल",
-    "अमित",
-    "रोहित",
-    "अजय",
-    "विजय",
-    "संजय",
-    "मनोज",
-    "राज",
-    "राजेश",
-    "राकेश",
-    "सुरेश",
-    "मुकेश",
-    "गृजेश",
-    "ग्रिजेश",
-    "आकाश",
-    "आदित्य",
-    "अंकित",
-    "अभिषेक",
-    "अभय",
-    "अरुण",
-    "वरुण",
-    "दीपक",
-    "पंकज",
-    "नितिन",
-    "विनय",
-    "विकास",
-    "विवेक",
-    "मोहन",
-    "सोहन",
-    "करण",
-    "अर्जुन",
-    "रोहन",
-    "अमन",
-    "सुमित",
-    "सुनील",
-    "अनिल",
-    "कमल",
-    "प्रदीप",
-    "प्रकाश",
-    "दिनेश",
-    "महेश",
-    "रमेश",
-    "राजीव",
-    "देव",
-    "देवेन्द्र",
-    "देवेंद्र",
-    "मनीष",
-    "मयंक",
-    "नवीन",
-    "सचिन",
-    "आनंद",
-    "आशीष",
-    "शिव",
-    "शिवम",
-    "कृष्ण",
-    "कृष्णा",
-    "गोपाल",
-    "रवि",
-    "राकेश",
-    "फैसल",
-    "फैज़",
-    "फैज",
-    "इमरान",
-    "सलमान",
-    "आरिफ",
-    "अली",
-    "समीर",
-    "दानिश",
-    "अमन"
-  ];
-
-  if (
-    maleNames.some(
-      n => name === normalizeSpeaker(n)
-    )
-  ) {
-    return getCharacterVoice(
-  name,
-  maleNames,
-  MALE_CHARACTER_VOICES
-);
-  }
-
-
-  /*
-    English common names
-  */
-
-  const femaleEnglish = [
-    "neha",
-    "reema",
-    "seema",
-    "pooja",
-    "radha",
-    "rani",
-    "sonia",
-    "sonam",
-    "nisha",
-    "asha",
-    "kavita",
-    "sunita",
-    "geeta",
-    "anita",
-    "sangeeta",
-    "priya",
-    "riya",
-    "diya",
-    "meera",
-    "meena",
-    "rekha",
-    "madhu",
-    "runi",
-    "shalini",
-    "anjali",
-    "swati",
-    "payal",
-    "poonam",
-    "lata",
-    "sarita",
-    "vandana",
-    "mona",
-    "jyoti",
-    "aarti",
-    "nisha"
-  ];
-
-  if (
-    femaleEnglish.some(
-      n => name === normalizeSpeaker(n)
-    )
-  ) {
-    return getCharacterVoice(
-  name,
-  femaleEnglish,
-  FEMALE_CHARACTER_VOICES
-);
-  }
-
-
-  const maleEnglish = [
-    "ravi",
-    "rahul",
-    "amit",
-    "rohit",
-    "ajay",
-    "vijay",
-    "sanjay",
-    "manoj",
-    "raj",
-    "rajesh",
-    "rakesh",
-    "suresh",
-    "mukesh",
-    "akash",
-    "aditya",
-    "ankit",
-    "abhishek",
-    "abhay",
-    "arun",
-    "varun",
-    "deepak",
-    "pankaj",
-    "nitin",
-    "vinay",
-    "vikas",
-    "vivek",
-    "mohan",
-    "sohan",
-    "karan",
-    "arjun",
-    "rohan",
-    "aman",
-    "sumit",
-    "sunil",
-    "anil",
-    "kamal",
-    "pradeep",
-    "prakash",
-    "dinesh",
-    "mahesh",
-    "ramesh",
-    "rajiv",
-    "manish",
-    "mayank",
-    "naveen",
-    "sachin",
-    "anand",
-    "ashish",
-    "shiv",
-    "shivam"
-  ];
-
-  if (
-    maleEnglish.some(
-      n => name === normalizeSpeaker(n)
-    )
-  ) {
-    return getCharacterVoice(
-  name,
-  maleEnglish,
-  MALE_CHARACTER_VOICES
-);
-  }
-
-
-  /*
-    Fallback:
-    If the UI manually selected a voice,
-    respect it.
-  */
-
-  return fallbackVoice || "alloy";
+   * Safe fallback only when no valid voice was supplied.
+   */
+  return "alloy";
 }
 
 
