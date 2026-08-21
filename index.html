@@ -871,6 +871,42 @@ function setVoiceProfile(name,data){
   };
   persistSession();
 }
+    /* ===== MULTI-SPEAKER VOICE PROFILES ===== */
+window.voiceProfiles=window.voiceProfiles||{};
+
+function escapeVoiceHTML(value){
+  return String(value??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[m]));
+}
+
+function getDetectedSpeakers(text){
+  const names=[];
+  const lines=String(text||'').split(/\r?\n/);
+
+  for(const line of lines){
+    const m=line.match(/^\s*([^:：]{1,40})\s*[:：]\s*(.+)$/);
+    if(!m)continue;
+
+    const name=m[1].trim();
+    if(!name)continue;
+
+    if(!names.includes(name))names.push(name);
+  }
+
+  if(!names.includes('वाचक'))names.unshift('वाचक');
+
+  return names;
+}
+
+function defaultVoiceForSpeaker(name,index){
+  if(name==='वाचक')return 'shimmer';
+  return index%2===0?'alloy':'nova';
+}
     async function generateVoice(){
   const text=$('voiceText')?.value.trim()||$('script')?.value.trim();
 
@@ -997,11 +1033,6 @@ function setVoiceProfile(name,data){
       '🎙️ Generate Multi-Speaker Voice'
     );
   }
-}
-    const finalBlob=new Blob(audioParts,{type:'audio/mpeg'});window.audioBlob=finalBlob;$('audio').src=URL.createObjectURL(finalBlob);$('audioBox').classList.remove('hidden');
-    setStatus('voiceStatus',`✅ Voice तैयार है। ${batches.length} safe part(s) joined.\nPlay या Download MP3 करें।`,'ok');sessionPhase='voice-ready';persistSession(sessionPhase);
-  }catch(e){setStatus('voiceStatus','❌ '+e.message,'err');}
-  finally{setBusy('voiceBtn',false,'🎙️ Generate Voice');}
 }
 function downloadAudio(){if(!window.audioBlob)return;const a=document.createElement('a');a.href=URL.createObjectURL(window.audioBlob);a.download='story-director-voice.mp3';a.click();}
 function getSavedProjects(){try{return JSON.parse(localStorage.getItem('sdv16')||'[]')}catch(e){return []}}
