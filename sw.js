@@ -1,5 +1,5 @@
-const CACHE="sdv16-v6";
-const ASSETS=["./","./index.html","./manifest.json","./voice-studio.js"];
+const CACHE="sdv16-v7";
+const ASSETS=["./","./index.html","./manifest.json"];
 
 self.addEventListener("install",e=>
   e.waitUntil(
@@ -20,20 +20,53 @@ self.addEventListener("activate",e=>
 );
 
 self.addEventListener("fetch",e=>{
-  if(e.request.method!=="GET" || new URL(e.request.url).origin!==location.origin)return;
+  if(e.request.method!=="GET" ||
+     new URL(e.request.url).origin!==location.origin)return;
+
   e.respondWith((async()=>{
     const url=new URL(e.request.url);
+
+    if(url.pathname.endsWith("/voice-studio.js")){
+      try{
+        const r=await fetch(e.request,{cache:"no-store"});
+        if(r.ok)return r;
+      }catch{}
+      return caches.match(e.request);
+    }
+
+    if(url.pathname==="/" || url.pathname.endsWith("/index.html")){
+      let response;
+
+      try{
+        response=await fetch(e.request,{cache:"no-store"});
+      }catch{
+        response=await caches.match(e.request);
+      }
+
+      if(!response)return fetch(e.request);
+
+      const html=await response.clone().text();
+
+      if(html.includes("voice-studio.js"))return response;
+
+      const injected=html.replace(
+        /<\/body>/i,
+        '<script src="./voice-studio.js?v=7"></script></body>'
+      );
+
+      const headers=new Headers(response.headers);
+      headers.set("Content-Type","text/html; charset=utf-8");
+
+      return new Response(injected,{
+        status:response.status,
+        statusText:response.statusText,
+        headers
+      });
+    }
+
     const cached=await caches.match(e.request);
-    const response=cached||await fetch(e.request);
-    const isHtml=url.pathname==="/" || url.pathname.endsWith("/index.html");
-    if(!isHtml)return response;
+    if(cached)return cached;
 
-    const html=await response.clone().text();
-    if(html.includes("voice-studio.js"))return response;
-
-    const injected=html.replace(/<\/body>/i,'<script src="./voice-studio.js"></script></body>');
-    const headers=new Headers(response.headers);
-    headers.set("Content-Type","text/html; charset=utf-8");
-    return new Response(injected,{status:response.status,statusText:response.statusText,headers});
+    return fetch(e.request);
   })());
 });
