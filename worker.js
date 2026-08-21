@@ -625,10 +625,9 @@ function getCharacterVoice(name, names, voices) {
 function getSpeakerVoice(speaker, fallbackVoice) {
   const name = normalizeSpeaker(speaker);
 
-  /*
-   * Narrator always uses the selected narrator voice.
-   * If no explicit voice is supplied, use Shimmer.
-   */
+  // ==============================
+  // NARRATOR = ALWAYS ONYX
+  // ==============================
   const narratorNames = [
     "वाचक",
     "कथावाचक",
@@ -647,42 +646,107 @@ function getSpeakerVoice(speaker, fallbackVoice) {
       n => name === normalizeSpeaker(n)
     )
   ) {
-    return fallbackVoice === "shimmer"
-      ? "shimmer"
-      : "shimmer";
+    return "onyx";
   }
 
-  /*
-   * IMPORTANT:
-   * If Voice Studio has explicitly selected a voice,
-   * NEVER override it based on the speaker's name.
-   */
-  const selected = String(
-    fallbackVoice || ""
-  ).trim().toLowerCase();
-
-  const validVoices = [
-    "alloy",
-    "echo",
-    "fable",
-    "ash",
-    "sage",
-    "verse",
+  // ==============================
+  // FEMALE = NOVA / SHIMMER ONLY
+  // ==============================
+  const femaleVoices = [
     "nova",
-    "shimmer",
-    "coral",
-    "ballad",
-    "marin",
-    "cedar"
+    "shimmer"
   ];
 
-  if (validVoices.includes(selected)) {
-    return selected;
+  const femaleNames = [
+    "नेहा",
+    "neha",
+    "पूजा",
+    "pooja",
+    "रीना",
+    "reena",
+    "सीमा",
+    "seema",
+    "सुनीता",
+    "sunita",
+    "कविता",
+    "kavita",
+    "राधा",
+    "radha",
+    "प्रिया",
+    "priya",
+    "सोनिया",
+    "sonia"
+  ];
+
+  if (
+    femaleNames.some(
+      n => name === normalizeSpeaker(n)
+    )
+  ) {
+    return getCharacterVoice(
+      name,
+      femaleVoices,
+      FEMALE_CHARACTER_VOICES
+    );
   }
 
-  /*
-   * Safe fallback only when no valid voice was supplied.
-   */
+  // ==============================
+  // MALE = ALLOY / ECHO / FABLE
+  // NEVER ONYX
+  // ==============================
+  const maleVoices = [
+    "alloy",
+    "echo",
+    "fable"
+  ];
+
+  const maleNames = [
+    "रवि",
+    "ravi",
+    "अमित",
+    "amit",
+    "रोहित",
+    "rohit",
+    "विकास",
+    "vikas",
+    "सुरेश",
+    "suresh",
+    "राज",
+    "raj",
+    "अजय",
+    "ajay",
+    "विजय",
+    "vijay",
+    "मोहन",
+    "mohan",
+    "राहुल",
+    "rahul"
+  ];
+
+  if (
+    maleNames.some(
+      n => name === normalizeSpeaker(n)
+    )
+  ) {
+    return getCharacterVoice(
+      name,
+      maleVoices,
+      MALE_CHARACTER_VOICES
+    );
+  }
+
+  // ==============================
+  // SAFE CHARACTER FALLBACK
+  // NEVER ONYX
+  // ==============================
+  if (
+    typeof fallbackVoice === "string" &&
+    ["alloy", "echo", "fable", "nova", "shimmer"]
+      .includes(fallbackVoice.toLowerCase())
+  ) {
+    return fallbackVoice.toLowerCase();
+  }
+
   return "alloy";
 }
 
