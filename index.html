@@ -545,7 +545,7 @@ function renderVoiceStudio(text){
   names.forEach((name,index)=>{
     const old=window.voiceProfiles[name]||{};
     active[name]={
-      voice:old.voice||defaultVoiceForSpeaker(name,index),
+  voice:defaultVoiceForSpeaker(name,index),
       emotion:old.emotion||'Natural',
       intensity:Number.isFinite(old.intensity)?old.intensity:
         (name==='वाचक'?60:(index%2===0?70:80))
@@ -940,7 +940,7 @@ function defaultVoiceForSpeaker(name,index){
 
     // Vachak / Narrator = ALWAYS Shimmer
     if(n === 'वाचक' || n === 'कथावाचक' || n === 'सूत्रधार'){
-        return 'shimmer';
+        return 'onyx';
     }
 
     const femaleNames = [
