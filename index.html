@@ -506,8 +506,33 @@ function getDetectedSpeakers(text){
 }
 
 function defaultVoiceForSpeaker(name,index){
-  if(name==='वाचक')return 'shimmer';
-  return index%2===0?'alloy':'nova';
+  const n = String(name || '').trim();
+
+  // Narrator = ALWAYS ONYX
+  if(n === 'वाचक' || n === 'कथावाचक' || n === 'सूत्रधार'){
+    return 'onyx';
+  }
+
+  // Female characters = NOVA
+  const femaleNames = [
+    'नेहा','neha',
+    'पूजा','pooja',
+    'रीना','reena',
+    'सीमा','seema',
+    'सुनीता','sunita',
+    'कविता','kavita',
+    'राधा','radha',
+    'प्रिया','priya',
+    'सोनिया','sonia'
+  ];
+
+  if(femaleNames.includes(n)){
+    return 'nova';
+  }
+
+  // Male characters = never ONYX
+  const maleVoices = ['alloy','echo','fable'];
+  return maleVoices[index % maleVoices.length];
 }
 
 function renderVoiceStudio(text){
@@ -567,12 +592,20 @@ function renderVoiceStudio(text){
   Male / Natural (Alloy)
 </option>
 
+<option value="echo" ${p.voice==='echo'?'selected':''}>
+  Male / Clear (Echo)
+</option>
+
+<option value="fable" ${p.voice==='fable'?'selected':''}>
+  Male / Warm (Fable)
+</option>
+
 <option value="nova" ${p.voice==='nova'?'selected':''}>
   Female / Natural (Nova)
 </option>
 
 <option value="shimmer" ${p.voice==='shimmer'?'selected':''}>
-  Narrator / Soft (Shimmer)
+  Female / Soft (Shimmer)
 </option>
 
 <option value="onyx" ${p.voice==='onyx'?'selected':''}>
