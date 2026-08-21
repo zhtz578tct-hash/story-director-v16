@@ -149,7 +149,142 @@
   .project-title{font-size:11px}
   .project-date{font-size:8px}
 }
-  </style>
+  /* ===== DYNAMIC VOICE STUDIO ===== */
+.voice-studio{
+  margin-top:10px;
+  padding:12px;
+  border:1px solid #292d3c;
+  border-radius:13px;
+  background:#0d0f16;
+}
+
+.voice-studio-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:9px;
+}
+
+.voice-studio-head h3{
+  margin:0;
+  font-size:13px;
+}
+
+.voice-studio-head p{
+  margin:3px 0 0;
+  color:#777c8e;
+  font-size:9px;
+}
+
+.speaker-list{
+  display:grid;
+  gap:7px;
+  max-height:360px;
+  overflow-y:auto;
+}
+
+.speaker-card{
+  border:1px solid #292d3c;
+  background:#10121a;
+  border-radius:11px;
+  padding:9px;
+}
+
+.speaker-top{
+  display:grid;
+  grid-template-columns:30px 1fr;
+  align-items:center;
+  gap:7px;
+}
+
+.speaker-avatar{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#1b1727;
+  border:1px solid #382e4c;
+  font-size:14px;
+}
+
+.speaker-name b{
+  display:block;
+  font-size:11px;
+}
+
+.speaker-name span{
+  display:block;
+  margin-top:2px;
+  color:#777c8e;
+  font-size:8px;
+}
+
+.speaker-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:8px;
+}
+
+.speaker-control{
+  border:1px solid #242834;
+  background:#0d0f16;
+  border-radius:9px;
+  padding:7px;
+}
+
+.speaker-control label{
+  display:flex;
+  justify-content:space-between;
+  color:#888d9e;
+  font-size:8px;
+  margin-bottom:4px;
+}
+
+.speaker-control select{
+  width:100%;
+  min-height:32px;
+  padding:6px 7px;
+  border-radius:8px;
+  font-size:9px;
+}
+
+.speaker-intensity{
+  width:100%;
+  height:18px;
+  margin:0;
+  accent-color:#7657d9;
+}
+
+.speaker-actions{
+  display:flex;
+  gap:6px;
+  margin-top:7px;
+}
+
+.speaker-actions button{
+  flex:1;
+  min-height:30px;
+  border-radius:8px;
+  border:1px solid #292d3c;
+  background:#151720;
+  color:#b7bbc8;
+  font-size:9px;
+}
+
+.speaker-actions .primary{
+  border-color:#5a458d;
+  background:#211a32;
+  color:#d8c9f3;
+}
+
+@media(max-width:560px){
+  .speaker-controls{
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -257,18 +392,47 @@
 <div id="directorStatus" class="status">Story तैयार है तो Analyze करें — या सीधे Voice पर जाएँ।</div><div id="analysis" class="status hidden"></div>
 </section>
 <section id="voice" class="section">
-<h2>🎙️ Voice</h2>
-<div class="grid">
-<div class="field"><label>Voice</label><select id="voiceSelect"><option value="alloy">Male / Natural — Alloy</option><option value="nova">Female / Natural — Nova</option><option value="shimmer">Narrator / Soft — Shimmer</option><option value="onyx">Narrator / Deep — Onyx</option></select></div>
-<div class="field"><label>Emotion</label><select id="emotion"><option>Natural</option><option>Emotional</option><option>Romantic</option><option>Suspenseful</option><option>Funny</option><option>Serious</option></select></div>
-</div>
-<div class="field"><label>Text to speak</label><textarea id="voiceText" placeholder="यहाँ story/script आएगा…"></textarea></div>
-<div class="voice-actions">
-  <button class="btn secondary" onclick="go('director')">‹ Back to Director</button>
-  <button id="voiceBtn" class="btn" onclick="generateVoice()">🎙️ Generate Voice</button>
-</div>
-<div id="voiceStatus" class="status">Ready. Voice will use the current text, selected voice and emotion.</div>
-<div id="audioBox" class="hidden" style="margin-top:10px"><audio id="audio" controls style="width:100%"></audio><button class="btn secondary" style="margin-top:9px" onclick="downloadAudio()">⬇️ Download MP3</button></div>
+
+  <div class="voice-studio">
+
+    <div class="voice-studio-head">
+      <div>
+        <h3>🎙️ VOICE STUDIO</h3>
+        <p>Review and customize voice &amp; emotion for each speaker.</p>
+      </div>
+      <button class="btn secondary" type="button" onclick="addSpeaker()">
+        ＋ Add Speaker
+      </button>
+    </div>
+
+    <div id="speakerList" class="speaker-list"></div>
+
+    <div id="voiceSummary" class="voice-summary">
+      <b>Tip:</b> Characters will be detected automatically from your story.
+    </div>
+
+    <div class="voice-generate">
+      <button id="voiceBtn" class="btn" onclick="generateVoice()">
+        🎙️ Generate Multi-Speaker Voice
+      </button>
+    </div>
+
+    <div id="voiceStatus" class="status">
+      Ready.
+    </div>
+
+    <div id="audioBox" class="hidden" style="margin-top:10px">
+      <audio id="audio" controls style="width:100%"></audio>
+      <button class="btn secondary" style="margin-top:9px"
+        onclick="downloadAudio()">⬇️ Download MP3</button>
+    </div>
+
+  </div>
+
+  <textarea id="voiceText"
+    style="display:none"
+    aria-hidden="true"></textarea>
+
 </section>
 <section id="projects" class="section projects-section">
   <div class="project-top">
@@ -310,6 +474,233 @@ let sessionPhase="idle";
 function setActive(id){document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id));}
 function setWorkflowStep(step){
   document.querySelectorAll('.flow-step').forEach(b=>b.classList.toggle('active',b.dataset.flow===step));
+  if(step==='voice'){
+    renderVoiceStudio(($('voiceText')?.value||$('script')?.value||'').trim());
+  }
+}
+
+window.voiceProfiles=window.voiceProfiles||{};
+
+function escapeVoiceHTML(value){
+  return String(value??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+
+function getDetectedSpeakers(text){
+  const lines=parseVoiceLines(text||'');
+  const names=[];
+  for(const item of lines){
+    const name=(item.speaker||'').trim();
+    if(!name)continue;
+    if(!names.includes(name))names.push(name);
+  }
+
+  if(!names.includes('वाचक')) names.unshift('वाचक');
+  else{
+    const i=names.indexOf('वाचक');
+    if(i>0)names.splice(i,1),names.unshift('वाचक');
+  }
+
+  return names;
+}
+
+function defaultVoiceForSpeaker(name,index){
+  if(name==='वाचक')return 'shimmer';
+  return index%2===0?'alloy':'nova';
+}
+
+function renderVoiceStudio(text){
+  const list=$('speakerList');
+  if(!list)return;
+
+  const names=getDetectedSpeakers(text);
+  const active={};
+
+  names.forEach((name,index)=>{
+    const old=window.voiceProfiles[name]||{};
+    active[name]={
+      voice:old.voice||defaultVoiceForSpeaker(name,index),
+      emotion:old.emotion||'Natural',
+      intensity:Number.isFinite(old.intensity)?old.intensity:
+        (name==='वाचक'?60:(index%2===0?70:80))
+    };
+  });
+
+  window.voiceProfiles=active;
+
+  list.innerHTML=names.map((name,index)=>{
+    const p=active[name];
+    const isNarrator=name==='वाचक';
+
+    return `
+      <div class="speaker-card" data-speaker="${escapeVoiceHTML(name)}">
+
+        <div class="speaker-top">
+
+          <div class="speaker-avatar">
+            ${isNarrator?'🎙️':(index%2===0?'👨':'👩')}
+          </div>
+
+          <div class="speaker-name">
+            <b>${escapeVoiceHTML(name)}</b>
+            <span>${isNarrator?'Narration':'Character'}</span>
+          </div>
+
+          <button class="project-delete" type="button"
+            onclick="removeSpeaker('${escapeVoiceHTML(name)}')"
+            title="Remove speaker">×</button>
+
+        </div>
+
+        <div class="speaker-controls">
+
+          <div class="speaker-control">
+            <label>
+              <span>VOICE</span>
+            </label>
+
+            <select class="voice-select"
+              onchange="updateVoiceProfile('${escapeVoiceHTML(name)}','voice',this.value)">
+
+              <option value="alloy" ${p.voice==='alloy'?'selected':''}>
+                Male / Natural (Alloy)
+              </option>
+
+              <option value="nova" ${p.voice==='nova'?'selected':''}>
+                Female / Natural (Nova)
+              </option>
+
+              <option value="shimmer" ${p.voice==='shimmer'?'selected':''}>
+                Narrator / Soft (Shimmer)
+              </option>
+
+              <option value="onyx" ${p.voice==='onyx'?'selected':''}>
+                Narrator / Deep (Onyx)
+              </option>
+
+            </select>
+          </div>
+
+          <div class="speaker-control">
+            <label>
+              <span>EMOTION</span>
+              <strong>${p.intensity}%</strong>
+            </label>
+
+            <select class="emotion-select"
+              onchange="updateVoiceProfile('${escapeVoiceHTML(name)}','emotion',this.value)">
+
+              <option ${p.emotion==='Natural'?'selected':''}>Natural</option>
+              <option ${p.emotion==='Emotional'?'selected':''}>Emotional</option>
+              <option ${p.emotion==='Romantic'?'selected':''}>Romantic</option>
+              <option ${p.emotion==='Suspenseful'?'selected':''}>Suspenseful</option>
+              <option ${p.emotion==='Funny'?'selected':''}>Funny</option>
+              <option ${p.emotion==='Serious'?'selected':''}>Serious</option>
+
+            </select>
+          </div>
+
+        </div>
+
+        <div class="speaker-control" style="margin-top:7px">
+          <label>
+            <span>EMOTION INTENSITY</span>
+            <strong id="intensity-${index}">${p.intensity}%</strong>
+          </label>
+
+          <input
+            class="emotion-range"
+            type="range"
+            min="0"
+            max="100"
+            value="${p.intensity}"
+            oninput="updateVoiceIntensity('${escapeVoiceHTML(name)}',this.value,this)"
+          >
+        </div>
+
+      </div>
+    `;
+  }).join('');
+
+  const duplicateVoices={};
+  names.forEach(name=>{
+    const voice=active[name].voice;
+    if(!duplicateVoices[voice])duplicateVoices[voice]=[];
+    duplicateVoices[voice].push(name);
+  });
+
+  const duplicates=Object.values(duplicateVoices)
+    .filter(group=>group.length>1);
+
+  const summary=$('voiceSummary');
+
+  if(summary){
+    if(duplicates.length){
+      summary.innerHTML=
+        '<b>Tip:</b> '+duplicates.map(g=>
+          escapeVoiceHTML(g.join(', '))+
+          ' — same voice. Change one voice selector if needed.'
+        ).join('<br>');
+    }else{
+      summary.innerHTML=
+        '<b>Tip:</b> '+names.length+
+        ' speaker profile(s) detected. Each speaker has an independent voice and emotion intensity.';
+    }
+  }
+}
+
+function updateVoiceProfile(name,key,value){
+  window.voiceProfiles[name]=window.voiceProfiles[name]||{
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  window.voiceProfiles[name][key]=value;
+
+  const text=$('voiceText')?.value||$('script')?.value||'';
+  renderVoiceStudio(text);
+}
+
+function updateVoiceIntensity(name,value,input){
+  window.voiceProfiles[name]=window.voiceProfiles[name]||{
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  window.voiceProfiles[name].intensity=Number(value);
+
+  const card=input?.closest('.speaker-card');
+  const label=card?.querySelector('label strong');
+  if(label)label.textContent=value+'%';
+}
+
+function addSpeaker(){
+  const name=prompt('Character / Speaker name:');
+  if(!name)return;
+
+  const clean=name.trim();
+  if(!clean)return;
+
+  window.voiceProfiles[clean]={
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
+}
+
+function removeSpeaker(name){
+  if(name==='वाचक'){
+    quickMsg('Narrator profile cannot be removed.');
+    return;
+  }
+
+  delete window.voiceProfiles[name];
+  renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
 }
 function go(id){
   setActive(id);
@@ -334,7 +725,7 @@ async function post(path,data){
 function snapshot(phase=sessionPhase){
   return {version:2,savedAt:new Date().toISOString(),phase,
     idea:$('idea').value,extra:$('extra').value,pasteText:$('pasteText')?.value||'',pasteDialogueLang:$('pasteDialogueLang')?.value||'Keep original',language:$('language').value,genre:$('genre').value,length:$('length').value,style:$('style').value,age:$('age').value,format:$('format').value,
-    dialogueLang:$('dialogueLang').value,directorMode:$('directorMode').value,script:$('script').value,analysis:$('analysis').textContent,analysisVisible:!$('analysis').classList.contains('hidden'),voiceText:$('voiceText').value,voice:$('voiceSelect').value,emotion:$('emotion').value};
+    dialogueLang:$('dialogueLang').value,directorMode:$('directorMode').value,script:$('script').value,analysis:$('analysis').textContent,analysisVisible:!$('analysis').classList.contains('hidden'),voiceText:$('voiceText').value,voice:$('voiceSelect').value,emotion:$('emotion').value,voiceProfiles:JSON.parse(JSON.stringify(window.voiceProfiles||{}))};
 }
 function persistSession(phase=sessionPhase){
   try{localStorage.setItem(SESSION_KEY,JSON.stringify(snapshot(phase)));}catch(e){console.warn("Session save failed",e)}
@@ -468,16 +859,132 @@ function autoBreak(){
 function quickMsg(message){setStatus('directorStatus',message,'ok');}
 
 async function generateVoice(){
-  const text=$('voiceText').value.trim()||$('script').value.trim();if(!text)return setStatus('voiceStatus','पहले text/story डालें।','err');
-  setBusy('voiceBtn',true,'⏳ Creating voice…');setStatus('voiceStatus','Voice तैयार हो रही है…');$('audioBox').classList.add('hidden');
+  const text=$('voiceText')?.value.trim()||$('script')?.value.trim();
+
+  if(!text){
+    setStatus('voiceStatus','पहले text/story डालें।','err');
+    return;
+  }
+
+  setBusy('voiceBtn',true,'⏳ Creating multi-speaker voice…');
+  setStatus('voiceStatus','Multi-Speaker Voice तैयार हो रही है…');
+  $('audioBox')?.classList.add('hidden');
+
   try{
-    const batches=buildVoiceBatches(text);if(!batches.length)throw new Error('Voice text empty.');const audioParts=[];
-    for(let i=0;i<batches.length;i++){
-      setStatus('voiceStatus',`🎙️ Voice तैयार हो रही है…\nPart ${i+1} / ${batches.length}`);
-      const r=await fetch(API_BASE+'/api/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:batches[i],voice:$('voiceSelect').value,emotion:$('emotion').value,language:$('language').value})});
-            if(!r.ok){let m='TTS request failed';try{m=(await r.json()).error||m}catch{}throw new Error(m);}
-      audioParts.push(await r.blob());
+    const lines=parseVoiceLines(text);
+
+    if(!lines.length){
+      throw new Error('Voice text empty.');
     }
+
+    const audioParts=[];
+    let totalParts=0;
+
+    for(const item of lines){
+      const profile=window.voiceProfiles?.[item.speaker]||{
+        voice:item.speaker==='वाचक'?'shimmer':'alloy',
+        emotion:'Natural',
+        intensity:70
+      };
+
+      const pieces=splitTTSClient(item.text);
+
+      for(const piece of pieces){
+        totalParts++;
+      }
+    }
+
+    let currentPart=0;
+
+    for(const item of lines){
+
+      const profile=window.voiceProfiles?.[item.speaker]||{
+        voice:item.speaker==='वाचक'?'shimmer':'alloy',
+        emotion:'Natural',
+        intensity:70
+      };
+
+      const pieces=splitTTSClient(item.text);
+
+      for(const piece of pieces){
+
+        currentPart++;
+
+        setStatus(
+          'voiceStatus',
+          `🎙️ ${item.speaker} की voice तैयार हो रही है…\nPart ${currentPart} / ${totalParts}`
+        );
+
+        const r=await fetch(
+          API_BASE+'/api/tts',
+          {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+              text:piece,
+              voice:profile.voice,
+              emotion:profile.emotion,
+              intensity:Number(profile.intensity||70),
+              language:$('language').value
+            })
+          }
+        );
+
+        if(!r.ok){
+          let m='TTS request failed';
+
+          try{
+            m=(await r.json()).error||m;
+          }catch{}
+
+          throw new Error(`${item.speaker}: ${m}`);
+        }
+
+        audioParts.push(await r.blob());
+      }
+    }
+
+    const finalBlob=new Blob(
+      audioParts,
+      {type:'audio/mpeg'}
+    );
+
+    window.audioBlob=finalBlob;
+
+    if($('audio')){
+      $('audio').src=URL.createObjectURL(finalBlob);
+    }
+
+    $('audioBox')?.classList.remove('hidden');
+
+    setStatus(
+      'voiceStatus',
+      `✅ Multi-Speaker Voice तैयार है।\n${lines.length} speaker line(s), ${totalParts} safe part(s) joined.\nPlay या Download MP3 करें।`,
+      'ok'
+    );
+
+    sessionPhase='voice-ready';
+    persistSession(sessionPhase);
+
+  }catch(e){
+
+    setStatus(
+      'voiceStatus',
+      '❌ '+e.message,
+      'err'
+    );
+
+  }finally{
+
+    setBusy(
+      'voiceBtn',
+      false,
+      '🎙️ Generate Multi-Speaker Voice'
+    );
+  }
+}
     const finalBlob=new Blob(audioParts,{type:'audio/mpeg'});window.audioBlob=finalBlob;$('audio').src=URL.createObjectURL(finalBlob);$('audioBox').classList.remove('hidden');
     setStatus('voiceStatus',`✅ Voice तैयार है। ${batches.length} safe part(s) joined.\nPlay या Download MP3 करें।`,'ok');sessionPhase='voice-ready';persistSession(sessionPhase);
   }catch(e){setStatus('voiceStatus','❌ '+e.message,'err');}
@@ -524,7 +1031,13 @@ function openProject(i){
   $('language').value=p.language||'Hindi';$('genre').value=p.genre||'Drama';$('length').value=p.length||'medium';$('style').value=p.style||'Cinematic';$('age').value=p.age||'General';$('format').value=p.format||'Dialogue Dominant — 80–90% Dialogue';
   if($('pasteText'))$('pasteText').value=p.pasteText||'';if($('pasteDialogueLang'))$('pasteDialogueLang').value=p.pasteDialogueLang||'Keep original';if($('pasteMode'))$('pasteMode').value=p.pasteMode||'Convert Dialogues Only';
   $('dialogueLang').value=p.dialogueLang||'Keep original';$('directorMode').value=p.directorMode||'Full Director Mode';$('directorMood').value=p.directorMood||'Natural';$('emotion').value=p.emotion||'Natural';
-  sessionPhase='restored-project';persistSession(sessionPhase);go('story');
+  if(p.voiceProfiles){
+  window.voiceProfiles=JSON.parse(JSON.stringify(p.voiceProfiles));
+}else{
+  window.voiceProfiles={};
+}
+renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
+    sessionPhase='restored-project';persistSession(sessionPhase);go('story');
 }
 function deleteProject(i){
   const a=getSavedProjects();const p=a[i];if(!p)return;
