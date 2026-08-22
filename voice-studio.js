@@ -218,6 +218,9 @@
       font-size:15px;
       padding:1px 3px;
     }
+    #voice .msv-row:first-child .msv-remove{
+  display:none !important;
+}
 
     #voice .msv-duplicate{
       margin-top:5px;
