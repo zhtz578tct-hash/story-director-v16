@@ -129,7 +129,7 @@
       grid-template-columns:86px 1fr 112px;
       gap:5px;
       align-items:center;
-      padding:5px;
+      padding:2px;
       border:1px solid #272c3f;
       border-radius:9px;
       background:#0b0d15;
