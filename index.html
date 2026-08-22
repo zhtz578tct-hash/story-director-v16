@@ -5,275 +5,1823 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090b1c">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Story Director V16">
+<meta name="apple-mobile-web-app-title" content="Story Director V16.5">
 <link rel="manifest" href="manifest.json">
-<title>Story Director V16</title>
+<title>Story Director V16.5 — Violet Studio</title>
 <style>
 :root{--bg:#080a18;--p:#12152b;--p2:#191c37;--line:#34385e;--txt:#f7f7fb;--muted:#aeb0c4;--a:#6941ff;--b:#c94fd1}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}body{margin:0;background:radial-gradient(circle at 20% 0,#281653,#080a18 45%);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Noto Sans Devanagari",sans-serif;padding-bottom:102px}
-.top{position:sticky;top:0;z-index:20;padding:14px 18px 12px;background:#090b18ee;backdrop-filter:blur(18px);border-bottom:1px solid #242844}.brand{font-weight:800;font-size:22px;letter-spacing:-.2px}.sub{color:var(--muted);font-size:13px;margin-top:3px}
-.hero{padding:22px 20px 18px;background:linear-gradient(135deg,#281452,#17102f,#32143b)}.wrap{max-width:900px;margin:auto;padding:0 18px}.hero h1{font-size:34px;line-height:1.1;margin:0 0 7px}.hero p{margin:0;color:#c8cad8;font-size:15px;line-height:1.45}
-.cards{display:grid;gap:10px;margin:14px 0}.quick,.section{background:linear-gradient(145deg,#161a33,#101328);border:1px solid #363a64;border-radius:22px}.quick{width:100%;text-align:left;color:var(--txt);padding:16px}.quick b{font-size:18px}.quick span{display:block;color:var(--muted);margin-top:4px;font-size:13px}.section{padding:16px;margin:14px 0}.section h2{margin:0 0 14px;font-size:23px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:10px}.field label{display:block;font-weight:700;color:#c6c7d7;margin-bottom:6px;font-size:14px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:15px;background:#0d1024;color:var(--txt);padding:12px 13px;font-size:16px;outline:none}select{min-height:48px}textarea{min-height:145px;resize:vertical;line-height:1.5}input{min-height:48px}input:focus,textarea:focus,select:focus{border-color:#8b6cff;box-shadow:0 0 0 3px #6941ff22}.full{grid-column:1/-1}
-.btn{width:100%;padding:14px;border-radius:16px;border:0;color:white;font-weight:800;font-size:17px;background:linear-gradient(100deg,var(--a),var(--b));box-shadow:0 9px 24px #6941ff33}.btn:disabled{opacity:.5}.secondary{background:#1a1e3a;box-shadow:none;border:1px solid #3b3f68}.danger{background:#321923;border:1px solid #6c3445;box-shadow:none;margin:12px 0}.status{margin-top:9px;padding:11px 13px;border-radius:13px;background:#0d1023;color:var(--muted);white-space:pre-wrap;font-size:13px}.ok{color:#b9ffd0}.err{color:#ffc1ca}.hidden{display:none}.pill{display:inline-block;border:1px solid #3c4070;color:#bfc2ff;border-radius:999px;padding:4px 8px;font-size:10px;vertical-align:middle}
-.bottom{position:fixed;left:10px;right:10px;bottom:10px;z-index:50;display:grid;grid-template-columns:repeat(5,1fr);padding:6px;background:#12152bee;border:1px solid #35395f;border-radius:21px;backdrop-filter:blur(18px);box-shadow:0 10px 35px #0008}.nav{background:transparent;color:#9b9eb6;border:0;border-radius:16px;padding:7px 2px;font-size:12px;transition:.18s}.nav strong{display:block;font-size:20px;line-height:22px}.nav.active{background:linear-gradient(145deg,#6941ff,#a64de5);color:white;box-shadow:0 5px 16px #6941ff44}.nav:not(.active):active{background:#1d2140}
-@media(max-width:680px){.wrap{padding:0 12px}.grid{grid-template-columns:1fr 1fr;gap:9px}.full{grid-column:1/-1}.hero h1{font-size:30px}.section{padding:14px;border-radius:20px}.section h2{font-size:21px;margin-bottom:12px}.field label{font-size:13px}input,textarea,select{font-size:15px;padding:11px 12px}.btn{padding:13px;font-size:16px}textarea{min-height:135px}}
-@media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.brand{font-size:21px}.hero{padding:19px 18px 16px}.hero p{font-size:14px}.bottom{left:8px;right:8px;bottom:8px}.nav{font-size:11px}}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 20% 0, #281653, #080a18 45%);
+  color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Noto Sans Devanagari", sans-serif;
+  padding-bottom: 102px;
+}
+
+/* Top Header — normal scrolling */
+.top {
+  position: static;
+  top: auto;
+  z-index: 20;
+  padding: 14px 18px 12px;
+  background: #090b18ee;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #242844;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.2px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+/* Hero */
+.hero {
+  padding: 22px 20px 18px;
+  background: linear-gradient(135deg, #281452, #17102f, #32143b);
+}
+
+.wrap {
+  max-width: 900px;
+  margin: auto;
+  padding: 0 18px;
+}
+
+.hero h1 {
+  font-size: 34px;
+  line-height: 1.1;
+  margin: 0 0 7px;
+}
+
+.hero p {
+  margin: 0;
+  color: #c8cad8;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Cards / Sections */
+/* Top 5 Quick Navigation */
+
+.cards.quick-nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+.cards.quick-nav .quick {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 3px;
+    text-align: center;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.cards.quick-nav .quick .icon {
+  display: block;
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 3px;
+}
+
+.cards.quick-nav .quick b {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  font-size: 10px;
+  line-height: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cards.quick-nav .quick span {
+  display: none;
+}
+
+/* iPhone */
+@media (max-width: 430px) {
+
+  .cards.quick-nav {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    /* Quick navigation — transparent buttons */
+
+.cards.quick-nav .quick {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+  .cards.quick-nav .quick {
+    min-width: 0;
+    padding: 8px 1px;
+    border-radius: 15px;
+  }
+
+  .cards.quick-nav .quick .icon {
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 2px;
+  }
+
+  .cards.quick-nav .quick b {
+    font-size: 9px;
+    line-height: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+  .cards.quick-nav .quick b {
+    font-size: 11px;
+    line-height: 14px;
+  }
+}
+
+.quick {
+  width: 100%;
+  text-align: left;
+  color: var(--txt);
+  padding: 16px;
+}
+
+.quick b {
+  font-size: 18px;
+}
+
+.quick span {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+.section {
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.section h2 {
+  margin: 0 0 14px;
+  font-size: 23px;
+}
+
+/* Two-column Story controls */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  color: #c6c7d7;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* Form controls */
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: #0d1024;
+  color: var(--txt);
+  padding: 12px 13px;
+  font-size: 16px;
+  outline: none;
+}
+
+select {
+  min-height: 48px;
+}
+
+textarea {
+  min-height: 145px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input {
+  min-height: 48px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #8b6cff;
+  box-shadow: 0 0 0 3px #6941ff22;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: 0;
+  color: white;
+  font-weight: 800;
+  font-size: 17px;
+  background: linear-gradient(100deg, var(--a), var(--b));
+  box-shadow: 0 9px 24px #6941ff33;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+}
+
+.secondary {
+  background: #1a1e3a;
+  box-shadow: none;
+  border: 1px solid #3b3f68;
+}
+
+.danger {
+  background: #321923;
+  border: 1px solid #6c3445;
+  box-shadow: none;
+  margin: 12px 0;
+}
+
+/* Status */
+.status {
+  margin-top: 9px;
+  padding: 11px 13px;
+  border-radius: 13px;
+  background: #0d1023;
+  color: var(--muted);
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+
+.ok {
+  color: #b9ffd0;
+}
+
+.err {
+  color: #ffc1ca;
+}
+
+.warn {
+  color: #ffe1a8;
+}
+
+.hidden {
+  display: none;
+}
+
+.pill {
+  display: inline-block;
+  border: 1px solid #3c4070;
+  color: #bfc2ff;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 10px;
+  vertical-align: middle;
+}
+
+/* Previous work restored — hidden */
+.recovery {
+  display: none !important;
+  margin: 12px 0;
+  padding: 13px 14px;
+  border: 1px solid #5b4b8d;
+  background: linear-gradient(145deg, #17142f, #101328);
+  border-radius: 16px;
+  color: #ddd8ff;
+}
+
+.recovery b {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.recovery span {
+  font-size: 13px;
+  color: #b9b5d0;
+}
+
+/* Bottom navigation */
+.bottom {
+  position: fixed;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 6px;
+  background: #12152bee;
+  border: 1px solid #35395f;
+  border-radius: 21px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 35px #0008;
+}
+
+.nav {
+  background: transparent;
+  color: #9b9eb6;
+  border: 0;
+  border-radius: 16px;
+  padding: 7px 2px;
+  font-size: 12px;
+  transition: 0.18s;
+}
+
+.nav strong {
+  display: block;
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.nav.active {
+  background: linear-gradient(145deg, #6941ff, #a64de5);
+  color: white;
+  box-shadow: 0 5px 16px #6941ff44;
+}
+
+.nav:not(.active):active {
+  background: #1d2140;
+}
+
+/* Mobile */
+@media (max-width: 680px) {
+  .wrap {
+    padding: 0 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .full {
+    grid-column: 1 / -1;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .section {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .section h2 {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+
+  .field label {
+    font-size: 13px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 15px;
+    padding: 11px 12px;
+  }
+
+  .btn {
+    padding: 13px;
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 135px;
+  }
+}
+
+/* Small iPhone screens */
+@media (max-width: 430px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brand {
+    font-size: 21px;
+  }
+
+  .hero {
+    padding: 19px 18px 16px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .bottom {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .nav {
+    font-size: 11px;
+  }
+}
+    gap:5px;
+}
+.field label{
+  letter-spacing:.03em;
+  font-weight:650;
+}
+.btn{
+  min-height:40px;
+  border:1px solid #7055b8;
+  font-weight:650;
+  letter-spacing:.01em;
+}
+.btn.secondary{
+  border-color:#303443;
+}
+.status{
+  line-height:1.45;
+}
+.bottom{
+  max-width:680px;
+  margin:auto;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.nav{
+  min-height:46px;
+}
+.nav strong{
+  opacity:.92;
+}
+.pill{
+  vertical-align:middle;
+  margin-left:3px;
+}
+.quick-grid .quick{
+  min-height:58px;
+}
+.project{
+  transition:transform .15s ease,border-color .15s ease;
+}
+.project:active{
+  transform:scale(.99);
+}
+.preview{
+  line-height:1.45;
+}
+@media(max-width:560px){
+  .top{padding:9px 11px}
+  .logo{width:35px;height:35px;border-radius:10px}
+  .brand{font-size:15px}
+  .sub{font-size:8px}
+  .hero h1{font-size:23px;line-height:1.07}
+  .hero p{font-size:10.5px;line-height:1.48}
+  .cards .quick{min-height:108px}
+  .cards .quick b{font-size:10px}
+  .cards .quick span{font-size:8px;line-height:1.35}
+  .section{margin:8px 0}
+  .hero-actions{gap:6px}
+  .bottom{
+    left:5px;right:5px;bottom:5px;
+    border-radius:15px;
+  }
+  .nav{font-size:7.5px}
+  .nav strong{font-size:15px}
+}
+  /* ===== V16.5 WORKFLOW LAYER ===== */
+.workflow{display:flex;align-items:center;gap:6px;margin-top:12px;padding:7px;border:1px solid #2b2e3c;border-radius:13px;background:#0d0f16}
+.workflow>i{font-style:normal;color:#64697a;font-size:15px}
+.flow-step{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;background:transparent;color:#7f8495;border-radius:9px;padding:7px 5px;font-size:9px}
+.flow-step span{width:19px;height:19px;display:grid;place-items:center;border-radius:50%;border:1px solid #353949;font-size:9px}
+.flow-step.active{background:#191526;color:#e8e2f5;border-color:#40365b}
+.flow-step.active span{background:#6549bd;border-color:#7657d9;color:#fff}
+.action-row,.voice-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+align-items:stretch;
+}
+.action-row .btn,.voice-actions .btn{
+width:100%;
+min-width:0;
+min-height:56px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+@media(max-width:560px){
+  .workflow{gap:3px;padding:5px}
+  .workflow>i{font-size:13px}
+  .flow-step{font-size:8px;padding:6px 3px}
+  .flow-step span{width:17px;height:17px;font-size:8px}
+  .action-row,.voice-actions{gap:10px}
+.action-row{
+  margin-top:8px;
+}
+  .action-row .btn,
+.voice-actions .btn{
+  min-height:56px;
+  height:56px;
+  padding:6px 10px;
+  font-size:14px;
+  line-height:1.1;
+}
+
+/* ===== LOCKED UI PARTS 1–5 ===== */
+.quick-nav{order:-1;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:10px 0 8px}
+.quick-nav .quick{min-width:0;min-height:64px;padding:8px 3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
+.quick-nav .quick .ico{margin:0;font-size:20px;line-height:22px}
+.quick-nav .quick:nth-child(1) .ico{color:#9b8cff}.quick-nav .quick:nth-child(2) .ico{color:#6fc9ff}.quick-nav .quick:nth-child(3) .ico{color:#d39cff}.quick-nav .quick:nth-child(4) .ico{color:#79d8c4}.quick-nav .quick:nth-child(5) .ico{color:#f0b57a}
+.quick-nav .quick b{font-size:10px;line-height:1;white-space:nowrap;font-weight:700}
+.quick-nav .quick span{display:none}
+.hero{margin-top:8px}
+.director-text-stack{display:flex;flex-direction:column;gap:7px}
+.director-text-stack .field{margin-bottom:0}
+.preview{height:150px;min-height:150px;max-height:150px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.preview p{margin:8px 0}
+.director-text-stack textarea#script{height:220px;min-height:220px;max-height:220px;overflow:auto;resize:none;scrollbar-width:thin}
+.projects-section{padding:0;background:transparent;border:0;box-shadow:none}
+.project-top,.saved-projects-panel{background:linear-gradient(145deg,#161a33,#101328);border:1px solid #363a64;border-radius:20px}
+.project-top{padding:14px;margin-bottom:9px}
+.project-heading h2{margin:0 0 3px;font-size:20px}
+.project-heading p{margin:0;color:#aeb0c4;font-size:12px}
+.project-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:11px}
+.project-actions .btn{margin:0;width:100%}
+.project-clear{background:#321923!important;border-color:#6c3445!important;box-shadow:none!important}
+.project-device-note{margin-top:9px;color:#8f93a8;font-size:10px}
+.saved-projects-panel{padding:13px;min-height:430px}
+.saved-projects-head{display:flex;align-items:center;justify-content:space-between}
+.saved-projects-head h3{margin:0;color:#b99aee;font-size:15px;letter-spacing:.02em}
+.saved-projects-head h3 span{float:right;color:#b99aee;font-weight:600;margin-left:8px}
+.project-tools{display:grid;grid-template-columns:1fr 135px;gap:7px;margin:10px 0}
+.project-tools input,.project-tools select{min-height:40px;margin:0}
+.projects-list{display:grid;gap:6px;max-height:520px;overflow:auto;padding-right:2px;scrollbar-width:thin}
+.project-row{display:grid;grid-template-columns:30px 1fr 28px 30px;align-items:center;gap:6px;width:100%;padding:9px;border:1px solid #292d3c;border-radius:11px;background:#0b0d13;color:#eeeef5;text-align:left}
+.project-row:active{transform:scale(.99)}
+.project-icon{font-size:19px;color:#b694ee;text-align:center}
+.project-info{min-width:0}
+.project-title{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:700}
+.project-date{display:block;color:#8f93a8;font-size:9px;margin-top:3px}
+.project-open{font-size:22px;color:#f4f4f8;text-align:center}
+.project-delete{width:28px;height:28px;border-radius:8px;border:1px solid #6c3445;background:#321923;color:#ff7f8d;font-size:15px;line-height:1}
+.project-empty{padding:28px 10px;text-align:center;color:#8f93a8;font-size:11px}
+.project-hint{text-align:center;color:#777d91;font-size:9px;margin-top:9px}
+@media(max-width:560px){
+  .quick-nav{gap:3px;margin:7px 0 6px}
+  .quick-nav .quick{min-height:60px;padding:7px 1px}
+  .quick-nav .quick .ico{font-size:18px;line-height:20px}
+  .quick-nav .quick b{font-size:9px}
+  .preview{height:145px;min-height:145px;max-height:145px}
+  .director-text-stack textarea#script{height:210px;min-height:210px;max-height:210px}
+  .project-top{padding:12px}
+  .project-heading h2{font-size:18px}
+  .project-actions{gap:6px}
+  .saved-projects-panel{padding:11px;min-height:390px}
+  .project-tools{grid-template-columns:1fr 118px;gap:5px}
+  .project-row{grid-template-columns:25px 1fr 24px 28px;padding:8px}
+  .project-icon{font-size:17px}
+  .project-title{font-size:11px}
+  .project-date{font-size:8px}
+}
+  /* ===== DYNAMIC VOICE STUDIO ===== */
+.voice-studio{
+  margin-top:10px;
+  padding:12px;
+  border:1px solid #292d3c;
+  border-radius:13px;
+  background:#0d0f16;
+}
+
+.voice-studio-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:9px;
+}
+
+.voice-studio-head h3{
+  margin:0;
+  font-size:13px;
+}
+
+.voice-studio-head p{
+  /* ===== SLEEK ADD SPEAKER BUTTON ===== */
+.voice-studio-head .btn.secondary{
+  width:auto;
+  min-width:0;
+  height:40px;
+  padding:8px 16px;
+  font-size:13px;
+  line-height:1;
+  border-radius:12px;
+  white-space:nowrap;
+  flex:0 0 auto;
+  box-shadow:none;
+}
+
+.voice-studio-head{
+  gap:12px;
+}
+
+@media(max-width:560px){
+  .voice-studio-head{
+    gap:8px;
+  }
+
+  .voice-studio-head .btn.secondary{
+    height:36px;
+    padding:7px 11px;
+    font-size:12px;
+    border-radius:10px;
+  }
+}
+  margin:3px 0 0;
+  color:#777c8e;
+  font-size:9px;
+}
+
+.speaker-list{
+  display:grid;
+  gap:7px;
+  max-height:360px;
+  overflow-y:auto;
+}
+
+.speaker-card{
+  border:1px solid #292d3c;
+  background:#10121a;
+  border-radius:11px;
+  padding:9px;
+}
+
+.speaker-top{
+  display:grid;
+  grid-template-columns:30px 1fr;
+  align-items:center;
+  gap:7px;
+}
+
+.speaker-avatar{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#1b1727;
+  border:1px solid #382e4c;
+  font-size:14px;
+}
+
+.speaker-name b{
+  display:block;
+  font-size:11px;
+}
+
+.speaker-name span{
+  display:block;
+  margin-top:2px;
+  color:#777c8e;
+  font-size:8px;
+}
+
+.speaker-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:8px;
+}
+
+.speaker-control{
+  border:1px solid #242834;
+  background:#0d0f16;
+  border-radius:9px;
+  padding:7px;
+}
+
+.speaker-control label{
+  display:flex;
+  justify-content:space-between;
+  color:#888d9e;
+  font-size:8px;
+  margin-bottom:4px;
+}
+
+.speaker-control select{
+  width:100%;
+  min-height:32px;
+  padding:6px 7px;
+  border-radius:8px;
+  font-size:9px;
+}
+
+.speaker-intensity{
+  width:100%;
+  height:18px;
+  margin:0;
+  accent-color:#7657d9;
+}
+
+.speaker-actions{
+  display:flex;
+  gap:6px;
+  margin-top:7px;
+}
+
+.speaker-actions button{
+  flex:1;
+  min-height:30px;
+  border-radius:8px;
+  border:1px solid #292d3c;
+  background:#151720;
+  color:#b7bbc8;
+  font-size:9px;
+}
+
+.speaker-actions .primary{
+  border-color:#5a458d;
+  background:#211a32;
+  color:#d8c9f3;
+}
+
+@media(max-width:560px){
+  .speaker-controls{
+    grid-template-columns:1fr 1fr;
+  }
+}
+/* Smart Director — two controls in one row */
+.director-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.director-grid .field {
+  min-width: 0;
+}
+  #storyStatus{
+  margin-bottom:0px !important;
+}
+  #paste{
+  margin-top:12px !important;
+}
+  #generateBtn{
+  margin-top:16px !important;
+}
+/* ===== VOICE STUDIO — COMPACT UI ONLY ===== */
+
+.voice-studio .speaker-list{
+  gap:4px;
+}
+
+.voice-studio .speaker-card{
+  padding:7px;
+  border-radius:10px;
+}
+
+.voice-studio .speaker-top{
+  gap:6px;
+}
+
+.voice-studio .speaker-avatar{
+  width:27px;
+  height:27px;
+  font-size:13px;
+}
+
+.voice-studio .speaker-name b{
+  font-size:10px;
+}
+
+.voice-studio .speaker-name span{
+  font-size:7px;
+  margin-top:1px;
+}
+
+.voice-studio .speaker-controls{
+  gap:5px;
+  margin-top:5px;
+}
+
+.voice-studio .speaker-control{
+  padding:5px;
+  border-radius:8px;
+}
+
+.voice-studio .speaker-control label{
+  font-size:7px;
+  margin-bottom:3px;
+}
+
+.voice-studio .speaker-control select{
+  min-height:28px;
+  height:28px;
+  padding:4px 6px;
+  border-radius:7px;
+  font-size:8px;
+}
+
+.voice-studio .speaker-intensity{
+  height:14px;
+}
+
+.voice-studio .speaker-actions{
+  gap:4px;
+  margin-top:5px;
+}
+
+.voice-studio .speaker-actions button{
+  min-height:27px;
+  height:27px;
+  font-size:8px;
+}
+
+@media(max-width:560px){
+
+  .voice-studio .speaker-list{
+    gap:3px;
+  }
+
+  .voice-studio .speaker-card{
+    padding:6px;
+  }
+
+  .voice-studio .speaker-controls{
+    gap:4px;
+    margin-top:4px;
+  }
+
+  .voice-studio .speaker-control{
+    padding:4px;
+  }
+
+  .voice-studio .speaker-control select{
+    min-height:27px;
+    height:27px;
+    font-size:8px;
+  }
+
+  .voice-studio .speaker-intensity{
+    height:13px;
+  }
+
+  .voice-studio .speaker-actions{
+    margin-top:4px;
+  }
+
+  .voice-studio .speaker-actions button{
+    min-height:25px;
+    height:25px;
+    font-size:8px;
+  }
+
+  /* Generate button stays full-width and in its existing position */
+  .voice-studio .voice-generate{
+    margin-top:7px;
+  }
+
+  .voice-studio .voice-generate .btn{
+    width:100%;
+  }
+}
 </style>
 </head>
 <body>
-<header class="top"><div class="brand">&#x1F3AC; Story Director V16</div><div class="sub">Script &#x2192; Director &#x2192; Voice</div></header>
-<section class="hero"><div class="wrap"><h1>&#x915;&#x939;&#x93E;&#x928;&#x940; &#x915;&#x94B; &#x906;&#x935;&#x93E;&#x91C;&#x93C; &#x926;&#x947;&#x902;&#x964;</h1><p>Hindi &#xB7; Bhojpuri &#xB7; Purvanchali/Banarasi &#x2014; Story, Direction &#x914;&#x930; Multi&#x2011;Speaker Voice &#x90F;&#x915; &#x939;&#x940; &#x91C;&#x917;&#x939;&#x964;</p></div></section>
-<main class="wrap">
-<div class="cards">
-<button class="quick" onclick="go('story')"><b>&#x2728; &#x928;&#x908; &#x915;&#x939;&#x93E;&#x928;&#x940; &#x92C;&#x928;&#x93E;&#x90F;&#x902;</b><span>AI &#x938;&#x947; story / screenplay &#x924;&#x948;&#x92F;&#x93E;&#x930; &#x915;&#x930;&#x947;&#x902;&#x964;</span></button>
-<button class="quick" onclick="go('director')"><b>&#x1F4CB; &#x905;&#x92A;&#x928;&#x940; &#x915;&#x939;&#x93E;&#x928;&#x940; &#x921;&#x93E;&#x932;&#x947;&#x902;</b><span>Existing story &#x915;&#x94B; &#x938;&#x940;&#x927;&#x947; Director &#x92E;&#x947;&#x902; &#x92D;&#x947;&#x91C;&#x947;&#x902;&#x964;</span></button>
-<button class="quick" onclick="go('projects')"><b>&#x1F4C1; My Projects</b><span>&#x92A;&#x939;&#x932;&#x947; &#x938;&#x947; saved projects &#x916;&#x94B;&#x932;&#x947;&#x902;&#x964;</span></button>
+<header class="top">
+  <div class="topbar">
+    <div class="logo">🎬</div>
+    <div>
+      <div class="brand">Story Director <span>V16.5</span></div>
+      <div class="sub">AI Story • Smart Director • Voice Studio</div>
+    </div>
+    <div class="top-actions">
+      <div class="ready"><i class="dot"></i>READY</div>
+    </div>
+  </div>
+</header>
+<main class="wrap"><div id="home"></div>
+<div class="cards quick-nav" aria-label="Quick navigation">
+  <button class="quick" onclick="go('story')"><div class="ico">✦</div><b>AI Story</b></button>
+  <button class="quick" onclick="go('paste')"><div class="ico">▤</div><b>Paste Story</b></button>
+  <button class="quick" onclick="go('director')"><div class="ico">🎭</div><b>Director</b></button>
+  <button class="quick" onclick="go('voice')"><div class="ico">🎙</div><b>Voice</b></button>
+  <button class="quick" onclick="go('projects')"><div class="ico">▱</div><b>Projects</b></button>
 </div>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">✦ CREATIVE STUDIO</div>
+    <h1>Your story.<br>Your voice.</h1>
+    <p>Write, direct, and transform your stories into multi-speaker voice — all in one place.</p>
+  </div>
+</section>
+<div id="recoveryBox" class="recovery hidden"><b>🛡️ Previous work restored</b><span id="recoveryText">आपकी पिछली story और working state सुरक्षित है।</span></div>
 <section id="story" class="section">
-<h2>&#x1F4A1; Story <span class="pill">AI Writing</span></h2>
-<div class="field"><label>Story Idea / Prompt</label><textarea id="idea" placeholder="&#x909;&#x926;&#x93E;&#x939;&#x930;&#x923;: &#x917;&#x93E;&#x901;&#x935; &#x915;&#x940; &#x92C;&#x93E;&#x930;&#x93F;&#x936; &#x935;&#x93E;&#x932;&#x940; &#x936;&#x93E;&#x92E; &#x92E;&#x947;&#x902; &#x926;&#x94B; &#x92A;&#x941;&#x930;&#x93E;&#x928;&#x947; &#x926;&#x94B;&#x938;&#x94D;&#x924; &#x915;&#x908; &#x938;&#x93E;&#x932; &#x92C;&#x93E;&#x926; &#x92E;&#x93F;&#x932;&#x924;&#x947; &#x939;&#x948;&#x902;&#x964;"></textarea></div>
+<h2>💡 Story <span class="pill">AI Writing</span></h2>
+<div class="field"><label>Story Idea / Prompt</label><textarea id="idea" placeholder="उदाहरण: गाँव की बारिश वाली शाम में दो पुराने दोस्त कई साल बाद मिलते हैं।"></textarea></div>
 <div class="grid">
-<div class="field full"><label>Language / Dialect</label><select id="language"><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>English</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
+<div class="field"><label>Language / Dialect</label><select id="language"><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>English</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
 <div class="field"><label>Genre</label><select id="genre"><option>Drama</option><option>Romance</option><option>Comedy</option><option>Suspense</option><option>Thriller</option><option>Family</option><option>Historical</option><option>Action</option></select></div>
 <div class="field"><label>Story Length</label><select id="length"><option value="short">Short</option><option value="medium" selected>Medium</option><option value="long">Long</option></select></div>
 <div class="field"><label>Writing Style</label><select id="style"><option>Cinematic</option><option>Natural</option><option>Emotional</option><option>Screenplay</option></select></div>
 <div class="field"><label>Age Mode</label><select id="age"><option>General</option><option>21+ Adult</option></select></div>
-<div class="field full"><label>Output Format</label><select id="format"><option>Dialogue Dominant &#x2014; 80&#x2013;90% Dialogue</option><option>Screenplay</option><option>Story</option><option>Scene with Dialogues</option></select></div>
-<div class="field full"><label>&#x1F3AF; Extra Direction</label><input id="extra" placeholder="&#x91C;&#x948;&#x938;&#x947;: 5 scenes, strong ending, Banarasi tone"></div>
+<div class="field"><label>Output Format</label><select id="format"><option>Dialogue Dominant — 80–90% Dialogue</option><option>Screenplay</option><option>Story</option><option>Scene with Dialogues</option></select></div>
+<div class="field full"><label>🎯 Extra Direction</label><input id="extra" placeholder="जैसे: 5 scenes, strong ending, Banarasi tone"></div>
 </div>
-<button id="generateBtn" class="btn" onclick="generateStory()">&#x2728; Generate Story</button><div id="storyStatus" class="status">Ready.</div>
+<button id="generateBtn" class="btn" onclick="generateStory()">✨ Generate Story</button><div id="storyStatus" class="status">Ready.</div>
+</section>
+
+<section id="paste" class="section">
+  <h2>▣ Paste Story <span class="pill">Direct to Voice</span></h2>
+  <div class="field">
+    <label>Paste your story</label>
+    <textarea id="pasteText" placeholder="Paste any Hindi, Bhojpuri or supported-language story here..."></textarea>
+  </div>
+  <div class="grid">
+    <div class="field">
+      <label>Dialogue Language</label>
+      <select id="pasteDialogueLang">
+        <option>Keep original</option><option>Hindi</option><option>Bhojpuri</option>
+        <option>Purvanchali / Banarasi</option><option>English</option><option>Urdu</option>
+        <option>Marathi</option><option>Bengali</option><option>Tamil</option>
+        <option>Telugu</option><option>Gujarati</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Conversion</label>
+      <select id="pasteMode">
+        <option>Convert Dialogues Only</option>
+        <option>Keep Full Story Original</option>
+      </select>
+    </div>
+  </div>
+  <div class="action-row">
+    <button class="btn" onclick="preparePaste()">✦ Prepare for Director</button>
+    <button class="btn secondary" onclick="pasteDirectToVoice()">🎙 Direct to Voice</button>
+  </div>
+  <div id="pasteStatus" class="status">Ready. Paste → Direct → Voice.</div>
 </section>
 <section id="director" class="section">
-<h2>&#x1F3AD; Director</h2>
-<div class="grid">
-<div class="field"><label>Dialogue Language</label><select id="dialogueLang"><option>Keep original</option><option>Hindi</option><option>Bhojpuri</option><option>Purvanchali / Banarasi</option><option>Urdu</option><option>Marathi</option><option>Bengali</option><option>Tamil</option><option>Telugu</option><option>Gujarati</option></select></div>
-<div class="field"><label>Director Mode</label><select id="directorMode"><option>Full Director Mode</option><option>Dialogue Dominant</option><option>Voice Ready</option></select></div>
+<h2>🎭 Smart Director <span class="pill">Cinematic</span></h2>
+<div class="director-grid">
+  <div class="field">
+    <label>Dialogue Language</label>
+    <select id="dialogueLang">
+      <option>Keep original</option>
+      <option>Hindi</option>
+      <option>Bhojpuri</option>
+      <option>Purvanchali / Banarasi</option>
+      <option>Urdu</option>
+      <option>Marathi</option>
+      <option>Bengali</option>
+      <option>Tamil</option>
+      <option>Telugu</option>
+      <option>Gujarati</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Director Mode</label>
+    <select id="directorMode">
+      <option>Full Director Mode</option>
+      <option>Dialogue Dominant</option>
+      <option>Voice Ready</option>
+    </select>
+  </div>
 </div>
-<div class="field"><label>Story / Script</label><textarea id="script" placeholder="Generated &#x92F;&#x93E; pasted story &#x92F;&#x939;&#x93E;&#x901; &#x906;&#x90F;&#x917;&#x940;&#x2026;"></textarea></div>
-<button id="analyzeBtn" class="btn" onclick="analyzeStory()">&#x1F3AD; Analyze This Story</button><div id="directorStatus" class="status">Paste a story and analyze it, or generate one above.</div><div id="analysis" class="status hidden"></div>
+
+<div class="director-text-stack">
+  <div class="field"><label>Preview</label><div class="preview" tabindex="0">
+    <div class="scene">SCENE 3</div>
+    <h3>INT. ROOM — NIGHT</h3>
+    <p>Character action, atmosphere and cinematic direction appear here.</p>
+    <p><strong>CAMERA:</strong> Wide → medium → close-up.</p>
+    <p><strong>LIGHTING:</strong> Soft window light.</p>
+    <p><strong>SFX:</strong> Light rain.</p>
+  </div></div>
+  <div class="field"><label>Story / Script</label><textarea id="script" placeholder="Generated या pasted story यहाँ आएगी…"></textarea></div>
+</div>
+<div class="action-row">
+  <button id="analyzeBtn" class="btn" onclick="analyzeStory()">🎭 Analyze</button>
+<button class="btn secondary" onclick="sendDirectorToVoice()">🎙️ Skip Analysis</button>
+</div>
+<div id="directorStatus" class="status">Story तैयार है तो Analyze करें — या सीधे Voice पर जाएँ।</div><div id="analysis" class="status hidden"></div>
 </section>
 <section id="voice" class="section">
-<h2>&#x1F399;&#xFE0F; Voice</h2>
-<div class="grid">
-<div class="field"><label>Voice</label><select id="voice"><option value="alloy">Male / Natural &#x2014; Alloy</option><option value="nova">Female / Natural &#x2014; Nova</option><option value="shimmer">Narrator / Soft &#x2014; Shimmer</option><option value="onyx">Narrator / Deep &#x2014; Onyx</option></select></div>
-<div class="field"><label>Emotion</label><select id="emotion"><option>Natural</option><option>Emotional</option><option>Romantic</option><option>Suspenseful</option><option>Funny</option><option>Serious</option></select></div>
-</div>
-<div class="field"><label>Text to speak</label><textarea id="voiceText" placeholder="&#x92F;&#x939;&#x93E;&#x901; story/script &#x906;&#x90F;&#x917;&#x93E;&#x2026;"></textarea></div>
-<button id="voiceBtn" class="btn" onclick="generateVoice()">&#x1F399;&#xFE0F; Generate Voice</button><div id="voiceStatus" class="status">Ready.</div>
-<div id="audioBox" class="hidden" style="margin-top:10px"><audio id="audio" controls style="width:100%"></audio><button class="btn secondary" style="margin-top:9px" onclick="downloadAudio()">&#x2B07;&#xFE0F; Download MP3</button></div>
+
+  <div class="voice-studio">
+
+    <div class="voice-studio-head">
+      <div>
+        <h3>🎙️ VOICE STUDIO</h3>
+        <p>Review and customize voice &amp; emotion for each speaker.</p>
+      </div>
+      <button class="btn secondary" type="button" onclick="addSpeaker()">
+        ＋ Add Speaker
+      </button>
+    </div>
+
+    <div id="speakerList" class="speaker-list"></div>
+
+    <div id="voiceSummary" class="voice-summary">
+      <b>Tip:</b> Characters will be detected automatically from your story.
+    </div>
+
+    <div class="voice-generate">
+      <button id="voiceBtn" class="btn" onclick="generateVoice()">
+        🎙️ Generate Multi-Speaker Voice
+      </button>
+    </div>
+
+    <div id="voiceStatus" class="status">
+      Ready.
+    </div>
+
+    <div id="audioBox" class="hidden" style="margin-top:10px">
+      <audio id="audio" controls style="width:100%"></audio>
+      <button class="btn secondary" style="margin-top:9px"
+        onclick="downloadAudio()">⬇️ Download MP3</button>
+    </div>
+
+  </div>
+
+  <textarea id="voiceText"
+    style="display:none"
+    aria-hidden="true"></textarea>
+
 </section>
-<button class="btn danger" onclick="clearAll()">&#x1F5D1;&#xFE0F; Clear All</button>
-<section id="projects" class="section"><h2>&#x1F4C1; My Projects</h2><div id="projectsList" class="status">No saved projects yet.</div><div style="margin-top:10px"><button class="btn secondary" onclick="saveProject()">&#x1F4BE; Save Project</button></div></section>
+<section id="projects" class="section projects-section">
+  <div class="project-top">
+    <div class="project-heading">
+      <h2>📁 MY PROJECTS</h2>
+      <p>Manage and access your saved projects.</p>
+    </div>
+    <div class="project-actions">
+      <button class="btn" onclick="saveProject()">💾 Save Project</button>
+      <button class="btn danger project-clear" onclick="clearAll()">🗑️ Clear All</button>
+    </div>
+    <div class="project-device-note">Projects are saved on this device.</div>
+  </div>
+  <div class="saved-projects-panel">
+    <div class="saved-projects-head">
+      <h3>▤ SAVED PROJECTS <span id="projectCount">0</span></h3>
+    </div>
+    <div class="project-tools">
+      <input id="projectSearch" type="search" placeholder="Search projects…" aria-label="Search saved projects">
+      <select id="projectSort" aria-label="Sort saved projects">
+        <option value="newest">Sort: Newest</option>
+        <option value="oldest">Sort: Oldest</option>
+        <option value="name">Sort: Name</option>
+      </select>
+    </div>
+    <div id="projectsList" class="projects-list"></div>
+    <div id="projectEmpty" class="project-empty">No saved projects yet.</div>
+    <div class="project-hint">ⓘ Tap a project to open and continue.</div>
+  </div>
+</section>
 </main>
-<nav class="bottom">
-<button class="nav active" data-target="home" onclick="go('home')"><strong>&#x1F3E0;</strong>Home</button>
-<button class="nav" data-target="story" onclick="go('story')"><strong>&#x270D;&#xFE0F;</strong>Story</button>
-<button class="nav" data-target="director" onclick="go('director')"><strong>&#x1F3AD;</strong>Director</button>
-<button class="nav" data-target="voice" onclick="go('voice')"><strong>&#x1F399;&#xFE0F;</strong>Voice</button>
-<button class="nav" data-target="projects" onclick="go('projects')"><strong>&#x1F4C1;</strong>Projects</button>
-</nav>
 <script>
+/* Violet Studio redesign: existing Worker/API flow intentionally preserved. */
 const API_BASE="https://story-director-v16.grijesh-s.workers.dev";
+const SESSION_KEY="sdv16_session_v2";
 const $=id=>document.getElementById(id);
-  /* AUTO RECOVERY */
-const DRAFT_KEY="sdv16_auto_recovery";
+let sessionPhase="idle";
 
-function saveAutoDraft(){
-  try{
-    const draft={
-      idea:$("idea")?.value||"",
-      extra:$("extra")?.value||"",
-      script:$("script")?.value||"",
-      voiceText:$("voiceText")?.value||"",
-      analysis:$("analysis")?.textContent||"",
-      language:$("language")?.value||"Hindi",
-      dialogueLang:$("dialogueLang")?.value||"Keep original",
-      directorMode:$("directorMode")?.value||"Full Director Mode",
-      voice:$("voice")?.value||"alloy",
-      emotion:$("emotion")?.value||"Natural",
-      savedAt:Date.now()
-    };
-    localStorage.setItem(DRAFT_KEY,JSON.stringify(draft));
-  }catch(e){}
+function setActive(id){document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id));}
+function setWorkflowStep(step){
+  document.querySelectorAll('.flow-step').forEach(b=>b.classList.toggle('active',b.dataset.flow===step));
+  if(step==='voice'){
+    renderVoiceStudio(($('voiceText')?.value||$('script')?.value||'').trim());
+  }
 }
 
-function restoreAutoDraft(){
-  try{
-    const raw=localStorage.getItem(DRAFT_KEY);
-    if(!raw)return;
+window.voiceProfiles=window.voiceProfiles||{};
 
-    const d=JSON.parse(raw);
-
-    if(d.idea) $("idea").value=d.idea;
-    if(d.extra) $("extra").value=d.extra;
-    if(d.script) $("script").value=d.script;
-    if(d.voiceText) $("voiceText").value=d.voiceText;
-    if(d.analysis){
-      $("analysis").textContent=d.analysis;
-      $("analysis").classList.remove("hidden");
-    }
-
-    if(d.language) $("language").value=d.language;
-    if(d.dialogueLang) $("dialogueLang").value=d.dialogueLang;
-    if(d.directorMode) $("directorMode").value=d.directorMode;
-    if(d.voice) $("voice").value=d.voice;
-    if(d.emotion) $("emotion").value=d.emotion;
-
-    if(d.script || d.voiceText){
-      setStatus(
-        "storyStatus",
-        "♻️ पिछला काम वापस मिल गया है।",
-        "ok"
-      );
-    }
-  }catch(e){}
+function escapeVoiceHTML(value){
+  return String(value??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
 }
 
-document.addEventListener("input",saveAutoDraft);
-setInterval(saveAutoDraft,3000);
-function setActive(id){document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.target===id))}
-function go(id){setActive(id);if(id==="home")return scrollTo({top:0,behavior:"smooth"});$(id)?.scrollIntoView({behavior:"smooth",block:"start"})}
-function setStatus(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind}
-function setBusy(id,on,label){$(id).disabled=on;if(label)$(id).textContent=label}
-async function post(path,data){const r=await fetch(API_BASE+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});let j;try{j=await r.json()}catch{j={}}if(!r.ok)throw new Error(j.error||"Server request failed (HTTP "+r.status+")");return j}
-function clearAll(){$("idea").value="";$("extra").value="";$("script").value="";$("voiceText").value="";$("analysis").textContent="";$("analysis").classList.add("hidden");window.audioBlob=null;$("audio").removeAttribute("src");$("audio").load();$("audioBox").classList.add("hidden");setStatus("storyStatus","Ready.");setStatus("directorStatus","Paste a story and analyze it, or generate one above.");setStatus("voiceStatus","Ready.");go("story")}
-async function generateStory(){const idea=$("idea").value.trim();if(!idea)return setStatus("storyStatus","\u092A\u0939\u0932\u0947 Story Idea / Prompt \u0932\u093F\u0916\u0947\u0902\u0964","err");setBusy("generateBtn",true,"\u23F3 Generating\u2026");setStatus("storyStatus","AI \u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0915\u0930 \u0930\u0939\u093E \u0939\u0948\u2026");try{const d=await post("/api/generate",{idea,language:$("language").value,genre:$("genre").value,length:$("length").value,style:$("style").value,age:$("age").value,format:$("format").value,extra:$("extra").value});$("script").value=d.story||"";$("voiceText").value=d.story||"";setStatus("storyStatus","\u0915\u0939\u093E\u0928\u0940 \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964 Director \u092E\u0947\u0902 \u092D\u0947\u091C \u0926\u0940 \u0917\u0908 \u0939\u0948\u0964","ok");go("director")}catch(e){setStatus("storyStatus","\u274C "+e.message,"err")}finally{setBusy("generateBtn",false,"\u2728 Generate Story")}}
-async function analyzeStory(){const story=$("script").value.trim();if(!story)return setStatus("directorStatus","\u092A\u0939\u0932\u0947 story/script \u0921\u093E\u0932\u0947\u0902\u0964","err");setBusy("analyzeBtn",true,"\u23F3 Analyzing\u2026");setStatus("directorStatus","Story analyze \u0939\u094B \u0930\u0939\u0940 \u0939\u0948\u2026");try{const d=await post("/api/analyze",{story,mode:$("directorMode").value,dialogueLanguage:$("dialogueLang").value});$("analysis").textContent=d.analysis||"Analysis complete";$("analysis").classList.remove("hidden");$("voiceText").value=d.voiceText||story;setStatus("directorStatus","Analysis complete. Voice section \u0924\u0948\u092F\u093E\u0930 \u0939\u0948\u0964","ok");go("voice")}catch(e){setStatus("directorStatus","\u274C "+e.message,"err")}finally{setBusy("analyzeBtn",false,"\u{1F3AD} Analyze This Story")}}
-async function generateVoice(){
-  const text=$("voiceText").value.trim()||$("script").value.trim();
+function getDetectedSpeakers(text){
+  const lines=parseVoiceLines(text||'');
+  const names=[];
+  for(const item of lines){
+    const name=(item.speaker||'').trim();
+    if(!name)continue;
+    if(!names.includes(name))names.push(name);
+  }
 
-  if(!text)
-    return setStatus("voiceStatus","पहले text/story डालें।","err");
+  if(!names.includes('वाचक')) names.unshift('वाचक');
+  else{
+    const i=names.indexOf('वाचक');
+    if(i>0)names.splice(i,1),names.unshift('वाचक');
+  }
 
-  setBusy("voiceBtn",true,"⏳ Creating voice…");
-  setStatus("voiceStatus","Voice तैयार हो रही है…");
-  $("audioBox").classList.add("hidden");
+  return names;
+}
 
-  try{
-    const lines=text.replace(/\r/g,"").split("\n");
-    const parts=[];
-    let speaker="वाचक";
-    let buffer="";
+function defaultVoiceForSpeaker(name,index){
+  const n = String(name || '').trim();
 
-    const flush=()=>{
-      if(!buffer.trim()) return;
+  // Narrator = ALWAYS ONYX
+  if(n === 'वाचक' || n === 'कथावाचक' || n === 'सूत्रधार'){
+    return 'onyx';
+  }
 
-      for(let i=0;i<buffer.length;i+=3900){
-        parts.push({
-          speaker:speaker,
-          text:buffer.slice(i,i+3900).trim()
-        });
-      }
+  // Female characters = NOVA
+  const femaleNames = [
+    'नेहा','neha',
+    'पूजा','pooja',
+    'रीना','reena',
+    'सीमा','seema',
+    'सुनीता','sunita',
+    'कविता','kavita',
+    'राधा','radha',
+    'प्रिया','priya',
+    'सोनिया','sonia'
+  ];
 
-      buffer="";
+  if(femaleNames.includes(n)){
+    return 'nova';
+  }
+
+  // Male characters = never ONYX
+  const maleVoices = ['alloy','echo','fable'];
+  return maleVoices[index % maleVoices.length];
+}
+
+function renderVoiceStudio(text){
+  const list=$('speakerList');
+  if(!list)return;
+
+  const names=getDetectedSpeakers(text);
+  const active={};
+
+  names.forEach((name,index)=>{
+    const old=window.voiceProfiles[name]||{};
+    active[name]={
+  voice:defaultVoiceForSpeaker(name,index),
+      emotion:old.emotion||'Natural',
+      intensity:Number.isFinite(old.intensity)?old.intensity:
+        (name==='वाचक'?60:(index%2===0?70:80))
     };
+  });
 
-    for(const raw of lines){
-      const line=raw.trim();
-      if(!line) continue;
+  window.voiceProfiles=active;
 
-      const match=line.match(
-        /^([A-Za-z\u0900-\u097F][A-Za-z0-9\u0900-\u097F _-]{0,40})\s*:\s*(.*)$/u
-      );
+  list.innerHTML=names.map((name,index)=>{
+    const p=active[name];
+    const isNarrator=name==='वाचक';
 
-      if(match){
-        flush();
-        speaker=match[1].trim();
-        buffer=match[2].trim();
+    return `
+      <div class="speaker-card" data-speaker="${escapeVoiceHTML(name)}">
+
+        <div class="speaker-top">
+
+          <div class="speaker-avatar">
+            ${isNarrator?'🎙️':(index%2===0?'👨':'👩')}
+          </div>
+
+          <div class="speaker-name">
+            <b>${escapeVoiceHTML(name)}</b>
+            <span>${isNarrator?'Narration':'Character'}</span>
+          </div>
+
+          <button class="project-delete" type="button"
+            onclick="removeSpeaker('${escapeVoiceHTML(name)}')"
+            title="Remove speaker">×</button>
+
+        </div>
+
+        <div class="speaker-controls">
+
+          <div class="speaker-control">
+            <label>
+              <span>VOICE</span>
+            </label>
+
+            <select class="voice-select"
+              onchange="updateVoiceProfile('${escapeVoiceHTML(name)}','voice',this.value)">
+
+              <option value="alloy" ${p.voice==='alloy'?'selected':''}>
+  Male / Natural (Alloy)
+</option>
+
+<option value="echo" ${p.voice==='echo'?'selected':''}>
+  Male / Clear (Echo)
+</option>
+
+<option value="fable" ${p.voice==='fable'?'selected':''}>
+  Male / Warm (Fable)
+</option>
+
+<option value="nova" ${p.voice==='nova'?'selected':''}>
+  Female / Natural (Nova)
+</option>
+
+<option value="shimmer" ${p.voice==='shimmer'?'selected':''}>
+  Female / Soft (Shimmer)
+</option>
+
+<option value="onyx" ${p.voice==='onyx'?'selected':''}>
+  Narrator / Deep (Onyx)
+</option>
+          </div>
+
+          <div class="speaker-control">
+            <label>
+              <span>EMOTION</span>
+              <strong>${p.intensity}%</strong>
+            </label>
+
+            <select class="emotion-select"
+              onchange="updateVoiceProfile('${escapeVoiceHTML(name)}','emotion',this.value)">
+
+              <option ${p.emotion==='Natural'?'selected':''}>Natural</option>
+              <option ${p.emotion==='Emotional'?'selected':''}>Emotional</option>
+              <option ${p.emotion==='Romantic'?'selected':''}>Romantic</option>
+              <option ${p.emotion==='Suspenseful'?'selected':''}>Suspenseful</option>
+              <option ${p.emotion==='Funny'?'selected':''}>Funny</option>
+              <option ${p.emotion==='Serious'?'selected':''}>Serious</option>
+
+            </select>
+          </div>
+
+        </div>
+
+        <div class="speaker-control" style="margin-top:7px">
+          <label>
+            <span>EMOTION INTENSITY</span>
+            <strong id="intensity-${index}">${p.intensity}%</strong>
+          </label>
+
+          <input
+            class="emotion-range"
+            type="range"
+            min="0"
+            max="100"
+            value="${p.intensity}"
+            oninput="updateVoiceIntensity('${escapeVoiceHTML(name)}',this.value,this)"
+          >
+        </div>
+
+      </div>
+    `;
+  }).join('');
+
+  const duplicateVoices={};
+  names.forEach(name=>{
+    const voice=active[name].voice;
+    if(!duplicateVoices[voice])duplicateVoices[voice]=[];
+    duplicateVoices[voice].push(name);
+  });
+
+  const duplicates=Object.values(duplicateVoices)
+    .filter(group=>group.length>1);
+
+  const summary=$('voiceSummary');
+
+  if(summary){
+    if(duplicates.length){
+      summary.innerHTML=
+        '<b>Tip:</b> '+duplicates.map(g=>
+          escapeVoiceHTML(g.join(', '))+
+          ' — same voice. Change one voice selector if needed.'
+        ).join('<br>');
+    }else{
+      summary.innerHTML=
+        '<b>Tip:</b> '+names.length+
+        ' speaker profile(s) detected. Each speaker has an independent voice and emotion intensity.';
+    }
+  }
+}
+
+function updateVoiceProfile(name,key,value){
+  window.voiceProfiles[name]=window.voiceProfiles[name]||{
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  window.voiceProfiles[name][key]=value;
+
+  const text=$('voiceText')?.value||$('script')?.value||'';
+  renderVoiceStudio(text);
+}
+
+function updateVoiceIntensity(name,value,input){
+  window.voiceProfiles[name]=window.voiceProfiles[name]||{
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  window.voiceProfiles[name].intensity=Number(value);
+
+  const card=input?.closest('.speaker-card');
+  const label=card?.querySelector('label strong');
+  if(label)label.textContent=value+'%';
+}
+
+function addSpeaker(){
+  const name=prompt('Character / Speaker name:');
+  if(!name)return;
+
+  const clean=name.trim();
+  if(!clean)return;
+
+  window.voiceProfiles[clean]={
+    voice:'alloy',
+    emotion:'Natural',
+    intensity:70
+  };
+
+  renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
+}
+
+function removeSpeaker(name){
+  if(name==='वाचक'){
+    quickMsg('Narrator profile cannot be removed.');
+    return;
+  }
+
+  delete window.voiceProfiles[name];
+  renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
+}
+function go(id){
+  setActive(id);
+  if(['story','paste'].includes(id))setWorkflowStep('source');
+  else if(id==='director')setWorkflowStep('director');
+  else if(id==='voice'){setWorkflowStep('voice');renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');}
+  else if(id==='home')setWorkflowStep('source');
+  if(id==="home")return;
+  scrollTo({top:0,behavior:"smooth"});
+  $(id)?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function setStatus(id,msg,kind=""){const e=$(id);e.textContent=msg;e.className="status "+kind;}
+function setBusy(id,on,label){$(id).disabled=on;if(label)$(id).textContent=label;}
+
+async function post(path,data){
+  const r=await fetch(API_BASE+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  let j={};try{j=await r.json()}catch{}
+  if(!r.ok)throw new Error(j.error||"Server request failed (HTTP "+r.status+")");
+  return j;
+}
+
+function snapshot(phase=sessionPhase){
+  return {version:2,savedAt:new Date().toISOString(),phase,
+    idea:$('idea').value,extra:$('extra').value,pasteText:$('pasteText')?.value||'',pasteDialogueLang:$('pasteDialogueLang')?.value||'Keep original',language:$('language').value,genre:$('genre').value,length:$('length').value,style:$('style').value,age:$('age').value,format:$('format').value,
+    dialogueLang:$('dialogueLang').value,directorMode:$('directorMode').value,script:$('script').value,analysis:$('analysis').textContent,analysisVisible:!$('analysis').classList.contains('hidden'),voiceText:$('voiceText').value,voice:$('voiceSelect').value,emotion:$('emotion').value,voiceProfiles:JSON.parse(JSON.stringify(window.voiceProfiles||{}))};
+}
+function persistSession(phase=sessionPhase){
+  try{localStorage.setItem(SESSION_KEY,JSON.stringify(snapshot(phase)));}catch(e){console.warn("Session save failed",e)}
+}
+function restoreSession(){
+  try{
+    const raw=localStorage.getItem(SESSION_KEY);if(!raw)return;
+    const p=JSON.parse(raw);if(!p||p.version!==2)return;
+   window.voiceProfiles=p.voiceProfiles||{};
+      $('idea').value=p.idea||"";$('extra').value=p.extra||"";if($('pasteText'))$('pasteText').value=p.pasteText||'';if($('pasteDialogueLang'))$('pasteDialogueLang').value=p.pasteDialogueLang||'Keep original';$('language').value=p.language||"Hindi";$('genre').value=p.genre||"Drama";$('length').value=p.length||"medium";$('style').value=p.style||"Cinematic";$('age').value=p.age||"General";$('format').value=p.format||"Dialogue Dominant — 80–90% Dialogue";
+    $('dialogueLang').value=p.dialogueLang||"Keep original";$('directorMode').value=p.directorMode||"Full Director Mode";$('script').value=p.script||"";$('voiceText').value=p.voiceText||p.script||"";$('voiceSelect').value=p.voice||"alloy";$('emotion').value=p.emotion||"Natural";
+    $('analysis').textContent=p.analysis||"";$('analysis').classList.toggle('hidden',!p.analysisVisible||!p.analysis);
+    sessionPhase=p.phase||"idle";
+    if(p.script||p.voiceText||p.idea){
+      $('recoveryBox').classList.remove('hidden');
+      if(p.phase==="analyzing"){
+        $('recoveryText').textContent="Analyze बीच में interrupt हुआ था। Story सुरक्षित है। आप Analyze This Story दबाकर analysis फिर से चला सकते हैं।";
+        setStatus('directorStatus','⚠️ Analysis interrupted. Story सुरक्षित है — Analyze Again कर सकते हैं।','warn');
+        $('analyzeBtn').textContent="↻ Resume Analysis";
+      }else if(p.phase==="generated"){
+        $('recoveryText').textContent="Generated story सुरक्षित मिली और Director में restore कर दी गई है।";
+      }else if(p.phase==="analyzed"){
+        $('recoveryText').textContent="Story और analysis दोनों सुरक्षित मिले और restore कर दिए गए हैं।";
       }else{
-        buffer=buffer
-          ? buffer+" "+line
-          : line;
+        $('recoveryText').textContent="आपका पिछला working draft सुरक्षित मिला और restore कर दिया गया है।";
       }
     }
+  }catch(e){console.warn("Session restore failed",e)}
+}
+function bindPersistence(){
+  document.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener('input',()=>persistSession()));
+  document.querySelectorAll('select').forEach(el=>el.addEventListener('change',()=>persistSession()));
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistSession(sessionPhase);});
+  window.addEventListener('pagehide',()=>persistSession(sessionPhase));
+  window.addEventListener('beforeunload',()=>persistSession(sessionPhase));
+}
 
-    flush();
+function clearAll(){
+  if(!confirm("Current story, analysis और draft clear करें?"))return;
+  $('idea').value="";$('extra').value="";$('script').value="";$('voiceText').value="";$('analysis').textContent="";$('analysis').classList.add('hidden');window.audioBlob=null;
+ if($('pasteText'))$('pasteText').value="";
+    $('audio').removeAttribute('src');$('audio').load();$('audioBox').classList.add('hidden');sessionPhase="idle";localStorage.removeItem(SESSION_KEY);
+  $('recoveryBox').classList.add('hidden');setStatus('storyStatus','Ready.');setStatus('directorStatus','Story तैयार है तो Analyze करें — या सीधे Voice पर जाएँ।');setStatus('voiceStatus','Ready.');$('analyzeBtn').textContent="🎭 Analyze This Story";go('story');
+}
 
-    if(!parts.length)
-      throw new Error("Voice text empty.");
+async function generateStory(){
+  const idea=$('idea').value.trim();if(!idea)return setStatus('storyStatus','पहले Story Idea / Prompt लिखें।','err');
+  setBusy('generateBtn',true,'⏳ Generating…');setStatus('storyStatus','AI कहानी तैयार कर रहा है…');sessionPhase="generating";persistSession(sessionPhase);
+  try{
+    const d=await post('/api/generate',{idea,language:$('language').value,genre:$('genre').value,length:$('length').value,style:$('style').value,age:$('age').value,format:$('format').value,extra:$('extra').value});
+    $('script').value=d.story||"";$('voiceText').value=d.story||"";sessionPhase="generated";persistSession(sessionPhase);
+    setStatus('storyStatus','कहानी तैयार है। Director में भेज दी गई है।','ok');go('director');
+  }catch(e){sessionPhase="idle";persistSession(sessionPhase);setStatus('storyStatus','❌ '+e.message,'err');}
+  finally{setBusy('generateBtn',false,'✨ Generate Story');}
+}
+
+async function analyzeStory(){
+  const story=$('script').value.trim();if(!story)return setStatus('directorStatus','पहले story/script डालें।','err');
+  setBusy('analyzeBtn',true,'⏳ Analyzing…');setStatus('directorStatus','Story analyze हो रही है…');sessionPhase="analyzing";persistSession(sessionPhase);
+  try{
+    const d=await post('/api/analyze',{story,mode:$('directorMode').value,dialogueLanguage:$('dialogueLang').value});
+    $('analysis').textContent=d.analysis||'Analysis complete';$('analysis').classList.remove('hidden');$('voiceText').value=d.voiceText||story;sessionPhase="analyzed";persistSession(sessionPhase);
+    $('recoveryBox').classList.remove('hidden');$('recoveryText').textContent="Story और analysis सुरक्षित हैं।";setStatus('directorStatus','Analysis complete. Voice section तैयार है।','ok');go('voice');
+  }catch(e){
+    sessionPhase="analyzing";persistSession(sessionPhase);
+    setStatus('directorStatus','❌ '+e.message+'\nStory सुरक्षित है। Analyze फिर से चलाया जा सकता है।','err');
+  }finally{setBusy('analyzeBtn',false,'🎭 Analyze & Prepare Voice');}
+}
+  function splitTTSClient(text,maxChars=1800){
+  const cleaned=text.replace(/\r/g,'').trim();if(!cleaned)return[];
+  const sentences=cleaned.match(/[^।!?！？\n]+[।!?！？]+|[^।!?！？\n]+$/gu)||[cleaned];const chunks=[];let current='';
+  for(const raw of sentences){const sentence=raw.trim();if(!sentence)continue;if(sentence.length<=maxChars){const combined=(current+' '+sentence).trim();if(combined.length<=maxChars)current=combined;else{if(current)chunks.push(current);current=sentence;}continue;}if(current){chunks.push(current);current='';}const words=sentence.split(/\s+/);let part='';for(const word of words){if(!part)part=word;else if((part+' '+word).length<=maxChars)part+=' '+word;else{chunks.push(part);part=word;}}if(part)current=part;}
+  if(current)chunks.push(current);return chunks.length?chunks:[cleaned];
+}
+function parseVoiceLines(text){
+  const raw=text.replace(/\r/g,'').split('\n');const out=[];let speaker='वाचक';let current='';
+  for(const line0 of raw){const line=line0.trim();if(!line)continue;const m=line.match(/^([A-Za-z\u0900-\u097F][A-Za-z0-9\u0900-\u097F _-]{0,40})\s*:\s*(.*)$/u);if(m){if(current.trim())out.push({speaker,text:current.trim()});speaker=m[1].trim();current=m[2].trim();}else current=current?current+' '+line:line;}
+  if(current.trim())out.push({speaker,text:current.trim()});return out;
+}
+function buildVoiceBatches(text){
+  const lines=parseVoiceLines(text);const batches=[];let current=[];let calls=0;let chars=0;const MAX_CALLS=6;const MAX_CHARS=10000;
+  for(const item of lines){
+    const itemCalls=Math.max(1,splitTTSClient(item.text).length);const itemChars=item.text.length+item.speaker.length+2;
+    if(current.length && (calls+itemCalls>MAX_CALLS || chars+itemChars>MAX_CHARS)){batches.push(current.join('\n'));current=[];calls=0;chars=0;}
+    if(itemCalls>MAX_CALLS){
+      const pieces=splitTTSClient(item.text);for(const piece of pieces){batches.push(item.speaker+': '+piece);}continue;
+    }
+    current.push(item.speaker+': '+item.text);calls+=itemCalls;chars+=itemChars;
+  }
+  if(current.length)batches.push(current.join('\n'));return batches;
+}
+
+function pasteDirectToVoice(){
+  const t=$('pasteText')?.value.trim();
+  if(!t){setStatus('pasteStatus','Please paste a story first.','err');return;}
+  $('script').value=t;
+  $('voiceText').value=t;
+  if($('pasteDialogueLang') && $('dialogueLang')) $('dialogueLang').value=$('pasteDialogueLang').value;
+  sessionPhase='pasted-direct-voice';
+  persistSession(sessionPhase);
+  setStatus('pasteStatus','Story सीधे Voice Studio के लिए तैयार है।','ok');
+  go('voice');
+}
+function sendDirectorToVoice(){
+  const t=$('script').value.trim();
+  if(!t){setStatus('directorStatus','पहले story/script डालें।','err');return;}
+  $('voiceText').value=t;
+  sessionPhase='voice-ready';
+  persistSession(sessionPhase);
+  setStatus('directorStatus','Analysis skip किया गया। Story सीधे Voice Studio में भेज दी गई है।','ok');
+  go('voice');
+}
+
+function preparePaste(){
+  const text=$('pasteText')?.value.trim();
+  if(!text){setStatus('pasteStatus','Please paste a story first.','err');return;}
+  $('script').value=text;
+  $('voiceText').value=text;
+  if($('pasteDialogueLang') && $('dialogueLang')) $('dialogueLang').value=$('pasteDialogueLang').value;
+  persistSession('pasted');
+  setStatus('pasteStatus','Story Director में भेज दी गई है। अब Analyze & Prepare Voice करें।','ok');
+  go('director');
+}
+function autoBreak(){
+  const text=$('script').value.trim();
+  if(!text){setStatus('directorStatus','Add a story first.','err');return;}
+  const sentences=text.split(/(?<=[.!?।])\s+/).filter(Boolean);
+  $('script').value=sentences.map((x,i)=>i&&i%4===0?'\n\nSCENE '+(Math.floor(i/4)+1)+'\n'+x:x).join(' ');
+  persistSession('scene-break');
+  setStatus('directorStatus','Smart scene breaks added.','ok');
+}
+function quickMsg(message){setStatus('directorStatus',message,'ok');}
+
+function getVoiceProfiles(){
+  return window.voiceProfiles||{};
+}
+
+function setVoiceProfile(name,data){
+  window.voiceProfiles=window.voiceProfiles||{};
+  window.voiceProfiles[name]={
+    ...(window.voiceProfiles[name]||{}),
+    ...data
+  };
+  persistSession();
+}
+    /* ===== MULTI-SPEAKER VOICE PROFILES ===== */
+window.voiceProfiles=window.voiceProfiles||{};
+
+function escapeVoiceHTML(value){
+  return String(value??'').replace(/[&<>"']/g,m=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[m]));
+}
+
+function getDetectedSpeakers(text){
+  const names=[];
+  const lines=String(text||'').split(/\r?\n/);
+
+  for(const line of lines){
+    const m=line.match(/^\s*([^:：]{1,40})\s*[:：]\s*(.+)$/);
+    if(!m)continue;
+
+    const name=m[1].trim();
+    if(!name)continue;
+
+    if(!names.includes(name))names.push(name);
+  }
+
+  if(!names.includes('वाचक'))names.unshift('वाचक');
+
+  return names;
+}
+
+function defaultVoiceForSpeaker(name,index){
+
+    const n = String(name || '').trim();
+
+    // Vachak / Narrator = ALWAYS Shimmer
+    if(n === 'वाचक' || n === 'कथावाचक' || n === 'सूत्रधार'){
+        return 'onyx';
+    }
+
+    const femaleNames = [
+        'नेहा','पूजा','रीना','सीमा','कविता','सुनीता',
+        'अंजली','राधा','गीता','मीना','सोनिया','निशा',
+        'प्रिया','स्वाति','शालिनी','आशा','ममता','संगीता',
+        'रानी','लक्ष्मी','सरिता','वंदना','श्वेता','रिया',
+        'नैना','पायल','तनु','किरण'
+    ];
+
+    // Female characters = female voice
+    if(femaleNames.includes(n)){
+        return 'nova';
+    }
+
+    const maleNames = [
+        'रवि','राज','राहुल','अमित','अजय','विजय',
+        'सुरेश','महेश','दिनेश','रमेश','मोहन','सोहन',
+        'अरुण','वरुण','करण','रोहन','मनोज','संजय',
+        'अनिल','सुनील','दीपक','आकाश','विवेक','अभिषेक',
+        'आदित्य','विकास','प्रकाश','पंकज','मिलिंद'
+    ];
+
+    // Male characters = NOT Onyx
+    if(maleNames.includes(n)){
+        return 'alloy';
+    }
+
+    // Unknown character: use non-Onyx male voice
+    return 'alloy';
+}
+    async function generateVoice(){
+  const text=$('voiceText')?.value.trim()||$('script')?.value.trim();
+
+  if(!text){
+    setStatus('voiceStatus','पहले text/story डालें।','err');
+    return;
+  }
+
+  setBusy('voiceBtn',true,'⏳ Creating multi-speaker voice…');
+  setStatus('voiceStatus','Multi-Speaker Voice तैयार हो रही है…');
+  $('audioBox')?.classList.add('hidden');
+
+  try{
+    const lines=parseVoiceLines(text);
+
+    if(!lines.length){
+      throw new Error('Voice text empty.');
+    }
 
     const audioParts=[];
+    let totalParts=0;
 
-    for(let i=0;i<parts.length;i++){
-      const part=parts[i];
+    for(const item of lines){
+      const profile=window.voiceProfiles?.[item.speaker]||{
+        voice:item.speaker==='वाचक'?'onyx':'alloy',
+        emotion:'Natural',
+        intensity:70
+      };
 
-      setStatus(
-        "voiceStatus",
-        `🎙️ Voice तैयार हो रही है…\nPart ${i+1} / ${parts.length}\nSpeaker: ${part.speaker}`
-      );
+      const pieces=splitTTSClient(item.text);
 
-      const r=await fetch(
-        API_BASE+"/api/tts-one",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            text:part.text,
-            speaker:part.speaker,
-            voice:$("voice").value,
-            emotion:$("emotion").value,
-            language:$("language").value
-          })
-        }
-      );
-
-      if(!r.ok){
-        let m="TTS request failed";
-
-        try{
-          m=(await r.json()).error||m;
-        }catch{}
-
-        throw new Error(m);
+      for(const piece of pieces){
+        totalParts++;
       }
+    }
 
-      audioParts.push(await r.blob());
+    let currentPart=0;
+
+    for(const item of lines){
+
+      const profile=window.voiceProfiles?.[item.speaker]||{
+        voice:item.speaker==='वाचक'?'onyx':'alloy',
+        emotion:'Natural',
+        intensity:70
+      };
+
+      const pieces=splitTTSClient(item.text);
+
+      for(const piece of pieces){
+
+        currentPart++;
+
+        setStatus(
+          'voiceStatus',
+          `🎙️ ${item.speaker} की voice तैयार हो रही है…\nPart ${currentPart} / ${totalParts}`
+        );
+
+        const r=await fetch(
+          API_BASE+'/api/tts-one',
+          {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+  text:piece,
+  speaker:item.speaker,
+  voice:profile.voice,
+  emotion:profile.emotion,
+  intensity:Number(profile.intensity||70),
+  language:$('language').value
+})
+          }
+        );
+
+        if(!r.ok){
+          let m='TTS request failed';
+
+          try{
+            m=(await r.json()).error||m;
+          }catch{}
+
+          throw new Error(`${item.speaker}: ${m}`);
+        }
+
+        audioParts.push(await r.blob());
+      }
     }
 
     const finalBlob=new Blob(
       audioParts,
-      {type:"audio/mpeg"}
+      {type:'audio/mpeg'}
     );
 
     window.audioBlob=finalBlob;
 
-    $("audio").src=
-      URL.createObjectURL(finalBlob);
+    if($('audio')){
+      $('audio').src=URL.createObjectURL(finalBlob);
+    }
 
-    $("audioBox").classList.remove("hidden");
+    $('audioBox')?.classList.remove('hidden');
 
     setStatus(
-      "voiceStatus",
-      `✅ Voice तैयार है। ${parts.length} parts successfully joined.\nSpeaker names अब audio में नहीं बोले जाएंगे।\nPlay या Download MP3 करें।`,
-      "ok"
+      'voiceStatus',
+      `✅ Multi-Speaker Voice तैयार है।\n${lines.length} speaker line(s), ${totalParts} safe part(s) joined.\nPlay या Download MP3 करें।`,
+      'ok'
     );
+
+    sessionPhase='voice-ready';
+    persistSession(sessionPhase);
 
   }catch(e){
 
     setStatus(
-      "voiceStatus",
-      "❌ "+e.message,
-      "err"
+      'voiceStatus',
+      '❌ '+e.message,
+      'err'
     );
 
   }finally{
 
     setBusy(
-      "voiceBtn",
+      'voiceBtn',
       false,
-      "🎙️ Generate Voice"
+      '🎙️ Generate Multi-Speaker Voice'
     );
   }
 }
-function downloadAudio(){if(!window.audioBlob)return;const a=document.createElement("a");a.href=URL.createObjectURL(window.audioBlob);a.download="story-director-voice.mp3";a.click()}
-function saveProject(){const p={date:new Date().toLocaleString(),idea:$("idea").value,script:$("script").value,voiceText:$("voiceText").value};const a=JSON.parse(localStorage.getItem("sdv16")||"[]");a.unshift(p);localStorage.setItem("sdv16",JSON.stringify(a.slice(0,20)));loadProjects()}
-function loadProjects(){const a=JSON.parse(localStorage.getItem("sdv16")||"[]");window.projects=a;$("projectsList").innerHTML=a.length?a.map((p,i)=>`<button class="quick" onclick="openProject(${i})"><b>${(p.idea||"Untitled").replace(/[<>&"]/g,"").slice(0,80)}</b><span>${p.date||""}</span></button>`).join(""):"No saved projects yet."}
-function openProject(i){const p=window.projects[i];$("idea").value=p.idea||"";$("script").value=p.script||"";$("voiceText").value=p.voiceText||p.script||"";go("story")}
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-20% 0px -65% 0px",threshold:0});
-["story","director","voice","projects"].forEach(id=>{const el=$(id);if(el)observer.observe(el)});
-loadProjects();if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+function downloadAudio(){if(!window.audioBlob)return;const a=document.createElement('a');a.href=URL.createObjectURL(window.audioBlob);a.download='story-director-voice.mp3';a.click();}
+function getSavedProjects(){try{return JSON.parse(localStorage.getItem('sdv16')||'[]')}catch(e){return []}}
+function saveProject(){
+  const p={
+    id:'p_'+Date.now(),savedAt:Date.now(),date:new Date().toLocaleString(),
+    idea:$('idea').value,extra:$('extra').value,script:$('script').value,voiceText:$('voiceText').value,
+    analysis:$('analysis').textContent,language:$('language').value,genre:$('genre').value,length:$('length').value,
+    style:$('style').value,age:$('age').value,format:$('format').value,pasteText:$('pasteText')?.value||'',
+    pasteDialogueLang:$('pasteDialogueLang')?.value||'Keep original',pasteMode:$('pasteMode')?.value||'Convert Dialogues Only',
+    dialogueLang:$('dialogueLang').value,directorMode:$('directorMode').value,directorMood:$('directorMood').value,emotion:$('emotion').value
+  };
+  const a=getSavedProjects();a.unshift(p);localStorage.setItem('sdv16',JSON.stringify(a.slice(0,50)));persistSession(sessionPhase);loadProjects();go('projects');
+}
+function projectTitle(p){return (p.idea||p.script||'Untitled Story').replace(/\s+/g,' ').trim().slice(0,80)||'Untitled Story'}
+function projectTime(p){return Number(p.savedAt)||Date.parse(p.date)||0}
+function escapeProjectText(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function loadProjects(){
+  const all=getSavedProjects();window.projects=all;
+  const q=($('projectSearch')?.value||'').trim().toLowerCase();
+  const sort=$('projectSort')?.value||'newest';
+  let list=all.filter(p=>projectTitle(p).toLowerCase().includes(q));
+  if(sort==='oldest')list.sort((a,b)=>projectTime(a)-projectTime(b));
+  else if(sort==='name')list.sort((a,b)=>projectTitle(a).localeCompare(projectTitle(b),'hi'));
+  else list.sort((a,b)=>projectTime(b)-projectTime(a));
+  $('projectCount').textContent=all.length;
+  $('projectsList').innerHTML=list.map(p=>{
+    const originalIndex=all.indexOf(p);
+    return `<div class="project-row" role="button" tabindex="0" onclick="openProject(${originalIndex})" onkeydown="if(event.key==='Enter'||event.key===' ')openProject(${originalIndex})">
+      <div class="project-icon">▤</div><div class="project-info"><span class="project-title">${escapeProjectText(projectTitle(p))}</span><span class="project-date">${escapeProjectText(p.date||'')}</span></div>
+      <div class="project-open">›</div><button class="project-delete" aria-label="Delete project" onclick="event.stopPropagation();deleteProject(${originalIndex})">⌫</button>
+    </div>`;
+  }).join('');
+  $('projectEmpty').style.display=list.length?'none':'block';
+}
+function openProject(i){
+  const p=getSavedProjects()[i];if(!p)return;
+  $('idea').value=p.idea||'';$('extra').value=p.extra||'';$('script').value=p.script||'';$('voiceText').value=p.voiceText||p.script||'';
+  $('analysis').textContent=p.analysis||'';$('analysis').classList.toggle('hidden',!p.analysis);
+  $('language').value=p.language||'Hindi';$('genre').value=p.genre||'Drama';$('length').value=p.length||'medium';$('style').value=p.style||'Cinematic';$('age').value=p.age||'General';$('format').value=p.format||'Dialogue Dominant — 80–90% Dialogue';
+  if($('pasteText'))$('pasteText').value=p.pasteText||'';if($('pasteDialogueLang'))$('pasteDialogueLang').value=p.pasteDialogueLang||'Keep original';if($('pasteMode'))$('pasteMode').value=p.pasteMode||'Convert Dialogues Only';
+  $('dialogueLang').value=p.dialogueLang||'Keep original';$('directorMode').value=p.directorMode||'Full Director Mode';$('directorMood').value=p.directorMood||'Natural';$('emotion').value=p.emotion||'Natural';
+  if(p.voiceProfiles){
+  window.voiceProfiles=JSON.parse(JSON.stringify(p.voiceProfiles));
+}else{
+  window.voiceProfiles={};
+}
+renderVoiceStudio($('voiceText')?.value||$('script')?.value||'');
+    sessionPhase='restored-project';persistSession(sessionPhase);go('story');
+}
+function deleteProject(i){
+  const a=getSavedProjects();const p=a[i];if(!p)return;
+  if(!confirm(`Delete “${projectTitle(p)}”?`))return;
+  a.splice(i,1);localStorage.setItem('sdv16',JSON.stringify(a));loadProjects();
+}
+function clearSavedProjects(){
+  const a=getSavedProjects();
+  if(!a.length){
+    loadProjects();
+    return;
+  }
+
+  if(!confirm('Delete all saved projects? This cannot be undone.'))return;
+
+  localStorage.removeItem('sdv16');
+  window.projects=[];
+  loadProjects();
+}
+  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:'-20% 0px -65% 0px',threshold:0});
+['home','story','paste','director','voice','projects','help','settings'].forEach(id=>{const el=$(id);if(el)observer.observe(el)});
+loadProjects();bindPersistence();restoreSession();
+$('projectSearch')?.addEventListener('input',loadProjects);
+$('projectSort')?.addEventListener('change',loadProjects);
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
