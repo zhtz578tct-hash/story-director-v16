@@ -742,6 +742,17 @@ text-align:center;
     grid-template-columns:1fr 1fr;
   }
 }
+/* Smart Director — two controls in one row */
+.director-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.director-grid .field {
+  min-width: 0;
+}
 </style>
 </head>
 <body>
