@@ -479,4 +479,247 @@
   document.getElementById("script")?.addEventListener("input",()=>{if(document.activeElement!==textEl){textEl.value=document.getElementById("script").value;render()}});
   document.getElementById("voiceText")?.addEventListener("input",()=>{if(document.activeElement!==textEl){textEl.value=document.getElementById("voiceText").value;render()}});
   syncText();
+    /* ===== FINAL ULTRA-COMPACT SPEAKER CARD OVERRIDE ===== */
+  const compactOverride = document.createElement("style");
+  compactOverride.textContent = `
+    /* Voice Studio shell */
+    #multiSpeakerVoice.msv-shell{
+      margin-top:3px !important;
+    }
+
+    #multiSpeakerVoice .msv-panel{
+      padding:7px !important;
+      border-radius:13px !important;
+    }
+
+    /* Header */
+    #multiSpeakerVoice .msv-head{
+      align-items:center !important;
+      gap:6px !important;
+    }
+
+    #multiSpeakerVoice .msv-head h3{
+      font-size:16px !important;
+      line-height:1.1 !important;
+      margin:0 !important;
+    }
+
+    #multiSpeakerVoice .msv-head p{
+      font-size:8px !important;
+      margin:2px 0 0 !important;
+    }
+
+    #multiSpeakerVoice .msv-add{
+      min-height:30px !important;
+      height:30px !important;
+      padding:4px 8px !important;
+      border-radius:9px !important;
+      font-size:10px !important;
+    }
+
+    #multiSpeakerVoice .msv-note{
+      margin:5px 0 4px !important;
+      font-size:8px !important;
+      line-height:1.2 !important;
+    }
+
+    /* Hide column labels — cards explain themselves */
+    #multiSpeakerVoice .msv-labels{
+      display:none !important;
+    }
+
+    /* Character list */
+    #multiSpeakerVoice .msv-rows{
+      display:grid !important;
+      gap:3px !important;
+      max-height:360px !important;
+      padding:0 !important;
+    }
+
+    /* COMPACT SPEAKER CARD */
+    #multiSpeakerVoice .msv-row{
+      display:grid !important;
+      grid-template-columns:82px minmax(0,1fr) 128px !important;
+      align-items:center !important;
+      gap:4px !important;
+      padding:4px !important;
+      min-height:34px !important;
+      height:auto !important;
+      border-radius:8px !important;
+    }
+
+    /* Speaker */
+    #multiSpeakerVoice .msv-speaker{
+      min-width:0 !important;
+      gap:4px !important;
+    }
+
+    #multiSpeakerVoice .msv-avatar{
+      width:21px !important;
+      height:21px !important;
+      min-width:21px !important;
+      font-size:10px !important;
+    }
+
+    #multiSpeakerVoice .msv-name{
+      font-size:8px !important;
+      line-height:1 !important;
+    }
+
+    #multiSpeakerVoice .msv-type{
+      font-size:6px !important;
+      line-height:1 !important;
+      margin-top:1px !important;
+    }
+
+    /* Voice selector */
+    #multiSpeakerVoice .msv-voice{
+      width:100% !important;
+      min-width:0 !important;
+      min-height:24px !important;
+      height:24px !important;
+      padding:2px 4px !important;
+      border-radius:6px !important;
+      font-size:7.5px !important;
+      line-height:1 !important;
+    }
+
+    /* Emotion = one compact horizontal control */
+    #multiSpeakerVoice .msv-emotion{
+      display:grid !important;
+      grid-template-columns:24px minmax(0,1fr) 22px !important;
+      align-items:center !important;
+      gap:2px !important;
+      min-width:0 !important;
+      height:24px !important;
+      padding:0 !important;
+      margin:0 !important;
+    }
+
+    #multiSpeakerVoice .msv-emotion-label{
+      font-size:6px !important;
+      line-height:1 !important;
+    }
+
+    #multiSpeakerVoice .msv-emotion input[type="range"]{
+      width:100% !important;
+      height:10px !important;
+      margin:0 !important;
+      padding:0 !important;
+    }
+
+    #multiSpeakerVoice .msv-emotion output{
+      font-size:7px !important;
+      line-height:1 !important;
+      text-align:right !important;
+      padding:0 !important;
+    }
+
+    /* Remove button, if present */
+    #multiSpeakerVoice .msv-remove{
+      width:22px !important;
+      height:22px !important;
+      min-width:22px !important;
+      padding:0 !important;
+      margin:0 !important;
+      font-size:13px !important;
+      border-radius:6px !important;
+    }
+
+    /* Text area */
+    #multiSpeakerVoice .msv-text-field{
+      margin-top:6px !important;
+    }
+
+    #multiSpeakerVoice .msv-text-field label{
+      font-size:9px !important;
+      margin-bottom:3px !important;
+    }
+
+    #multiSpeakerVoice .msv-text-field textarea{
+      min-height:70px !important;
+      height:70px !important;
+      padding:7px 8px !important;
+      border-radius:9px !important;
+      font-size:11px !important;
+    }
+
+    /* Actions */
+    #multiSpeakerVoice .msv-actions{
+      margin-top:6px !important;
+      gap:5px !important;
+    }
+
+    /* Generate remains FULL WIDTH */
+    #multiSpeakerVoice .msv-actions #msvGenerate{
+      grid-column:1 / -1 !important;
+      width:100% !important;
+      min-height:40px !important;
+      height:40px !important;
+      padding:6px 8px !important;
+      font-size:11px !important;
+      border-radius:12px !important;
+    }
+
+    /* Back button compact */
+    #multiSpeakerVoice .msv-actions #msvBack{
+      min-height:32px !important;
+      height:32px !important;
+      font-size:9px !important;
+    }
+
+    @media(max-width:430px){
+      #multiSpeakerVoice .msv-row{
+        grid-template-columns:76px minmax(0,1fr) 112px !important;
+        gap:3px !important;
+        padding:3px !important;
+      }
+
+      #multiSpeakerVoice .msv-panel{
+        padding:6px !important;
+      }
+
+      #multiSpeakerVoice .msv-head h3{
+        font-size:15px !important;
+      }
+
+      #multiSpeakerVoice .msv-add{
+        min-height:29px !important;
+        height:29px !important;
+        font-size:9px !important;
+      }
+
+      #multiSpeakerVoice .msv-avatar{
+        width:20px !important;
+        height:20px !important;
+        min-width:20px !important;
+      }
+
+      #multiSpeakerVoice .msv-name{
+        font-size:7.5px !important;
+      }
+
+      #multiSpeakerVoice .msv-voice{
+        min-height:23px !important;
+        height:23px !important;
+        font-size:7px !important;
+      }
+
+      #multiSpeakerVoice .msv-emotion{
+        height:23px !important;
+        grid-template-columns:22px minmax(0,1fr) 20px !important;
+      }
+
+      #multiSpeakerVoice .msv-emotion output{
+        font-size:6.5px !important;
+      }
+
+      #multiSpeakerVoice .msv-actions #msvGenerate{
+        min-height:39px !important;
+        height:39px !important;
+      }
+    }
+  `;
+
+  document.head.appendChild(compactOverride);
 })();
