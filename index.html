@@ -528,14 +528,27 @@ select:focus {
 .flow-step span{width:19px;height:19px;display:grid;place-items:center;border-radius:50%;border:1px solid #353949;font-size:9px}
 .flow-step.active{background:#191526;color:#e8e2f5;border-color:#40365b}
 .flow-step.active span{background:#6549bd;border-color:#7657d9;color:#fff}
-.action-row,.voice-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.action-row .btn,.voice-actions .btn{width:100%}
+.action-row,.voice-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+align-items:stretch;
+}
+.action-row .btn,.voice-actions .btn{
+width:100%;
+min-width:0;
+min-height:72px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
 @media(max-width:560px){
   .workflow{gap:3px;padding:5px}
   .workflow>i{font-size:13px}
   .flow-step{font-size:8px;padding:6px 3px}
   .flow-step span{width:17px;height:17px;font-size:8px}
-  .action-row,.voice-actions{gap:6px}
+  .action-row,.voice-actions{gap:10px}
 }
 
 /* ===== LOCKED UI PARTS 1–5 ===== */
