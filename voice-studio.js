@@ -49,50 +49,317 @@
     </div>
   `);
 
-  const style = document.createElement("style");
+    const style = document.createElement("style");
   style.textContent = `
-    #voice .msv-shell{margin-top:4px}
-    #voice .msv-panel{background:linear-gradient(145deg,#0d0f18,#0a0c13);border:1px solid #30354c;border-radius:18px;padding:13px}
-    #voice .msv-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-    #voice .msv-head h3{margin:0;font-size:20px;color:#f5f3fb}
-    #voice .msv-head p{margin:4px 0 0;color:#8f93a8;font-size:12px}
-    #voice .msv-add{flex:0 0 auto;min-height:40px;padding:8px 12px;border-radius:13px;border:1px solid #3d4165;background:#171a2a;color:#f4f2fb;font-weight:700;font-size:14px}
-    #voice .msv-note{margin:12px 0 10px;color:#aeb0c4;font-size:12px;line-height:1.4}
-    #voice .msv-labels{display:grid;grid-template-columns:125px 1fr 150px;gap:8px;color:#8f93a8;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:0 8px 6px}
-    #voice .msv-rows{display:grid;gap:7px;max-height:360px;overflow:auto;padding-right:2px;scrollbar-width:thin}
-    #voice .msv-row{display:grid;grid-template-columns:125px 1fr 150px;gap:8px;align-items:center;padding:8px;border:1px solid #272c3f;border-radius:12px;background:#0b0d15}
-    #voice .msv-speaker{min-width:0;display:flex;align-items:center;gap:7px}
-    #voice .msv-avatar{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#252a42;font-size:16px;flex:0 0 auto}
-    #voice .msv-name{min-width:0;font-size:12px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    #voice .msv-type{display:block;color:#8f93a8;font-size:9px;margin-top:2px}
-    #voice .msv-voice{min-width:0;min-height:40px;border-radius:10px;font-size:12px;padding:8px 9px}
-    #voice .msv-emotion{display:grid;grid-template-columns:38px 1fr 36px;align-items:center;gap:6px}
-    #voice .msv-emotion output{font-size:11px;color:#d6c9ff;text-align:right}
-    #voice .msv-emotion input[type=range]{width:100%;accent-color:#8b5cf6}
-    #voice .msv-emotion-label{font-size:10px;color:#9ea2b6}
-    #voice .msv-remove{margin-left:auto;border:0;background:transparent;color:#777d91;font-size:17px;padding:2px 4px}
-    #voice .msv-duplicate{margin-top:8px;padding:8px 10px;border:1px solid #5b4b31;background:#211a0d;border-radius:10px;color:#f1c77b;font-size:11px;line-height:1.35}
-    #voice .msv-text-field{margin-top:12px}
-    #voice .msv-actions{margin-top:9px}
+    /* ===== V16 MULTI-SPEAKER — COMPACT CHARACTER CARDS ===== */
+
+    #voice .msv-shell{
+      margin-top:4px;
+    }
+
+    #voice .msv-panel{
+      background:linear-gradient(145deg,#0d0f18,#0a0c13);
+      border:1px solid #30354c;
+      border-radius:16px;
+      padding:10px;
+    }
+
+    #voice .msv-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+    }
+
+    #voice .msv-head h3{
+      margin:0;
+      font-size:18px;
+      color:#f5f3fb;
+    }
+
+    #voice .msv-head p{
+      margin:3px 0 0;
+      color:#8f93a8;
+      font-size:10px;
+    }
+
+    #voice .msv-add{
+      flex:0 0 auto;
+      min-height:34px;
+      height:34px;
+      padding:6px 10px;
+      border-radius:10px;
+      border:1px solid #3d4165;
+      background:#171a2a;
+      color:#f4f2fb;
+      font-weight:700;
+      font-size:11px;
+    }
+
+    #voice .msv-note{
+      margin:8px 0 6px;
+      color:#aeb0c4;
+      font-size:10px;
+      line-height:1.3;
+    }
+
+    #voice .msv-labels{
+      display:grid;
+      grid-template-columns:86px 1fr 112px;
+      gap:5px;
+      color:#8f93a8;
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      padding:0 5px 4px;
+    }
+
+    /* CHARACTER CARD */
+    #voice .msv-rows{
+      display:grid;
+      gap:3px;
+      max-height:330px;
+      overflow:auto;
+      padding-right:1px;
+      scrollbar-width:thin;
+    }
+
+    #voice .msv-row{
+      display:grid;
+      grid-template-columns:86px 1fr 112px;
+      gap:5px;
+      align-items:center;
+      padding:5px;
+      border:1px solid #272c3f;
+      border-radius:9px;
+      background:#0b0d15;
+      min-height:0;
+    }
+
+    #voice .msv-speaker{
+      min-width:0;
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+
+    #voice .msv-avatar{
+      width:24px;
+      height:24px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#252a42;
+      font-size:12px;
+      flex:0 0 auto;
+    }
+
+    #voice .msv-name{
+      min-width:0;
+      font-size:9px;
+      font-weight:750;
+      line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    #voice .msv-type{
+      display:block;
+      color:#8f93a8;
+      font-size:7px;
+      line-height:1;
+      margin-top:1px;
+    }
+
+    /* VOICE SELECTOR */
+    #voice .msv-voice{
+      width:100%;
+      min-width:0;
+      min-height:27px;
+      height:27px;
+      border-radius:7px;
+      font-size:8px;
+      padding:4px 5px;
+    }
+
+    /* EMOTION — COMPACT */
+    #voice .msv-emotion{
+      display:grid;
+      grid-template-columns:30px 1fr 28px;
+      align-items:center;
+      gap:3px;
+      min-width:0;
+    }
+
+    #voice .msv-emotion output{
+      font-size:8px;
+      color:#d6c9ff;
+      text-align:right;
+    }
+
+    #voice .msv-emotion input[type=range]{
+      width:100%;
+      height:12px;
+      margin:0;
+      accent-color:#8b5cf6;
+    }
+
+    #voice .msv-emotion-label{
+      font-size:8px;
+      color:#9ea2b6;
+    }
+
+    #voice .msv-remove{
+      margin-left:auto;
+      border:0;
+      background:transparent;
+      color:#777d91;
+      font-size:15px;
+      padding:1px 3px;
+    }
+
+    #voice .msv-duplicate{
+      margin-top:5px;
+      padding:6px 8px;
+      border:1px solid #5b4b31;
+      background:#211a0d;
+      border-radius:8px;
+      color:#f1c77b;
+      font-size:9px;
+      line-height:1.3;
+    }
+
+    #voice .msv-text-field{
+      margin-top:9px;
+    }
+
+    /* ACTION AREA */
+    #voice .msv-actions{
+      margin-top:7px;
+      display:grid;
+      gap:5px;
+    }
+
+    #voice .msv-actions .btn{
+      min-height:36px;
+      height:36px;
+      padding:7px 8px;
+      font-size:10px;
+      line-height:1.1;
+    }
+
+    /* GENERATE BUTTON — FULL WIDTH, SAME POSITION */
+    #voice .msv-actions #msvGenerate{
+      width:100%;
+      min-height:42px;
+      height:42px;
+      font-size:12px;
+    }
+
     @media(max-width:560px){
-      #voice .msv-panel{padding:10px;border-radius:16px}
-      #voice .msv-head h3{font-size:18px}
-      #voice .msv-head p{font-size:10px}
-      #voice .msv-add{min-height:36px;padding:7px 9px;font-size:11px}
-      #voice .msv-note{font-size:10px;margin:9px 0}
-      #voice .msv-labels{grid-template-columns:86px 1fr 112px;gap:5px;font-size:8px;padding:0 5px 5px}
-      #voice .msv-row{grid-template-columns:86px 1fr 112px;gap:5px;padding:6px}
-      #voice .msv-avatar{width:25px;height:25px;font-size:13px}
-      #voice .msv-name{font-size:10px}
-      #voice .msv-type{font-size:7px}
-      #voice .msv-voice{min-height:36px;font-size:9px;padding:6px}
-      #voice .msv-emotion{grid-template-columns:30px 1fr 28px;gap:3px}
-      #voice .msv-emotion-label,#voice .msv-emotion output{font-size:8px}
-      #voice .msv-rows{max-height:330px}
-      #voice .msv-actions{gap:6px}
-      #voice .msv-actions .btn{font-size:12px;padding:11px 7px}
+
+      #voice .msv-panel{
+        padding:8px;
+        border-radius:13px;
+      }
+
+      #voice .msv-head h3{
+        font-size:16px;
+      }
+
+      #voice .msv-head p{
+        font-size:9px;
+      }
+
+      #voice .msv-add{
+        min-height:31px;
+        height:31px;
+        padding:5px 8px;
+        font-size:10px;
+        border-radius:9px;
+      }
+
+      #voice .msv-note{
+        font-size:9px;
+        margin:7px 0 5px;
+      }
+
+      #voice .msv-labels{
+        grid-template-columns:78px 1fr 104px;
+        gap:4px;
+        font-size:7px;
+        padding:0 4px 3px;
+      }
+
+      #voice .msv-row{
+        grid-template-columns:78px 1fr 104px;
+        gap:4px;
+        padding:4px;
+        border-radius:8px;
+      }
+
+      #voice .msv-avatar{
+        width:22px;
+        height:22px;
+        font-size:11px;
+      }
+
+      #voice .msv-name{
+        font-size:8px;
+      }
+
+      #voice .msv-type{
+        font-size:6.5px;
+      }
+
+      #voice .msv-voice{
+        min-height:25px;
+        height:25px;
+        font-size:7.5px;
+        padding:3px 4px;
+        border-radius:6px;
+      }
+
+      #voice .msv-emotion{
+        grid-template-columns:27px 1fr 25px;
+        gap:2px;
+      }
+
+      #voice .msv-emotion-label,
+      #voice .msv-emotion output{
+        font-size:7px;
+      }
+
+      #voice .msv-emotion input[type=range]{
+        height:11px;
+      }
+
+      #voice .msv-rows{
+        gap:3px;
+        max-height:300px;
+      }
+
+      #voice .msv-actions{
+        margin-top:6px;
+        gap:5px;
+      }
+
+      #voice .msv-actions .btn{
+        min-height:34px;
+        height:34px;
+        font-size:10px;
+        padding:6px;
+      }
+
+      #voice .msv-actions #msvGenerate{
+        min-height:40px;
+        height:40px;
+        font-size:11px;
+      }
     }
   `;
+  document.head.appendChild(style);
   document.head.appendChild(style);
 
   const rowsEl = document.getElementById("msvRows");
